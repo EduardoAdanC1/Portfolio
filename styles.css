@@ -1,0 +1,425 @@
+:root{
+  --text: #0e1012;
+  --muted:#5a606a;
+  --accent:#ffe44d;
+  --bg: #fff;
+  --surface: #fff;
+}
+
+html.dark-mode {
+  --text: #eef1f5;
+  --muted: #a0a8b0;
+  --accent: #ffe44d;
+  --bg: #0e1114;
+  --surface: #1a1f26;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Inter,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg);transition:background .3s ease, color .3s ease}
+/* Section snap scrolling */
+.snap-container{scroll-snap-type:y mandatory;overflow-y:auto;height:100vh}
+.snap-section{scroll-snap-align:start}
+
+/* header */
+.header{position:sticky;top:0;z-index:50;background:#fff;backdrop-filter:saturate(1.2) blur(6px);border-bottom:1px solid rgba(0,0,0,.05)}
+.inner{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{height:32px;width:auto}
+.brand .mark{font-weight:800;letter-spacing:.5px}
+
+/* --- NAV LAYOUT FIX --- */
+.nav{display:flex;align-items:center;gap:18px;flex-wrap:nowrap}
+.nav a{display:inline-flex;align-items:center;text-decoration:none;color:var(--text);font-weight:500}
+.nav .cta{background:var(--accent);color:#000;padding:8px 14px;border-radius:10px;font-weight:700}
+.dark-mode-btn{background:transparent;border:none;color:var(--text);width:32px;height:32px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:opacity .2s ease}
+.dark-mode-btn:hover{opacity:.7}
+.linkedin-link{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;color:var(--text);transition:opacity .2s ease}
+.linkedin-link:hover{opacity:.7}
+
+/* hero */
+.hero{position:relative;padding:56px 20px;min-height:90vh;display:block;background-image:url('assets/images/blox_hero.jpg');background-size:cover;background-position:center;background-attachment:fixed}
+.hero .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%);z-index:0}
+/* Overlay above video to ensure text legibility */
+.hero .hero-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.95) 0%,   /* near-black at top */
+      rgba(0,0,0,0.75) 22%,
+      rgba(0,0,0,0.62) 44%,
+      rgba(0,0,0,0.68) 66%,
+      rgba(0,0,0,0.92) 100%  /* near-black at bottom */
+    );
+}
+.snap-section.hero{min-height:100vh}
+.hero::before{content:"";position:absolute;left:0;right:0;top:0;height:50%;background:linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.0) 100%);pointer-events:none;z-index:0}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:50%;background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.0) 100%);pointer-events:none;z-index:0}
+.hero .inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;min-height:90vh;display:flex;flex-direction:column;justify-content:space-evenly;align-items:flex-start;gap:24px;padding-top:40px;padding-bottom:40px}
+.hero h1{margin-top:auto;align-self:flex-start}
+@media (max-width: 768px){.hero{padding:40px 16px;min-height:80vh;background-position:center}.hero::before,.hero::after{height:50%}.hero .inner{min-height:80vh;gap:14px;padding-top:20px;padding-bottom:20px}.hero h1{margin-top:auto}}
+.hero .inner{display:flex}
+.hero p.lead{max-width:1100px;color:#2b2f36;line-height:1.65;font-size:22.5px;margin:0 0 22px 0}
+.hero h1{font-size:clamp(42px,6vw,72px);line-height:1.1;margin:auto 0 8px 0;position:relative;top:-15%}
+/* Multi-line underline that spans wrapped lines */
+.hero .underline{
+  background-image: linear-gradient(0deg, rgba(255,228,77,1), rgba(255,228,77,1));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% .11em; /* start collapsed so both lines animate */
+  padding-bottom: .08em;
+  box-shadow: none; /* override any previous underline box-shadow */
+}
+
+/* Lightning sweep accent overlay */
+.hero .underline::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  height:.12em; /* thin sweep */
+  width:0;
+  background: radial-gradient(40% 100% at 10% 50%, rgba(255,228,77,1) 0%, rgba(255,228,77,.6) 35%, rgba(255,228,77,0) 70%) ,
+              linear-gradient(90deg, rgba(255,228,77,0) 0%, rgba(255,228,77,1) 50%, rgba(255,228,77,0) 100%);
+  mix-blend-mode: screen;
+  box-shadow: 0 0 12px rgba(255,228,77,.55), 0 0 24px rgba(255,228,77,.35);
+  transform-origin: left center;
+}
+.hero.loaded .underline{animation:underlineBG 540ms cubic-bezier(.18,.62,.22,1) forwards}
+.hero.loaded .underline::after{animation:underlineZap 540ms cubic-bezier(.18,.62,.22,1) forwards, zapJitter 420ms ease-out 0s 1}
+
+/* Electrified sweep */
+@keyframes underlineZap{
+  0%{width:0;opacity:.95;transform:skewX(-12deg)}
+  20%{width:32%;opacity:1;transform:skewX(-6deg)}
+  48%{width:66%;transform:skewX(-2deg)}
+  72%{width:86%;transform:skewX(0deg)}
+  100%{width:100%;opacity:1;transform:skewX(0deg)}
+}
+/* Animate the base underline across both wrapped lines */
+@keyframes underlineBG{
+  0%{background-size:0% .11em}
+  100%{background-size:100% .11em}
+}
+/* Micro jitter and flash for an electric feel */
+@keyframes zapJitter{
+  0%{filter:brightness(1) drop-shadow(0 0 10px rgba(255,228,77,.35))}
+  25%{filter:brightness(1.15) drop-shadow(0 0 14px rgba(255,228,77,.55))}
+  40%{filter:brightness(0.95) drop-shadow(0 0 9px rgba(255,228,77,.3))}
+  60%{filter:brightness(1.2) drop-shadow(0 0 16px rgba(255,228,77,.6))}
+  100%{filter:brightness(1) drop-shadow(0 0 12px rgba(255,228,77,.45))}
+}
+
+/* grid */
+.section{padding:56px 20px;background:transparent}
+.snap-section.section{min-height:100vh;display:flex;align-items:center;justify-content:space-evenly}
+.snap-section.section .inner{width:100%}
+.section .inner{max-width:1200px;margin:0 auto;display:block}
+.section h2{font-size:28px;margin:0 0 6px 0}
+.section p.sub{color:var(--muted);margin:0 0 18px 0}
+
+.resume-section{padding:110px 20px 90px !important}
+.snap-section.resume-section{min-height:100vh}
+.resume-section .inner{display:block}
+.resume-section h2{font-size:36px;margin:0 0 50px 0;text-align:center}
+
+/* Fade-in effect for resume section */
+.resume-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.resume-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+  position: static; /* Ensure it stays static once visible */
+}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#f0f0f0;color:#000;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;display:flex;flex-direction:column;border-radius:16px}
+/* Fade-in animation for cards */
+.card{opacity:0;transform:translateY(16px);transition:opacity .5s ease, transform .5s ease, box-shadow .2s ease}
+.card.visible{opacity:1;transform:translateY(0)}
+.dark-mode .card{background:var(--surface);border:1px solid rgba(255,255,255,.1);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.15)}
+.card-header{padding:16px 16px 14px;text-align:center;background:#f0f0f0;color:#000}
+.card-header .title{font-weight:700;font-size:16px;line-height:1.3;color:var(--text);margin:0}
+.card img{width:100%;height:200px;object-fit:cover;display:block}
+.card-divider{height:6px;background:#000}
+.card .meta{padding:14px 16px;flex-grow:1;display:flex;flex-direction:column;justify-content:flex-start;text-align:center}
+.card .cat{color:var(--muted);font-size:13px;line-height:1.4;margin:0}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(5,7,10,.65);display:none;align-items:center;justify-content:center;padding:48px;z-index:1000}
+.modal.open{display:flex}
+.modal .panel{background:#0e1114;color:#eef1f5;max-width:1200px;width:100%;border-radius:16px;box-shadow:0 20px 70px rgba(0,0,0,.55);max-height:calc(100vh - 96px);display:flex;flex-direction:column;overflow:auto}
+.modal .panel{opacity:0;transform:scale(.98);transition:opacity .22s ease, transform .22s ease}
+.modal.open .panel{opacity:1;transform:scale(1)}
+.modal-open{overflow:hidden}
+.modal .slide{position:relative;background:#0b0d10}
+.modal .slide{position:relative;background:#0b0d10}
+.modal .slide img{width:100%;height:auto;max-height:60vh;object-fit:contain;transition:transform .3s ease}
+.modal .slide img.zoomed{transform:scale(1.5);cursor:zoom-out}
+.close-btn{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;width:40px;height:40px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease, border-color .2s ease;z-index:11}
+.close-btn:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.5)}
+.zoom-btn{position:absolute;top:12px;right:56px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;width:40px;height:40px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease, border-color .2s ease;z-index:10}
+.zoom-btn:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.5)}
+.nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;width:44px;height:44px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease, border-color .2s ease;z-index:10}
+.nav-btn:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.5)}
+.nav-prev{left:12px}
+.nav-next{right:12px}
+.modal .caption{padding:14px 16px 18px 16px;background:#0f1318}
+.modal .caption h3{margin:0 0 8px 0}
+.modal .caption p{margin:0;color:#c7cdd7;line-height:1.55}
+
+/* carousel controls */
+.controls{position:absolute;inset:auto 0 12px 0;display:flex;justify-content:center;gap:12px}
+.dot{width:12px;height:12px;border-radius:50%;border:2px solid #fff;background:#4b545f;opacity:.95;cursor:pointer}
+.dot.active{background:#ffe44d;border-color:#fff}
+
+/* Vertical dot navigation */
+.dot-nav{display:none !important}
+
+/* Blur/dim the grid when modal is open */
+#projectGrid{transition:filter .25s ease, opacity .25s ease;will-change:filter}
+.modal-open #projectGrid{filter:blur(2px);opacity:.85}
+
+/* contact section */
+.contact-section{background:linear-gradient(90deg,#fffbe6 0%, #ffe585 100%);padding:90px 20px !important;border-radius:16px;margin:60px 20px}
+.snap-section.contact-section{min-height:100vh;margin:0}
+.contact-section .inner{display:block;text-align:center}
+.contact-section h2{font-size:32px;margin:0 0 12px 0;color:var(--text)}
+.contact-subtitle{font-size:18px;color:var(--text);margin:0 0 28px 0;line-height:1.5}
+.contact-cta{display:flex;align-items:center;justify-content:center;gap:16px}
+.email-link{background:var(--accent);color:#000;padding:10px 20px;border-radius:10px;font-weight:700;text-decoration:none;transition:transform .2s ease, box-shadow .2s ease}
+.email-link:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1)}
+.linkedin-link-contact{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;color:#000;transition:opacity .2s ease}
+.linkedin-link-contact:hover{opacity:.7}
+footer{background:transparent;border-top:none;padding:24px 20px 40px;color:#6a717c;text-align:center;margin:0 auto}
+.footer-inner{max-width:1200px;margin:0 auto}
+
+/* resume section */
+.resume-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.resume-column h3{font-size:18px;font-weight:700;margin:0 0 16px 0}
+.resume-item{margin-bottom:20px}
+.resume-item h4{font-size:15px;font-weight:700;margin:0 0 4px 0}
+.resume-item .date{color:var(--muted);font-size:13px;margin:0 0 6px 0}
+.resume-item p{margin:0;color:var(--text);line-height:1.55;font-size:14px}
+.btn-download{display:inline-block;background:var(--accent);color:#000;padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none;transition:transform .2s ease, box-shadow .2s ease}
+.btn-download:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(255,228,77,.3)}
+
+/* helpers */
+.hidden{display:none}
+.center{text-align:center}
+
+/* Parallax section styling */
+.parallax-section {position:relative;background:linear-gradient(180deg,#ffffff,#f4f6f8);color:var(--text);padding:140px 24px 200px}
+.dark-mode .parallax-section {background:linear-gradient(180deg,#12161b,#0e1114)}
+.parallax-section{opacity:0;transform:translateY(30px);transition:opacity .6s ease, transform .6s ease}
+.parallax-section.visible{opacity:1;transform:translateY(0)}
+.parallax-section .inner{max-width:1400px;margin:0 auto;position:static;display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:clamp(80px,6vw,200px);justify-items:center;align-items:start;text-align:center}
+
+@media (min-width: 1280px){
+  .parallax-section .inner{
+    gap: clamp(100px, 7vw, 240px);
+  }
+}
+.parallax-section .step{text-align:center}
+.parallax-section .step{position:relative;padding-top:clamp(64px,8vw,140px);overflow:visible}
+.parallax-section .step .step-icon{position:relative;z-index:1;margin:0 auto 8px auto;width:32px;height:32px;color:var(--text);opacity:.85}
+.parallax-section .step .step-icon svg{display:block;width:32px;height:32px}
+.parallax-section .step h1{
+  position:absolute;
+  top:-12px;
+  left:50%;
+  transform:translateX(-50%) translateY(var(--parallaxY,0px));
+  font-size:clamp(130px,12vw,280px);
+  line-height:1;
+  letter-spacing:-.03em;
+  margin:0;
+  color:rgba(255,228,77,.08); /* low-opacity yellow for big numbers */
+  font-weight:900;
+  z-index:0;
+  pointer-events:none;
+  will-change:transform;
+}
+.dark-mode .parallax-section .step h1{color:rgba(255,228,77,.08)}
+
+/* Horizontal crop/soft edges to match reference via masking */
+/* Cropping removed on request */
+.parallax-section .step h2{position:relative;z-index:1;font-size:clamp(18px,2.2vw,24px);font-weight:600;margin:0 0 8px}
+.parallax-section .step p{position:relative;z-index:1;font-size:clamp(14px,1.6vw,18px);color:var(--muted);max-width:320px;margin:0}
+
+/* Subtle baseline under each big step number to match reference */
+.parallax-section::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; top:0;
+  height:1px;
+  background:linear-gradient(to right, rgba(0,0,0,.2), rgba(0,0,0,.06));
+}
+.dark-mode .parallax-section::before{
+  background:linear-gradient(to right, rgba(255,255,255,.22), rgba(255,255,255,.08));
+}
+
+/* Pointer to samples grid */
+.parallax-section{position:relative}
+.parallax-section .work-pointer{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:4px;z-index:2;pointer-events:none}
+/* Ensure samples grid sits above any previous section overlays */
+#samples{position:relative;z-index:5}
+.dark-mode #samples{background:#0e1114}
+/* Seamless top transition: fade from parallax bottom grey (#333) into samples background */
+.dark-mode #samples::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:240px; /* slightly taller for a smoother fade like image 2 */
+  pointer-events:none;
+  /* Rich, smooth fade from dark grey to transparent */
+  background:linear-gradient(
+    to bottom,
+    rgba(34,34,34,1) 0%,   /* deeper start */
+    rgba(42,42,42,0.9) 20%,
+    rgba(54,54,54,0.7) 45%,
+    rgba(64,64,64,0.45) 70%,
+    rgba(64,64,64,0.25) 85%,
+    rgba(64,64,64,0.0) 100%
+  );
+  z-index:0;
+}
+.parallax-section .work-label{color:var(--text);font-weight:600;letter-spacing:.2px;margin:0}
+.parallax-section .work-arrow{color:var(--text);opacity:.9;display:block;margin:0 auto;animation:arrowBounce 2s ease-in-out infinite}
+
+/* Dark mode overrides to keep the section seamless on dark backgrounds */
+.dark-mode .parallax-section{background:linear-gradient(180deg,#1a1a1a,#333);color:#fff}
+.dark-mode .parallax-section .step h1{color:rgba(255,255,255,.07)}
+.dark-mode .parallax-section .step p{color:#a0a8b0}
+.dark-mode .parallax-section .work-label,
+.dark-mode .parallax-section .work-arrow{color:#fff}
+.dark-mode .parallax-section .step .step-icon{color:#fff;opacity:.9}
+/* Removed bottom fade overlay on parallax section in dark mode per request */
+@keyframes arrowBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@media (max-width:768px){.parallax-section .work-pointer{bottom:10px;gap:3px}}
+
+/* Parallax image section styling */
+.parallax-image {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('assets/images/transition-image.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.parallax-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Mobile tuning for taller phones */
+@media (max-width: 600px){
+  .modal .slide img{max-height:70vh}
+}
+
+@media (max-width: 768px) {
+  #projectGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Add spacing between cards */
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .nav a, .cta, .dark-mode-btn {
+    margin: 0 8px; /* Ensure even spacing */
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px; /* Add spacing between items */
+  }
+
+  .header .inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px; /* Ensure even spacing */
+  }
+}
+
+/* Responsive spacing for modal on small screens */
+@media (max-width: 768px){
+  .modal{padding:24px}
+}
+
+.dark-mode .header {
+  background: var(--surface); /* Adjust background for dark mode */
+  color: var(--text); /* Ensure text is visible */
+}
+
+.dark-mode .nav a, .dark-mode .cta, .dark-mode .dark-mode-btn {
+  color: var(--text); /* Adjust link and button colors for dark mode */
+}
+
+.dark-mode .brand img {
+  filter: invert(1) brightness(2); /* Make logo white in dark mode */
+}
+
+.dark-mode .cta {
+  background: #000; /* Change button background to black */
+  color: #fff; /* Ensure text is visible */
+}
+
+/* dark mode hero section */
+.dark-mode .hero{background-image:url('assets/images/blox_hero.jpg')}
+
+.dark-mode .hero h1, .dark-mode .hero p {
+  color: #fff; /* Ensure all text is readable */
+}
+
+/* dark mode section */
+.dark-mode .section {
+  background: transparent; /* Restore original background */
+  color: inherit; /* Restore original text color */
+}
+
+.dark-mode .section h2, .dark-mode .section p, .dark-mode .section a {
+  color: inherit; /* Restore original text and link colors */
+}
+
+/* Updated dark mode underline */
+/* Dark mode underline keeps same multi-line treatment */
+.dark-mode .underline{
+  background-image: linear-gradient(0deg, rgba(255,228,77,1), rgba(255,228,77,1));
+}
+
+.dark-mode .card-header {
+  background: #0b0d10; /* Match bottom panel color */
+  color: #eef1f5; /* Ensure text is readable */
+}
+
+.dark-mode .card-header img {
+  display: block; /* Ensure logo is visible */
+}
+
+.dark-mode .btn-download {
+  background: #000; /* Match dark mode button background */
+  color: #fff; /* Ensure text is readable */
+  border-radius: 8px; /* Keep rounded edges consistent */
+}
+
+.dark-mode .btn-contact {
+  background: #000; /* Match dark mode button background */
+  color: #fff; /* Ensure text is readable */
+  border-radius: 8px; /* Keep rounded edges consistent */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add subtle shadow for depth */
+}
+
+.dark-mode .email-link {
+  background: #000; /* Match dark mode button background */
+  color: #fff; /* Ensure text is readable */
+  border-radius: 8px; /* Keep rounded edges consistent */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add subtle shadow for depth */
+}
