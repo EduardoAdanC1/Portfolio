@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page</title>
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/whitelogo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/whitelogo.png">
+  <link rel="apple-touch-icon" href="assets/images/whitelogo.png">
+  <link rel="shortcut icon" href="assets/images/whitelogo.png">
+  <meta name="theme-color" content="#0b1220">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #1a1a1a, #333); /* Updated gradient to match the provided color scheme */
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    @keyframes fadeLogo {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .logo {
+      display: block; /* Ensure compatibility */
+      position: relative; /* Required for some browsers */
+      width: 150px;
+      height: auto;
+      margin-bottom: 40px;
+      animation: fadeLogo 3s infinite alternate;
+      z-index: 1; /* Ensure logo is above the parallax */
+      filter: brightness(1); /* Default white logo */
+    }
+
+    .tagline {
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .enter-btn {
+      background: #fff;
+      color: #000;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      position: relative;
+      z-index: 1; /* Ensure button is above the parallax */
+    }
+
+    .enter-btn:hover {
+      background: #f0f0f0;
+    }
+
+    .parallax {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('assets/images/parallax-bg.jpg') no-repeat center center;
+      background-size: cover;
+      transform: translateZ(-1px) scale(2);
+      z-index: -1;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 14px;
+      color: #fff;
+      text-align: center;
+      width: 100%;
+    }
+    /* Password Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-overlay.open { display: flex; }
+    /* Use unique class to avoid conflict with site-wide .modal styles */
+    .pwd-modal {
+      background: #0e1114;
+      color: #eef1f5;
+      width: 90%;
+      max-width: 420px;
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.55);
+      padding: 20px 20px 16px;
+      transform: scale(.98);
+      opacity: 0;
+      transition: opacity .22s ease, transform .22s ease;
+    }
+    .modal-overlay.open .pwd-modal { opacity: 1; transform: scale(1); }
+    .pwd-modal h3 { margin: 0 0 8px; font-size: 20px; }
+    .pwd-modal p.sub { margin: 0 0 16px; color: #a0a8b0; font-size: 14px; }
+    .field { display:flex; flex-direction:column; gap:8px; margin: 8px 0 16px; }
+    .field label { font-size: 13px; color: #c7cdd7; }
+    .field input[type="password"]{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: #0b0d10;
+      color: #eef1f5;
+      outline: none;
+    }
+    .error { display:none; color: #ff7b7b; font-size: 13px; margin-top: -4px; }
+    .actions { display:flex; justify-content:flex-end; gap:10px; }
+    .btn { padding: 10px 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,.2); background:#12161b; color:#fff; cursor:pointer; }
+    .btn.primary { background: #ffe44d; color:#000; border-color: #ffe44d; font-weight:700; }
+    .btn:hover { filter: brightness(1.1); }
+  </style>
+</head>
+<body>
+  <div class="parallax"></div>
+  <img src="assets/images/whitelogo.png" alt="Logo" class="logo">
+  <div class="tagline">Visual + Packaging Designer</div>
+  <button class="enter-btn" id="enterBtn">Enter</button>
+  <!-- Inline Password Modal -->
+  <div class="modal-overlay" id="pwdModal" aria-hidden="true" role="dialog" aria-labelledby="pwdTitle">
+    <div class="pwd-modal">
+      <h3 id="pwdTitle">Enter password</h3>
+      <p class="sub">This portfolio is password-protected.</p>
+      <div class="field">
+        <label for="pwdInput">Password</label>
+        <input type="password" id="pwdInput" placeholder="Enter password" autocomplete="current-password" />
+        <div class="error" id="pwdError">Incorrect password. Please try again.</div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="pwdCancel">Cancel</button>
+        <button class="btn primary" id="pwdSubmit">Enter</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function(){
+      const PASSWORD = 'EACPortfolio25';
+      const enterBtn = document.getElementById('enterBtn');
+      const modal = document.getElementById('pwdModal');
+      const input = document.getElementById('pwdInput');
+      const error = document.getElementById('pwdError');
+      const submit = document.getElementById('pwdSubmit');
+      const cancel = document.getElementById('pwdCancel');
+
+      function openModal(){
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+        setTimeout(()=>{ input.focus(); }, 50);
+      }
+      function closeModal(){
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden','true');
+        error.style.display = 'none';
+        input.value = '';
+      }
+      function submitPwd(){
+        const val = input.value.trim();
+        if(val === PASSWORD){
+          window.location.href = 'index.html';
+        } else {
+          error.style.display = 'block';
+        }
+      }
+
+      enterBtn.addEventListener('click', openModal);
+      submit.addEventListener('click', submitPwd);
+      cancel.addEventListener('click', closeModal);
+      input.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter'){ submitPwd(); }
+        if(e.key === 'Escape'){ closeModal(); }
+      });
+      modal.addEventListener('click', (e)=>{
+        if(e.target === modal){ closeModal(); }
+      });
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape' && modal.classList.contains('open')){ closeModal(); }
+      });
+    })();
+  </script>
+  <footer>
+    © 2025 Eduardo Chavez. All rights reserved.
+  </footer>
+</body>
+</html>
