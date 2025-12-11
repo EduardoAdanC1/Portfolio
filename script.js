@@ -18,15 +18,15 @@ darkModeToggle.addEventListener('click', () => {
 
 // Projects (cards) and their associated galleries
 const projects = [
-  { key: 'blox', title: 'Blox Fruits', cat: 'Packaging, Branding, Retail Display', thumb: 'assets/images/blox_hero.jpg' },
-  { key: 'dress', title: 'Dress to Impress', cat: 'Packaging, Branding, Retail Display', thumb: 'assets/images/dress.jpg' },
-  { key: 'clean', title: 'Clean Girl', cat: 'Packaging, Branding', thumb: 'assets/images/clean.jpg' },
-  { key: 'rainbow', title: 'Rainbow Friends', cat: 'Packaging, Retail Display', thumb: 'assets/images/rainbow.jpg' },
-  { key: 'pet', title: 'Pet Simulator', cat: 'Packaging, Branding, Retail Display', thumb: 'assets/images/pet.jpg' },
-  { key: 'fnaf', title: 'Five Nights at Freddys', cat: 'Branding, Retail Display', thumb: 'assets/images/fnaf.jpg' },
-  { key: 'bendy', title: 'Bendy', cat: 'Packaging, Licensing', thumb: 'assets/images/bendy.jpg' },
-  { key: 'neopets', title: 'Neopets', cat: 'Packaging, Display', thumb: 'assets/images/Neopets.jpg' },
-  { key: 'fisch', title: 'Fisch', cat: 'Packaging, Digital Assets', thumb: 'assets/images/fisch.jpg' },
+  { key: 'blox', title: 'Blox Fruits', cat: 'Branding + Packaging Design', thumb: 'assets/images/blox_hero.jpg' },
+  { key: 'dress', title: 'Dress to Impress', cat: 'Branding + Packaging Design', thumb: 'assets/images/dress.jpg' },
+  { key: 'clean', title: 'Clean Girl', cat: 'Branding + Packaging Design', thumb: 'assets/images/clean.jpg' },
+  { key: 'rainbow', title: 'Rainbow Friends', cat: 'Branding + Packaging Design', thumb: 'assets/images/rainbow.jpg' },
+  { key: 'pet', title: 'Pet Simulator', cat: 'Branding + Packaging Design', thumb: 'assets/images/pet.jpg' },
+  { key: 'fnaf', title: 'Five Nights at Freddys', cat: 'Branding + Packaging Design', thumb: 'assets/images/fnaf.jpg' },
+  { key: 'fisch', title: 'Fisch', cat: 'Branding + Packaging Design', thumb: 'assets/images/fisch.jpg' },
+  { key: 'neopets', title: 'Neopets', cat: 'Branding + Packaging Design', thumb: 'assets/images/Neopets.jpg' },
+  { key: 'bendy', title: 'More Projects!', cat: 'Branding + Packaging Design', thumb: 'assets/images/whitelogo.png' },
 ];
 
 const galleries = {
@@ -88,16 +88,60 @@ const galleries = {
     title: 'Series 3 - Minifigure Castle Pack',
     desc: 'For the Rainbow Friends Blue’s Castle 8-Pack, I designed a fully themed package inspired by the in-game castle, vectorizing every architectural element to make it print-ready and production-safe. This SKU introduced the updated Series 3 packaging refresh and needed to surpass the previous bus-shaped pack with something more interactive. I developed a custom structure featuring a drop-down front panel secured with Velcro, creating a premium reveal moment and a stronger story-driven presentation. The result was a collectible, immersive pack that brought the castle environment to life on shelf.'
   } ],
-  pet: [ { src: 'assets/images/pet.jpg', title: 'Pet Simulator', desc: 'Case study coming soon.' } ],
-  fnaf: [ { src: 'assets/images/fnaf.jpg', title: 'Five Nights at Freddys', desc: 'Case study coming soon.' } ],
-  bendy: [ { src: 'assets/images/bendy.jpg', title: 'Bendy', desc: 'Case study coming soon.' } ],
+  pet: [ {
+    src: 'assets/images/petsim_luckyblock.jpg',
+    title: 'Pet Simulator Series 2 Lucky Block',
+    desc: 'For the Pet Simulator Lucky Block Playset, I created the complete packaging system—including the structural design, all illustrations, graphic components, and hero-shot renders. I also designed the exterior sticker artwork and specified the materials and finishes to ensure the product felt authentic to the in-game “Lucky Block.” Every visual and packaging element was directed and executed by me, resulting in a cohesive, playful presentation that reflected the brand’s vibrant style.'
+  }, {
+    src: 'assets/images/petsim_4pack.jpg',
+    title: 'Pet Sim 4-Pack',
+    desc: 'For the Pet Simulator 4-Pack, I created the complete packaging system—from structure and dielines to all graphic elements, iconography, and character placement. I designed every visual component, including the back-of-pack “How To” instructions, ensuring clarity and a playful, game-accurate look. All design decisions, layout choices, and branding details were directed and executed by me to deliver a cohesive, shelf-ready package.'
+  }, {
+    src: 'assets/images/petsim_plush.jpg',
+    title: 'Pet Simulator Series 2 Collectible Plush',
+    desc: 'For the Pet Simulator Mystery Treasure Plush Series 2, I designed the full packaging system, including the CDU and individual mystery boxes. I created all illustrations and graphic elements, and produced the 3D renders of the pets on the CDU using assets provided by the product design team. Every design decision—from layout to color blocking to branding—was executed by me to deliver a cohesive, collectible-forward presentation at retail.'
+  } ],
+  fnaf: [ 
+    { 
+      src: 'assets/images/fnaf_construction.jpg', 
+      title: 'Five Nights at Freddys Security Breach Construction Set', 
+      desc: "For the Five Nights at Freddy’s – Security Breach Construction Set, I developed the complete packaging look and visual direction, ensuring the PhatStacks branding, titles, and graphic system remained consistent across the full construction line. I created all product renders in KeyShot, building a vibrant hero shot that showcased the playset’s scale and details. Every packaging element—layout, branding, iconography, and print-ready files—was designed and executed by me to deliver a cohesive, collectible-driven presence on shelf." 
+    },
+    {
+      src: 'assets/images/fnaf_construction2.jpg',
+      title: "Five Nights at Freddy's Security Breach Single Figure Construction Set",
+      desc: "For the Five Nights at Freddy’s Charging Station Series, I designed both the packaging box and the CDU, developing a cohesive visual system that aligned with the Security Breach aesthetic and our PhatStacks branding. I collaborated with the product team to produce the 3D KeyShot renders featured on pack, created all instruction manuals, and partnered closely with the factory to engineer a custom dieline that met structural and production requirements. Every component—from layout to graphics to mechanical accuracy—was directed and executed by me."
+    },
+    {
+      src: 'assets/images/fnaf_headbundle1.jpg',
+      title: "Five Night's at Freddys Freddy Head Bundle",
+      desc: "For the Five Nights at Freddy’s Head Bundle, I developed all packaging components, including the shrink-wrap design, product stickers, and the full back panel layout. I also created the collectible cards and poster using provided character art, ensuring everything felt cohesive and true to the franchise. Every graphic element—from branding to layout to on-product labeling—was designed and executed by me to deliver a premium unboxing experience."
+    }
+  ],
+  bendy: [ { src: 'assets/images/whitelogo.png', title: 'More Projects!', desc: '' } ],
   neopets: [ { src: 'assets/images/Neopets.jpg', title: 'Neopets', desc: 'Case study coming soon.' } ],
-  fisch: [ { src: 'assets/images/fisch.jpg', title: 'Fisch', desc: 'Case study coming soon.' } ]
+  fisch: [
+    {
+      src: 'assets/images/fisch_mf1.jpg',
+      title: 'Fisch Micro Figures Series 1',
+      desc: 'For the Fisch Microfigures line, I designed the full packaging system, illustrations, and visual branding, shaping the entire product experience from concept to shelf. Working alongside another product designer, I helped develop the core play pattern—introducing a unique capsule that dissolves in water to reveal the toy inside. I created all graphic elements, character icons, and the CDU presentation, ensuring the line felt fresh, cohesive, and retail-ready.'
+    },
+    {
+      src: 'assets/images/fisch_bundle.jpg',
+      title: 'Fisch Captains Golden Bundle',
+      desc: 'For the Fisch Captain’s Golden Bundle, I developed the full shrink-wrap packaging system, designing all graphics and layout while ensuring the wrap conformed cleanly to the complex fish-shaped structure. Working closely with our packaging engineer, I refined the material specifications and seam placements to prevent warping or distortion. I also created the supporting artwork and presentation pieces, resulting in a cohesive, premium bundle that showcased the product’s special-edition feel.'
+    }
+  ]
 };
 
 // Subtle parallax for large step numbers
 function updateStepParallax(){
   const els = document.querySelectorAll('.parallax-section .step h1');
+  // Disable dynamic parallax on small screens for smoother scrolling
+  if (window.innerWidth <= 768) {
+    els.forEach(el => el.style.setProperty('--parallaxY', '0px'));
+    return;
+  }
   const viewportCenter = window.innerHeight / 2;
   els.forEach(el => {
     const rect = el.parentElement.getBoundingClientRect();
@@ -120,7 +164,7 @@ projects.forEach(p => {
     <div class="card-header">
       <div class="title">${p.title}</div>
     </div>
-    <img src="${p.thumb}" alt="${p.title}">
+    <img src="${p.thumb}" alt="${p.title}" ${p.key === 'bendy' ? 'class="contain"' : ''}>
     <div class="card-divider"></div>
     <div class="meta">
       <div class="cat">${p.cat}</div>
@@ -170,6 +214,8 @@ function openGallery(key){
   currentKey = key;
   currentSet = galleries[key] || [];
   currentIndex = 0;
+  // Apply fade pulse only for "More Projects" (bendy)
+  modalImg.classList.toggle('fade-pulse', key === 'bendy');
   buildDots();
   if(currentSet.length > 0){
     showSlide(0);
@@ -195,6 +241,8 @@ function buildDots(){
 function showSlide(i){
   currentIndex = (i+currentSet.length)%currentSet.length;
   const slide = currentSet[currentIndex];
+  // Keep fade pulse state in sync with current project
+  modalImg.classList.toggle('fade-pulse', currentKey === 'bendy');
   // Set the fallback image immediately to avoid alt text showing
   modalImg.classList.remove('loaded');
   // Spinner removed
