@@ -171,6 +171,7 @@ html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe 
 .modal .slide{position:relative;background:#0b0d10}
 .modal .slide img{width:100%;height:auto;max-height:60vh;object-fit:contain;transition:transform .3s ease}
 .modal .slide img.zoomed{transform:scale(1.5);cursor:zoom-out}
+/* Removed center-callout overlay */
 /* Gentle fade pulse for logo hero */
 .modal .slide img.fade-pulse{animation:fadePulse 2.6s ease-in-out infinite}
 @keyframes fadePulse{0%{opacity:.45}50%{opacity:1}100%{opacity:.45}}

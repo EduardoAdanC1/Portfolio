@@ -118,7 +118,7 @@ const galleries = {
       desc: "For the Five Nights at Freddy’s Head Bundle, I developed all packaging components, including the shrink-wrap design, product stickers, and the full back panel layout. I also created the collectible cards and poster using provided character art, ensuring everything felt cohesive and true to the franchise. Every graphic element—from branding to layout to on-product labeling—was designed and executed by me to deliver a premium unboxing experience."
     }
   ],
-  bendy: [ { src: 'assets/images/whitelogo.png', title: 'More Projects!', desc: '' } ],
+  bendy: [ { src: 'assets/images/comingsoon.jpg', title: 'Coming Soon', desc: '' } ],
   neopets: [
     {
       src: 'assets/images/neopets_series1.jpg',
@@ -225,13 +225,17 @@ function openGallery(key){
     modal = document.getElementById('modal');
     modalImg = document.getElementById('modalImg');
     closeBtn = document.getElementById('closeBtn');
+    // also re-grab callout if needed
+    if(!document.getElementById('modalCallout')){
+      // no-op; markup should exist in index.html
+    }
   }
   if (!modal || !modalImg) return; // safety guard
   currentKey = key;
   currentSet = galleries[key] || [];
   currentIndex = 0;
-  // Apply fade pulse only for "More Projects" (bendy)
-  modalImg.classList.toggle('fade-pulse', key === 'bendy');
+  // Disable fade pulse animation for all projects
+  modalImg.classList.remove('fade-pulse');
   buildDots();
   if(currentSet.length > 0){
     showSlide(0);
@@ -257,13 +261,19 @@ function buildDots(){
 function showSlide(i){
   currentIndex = (i+currentSet.length)%currentSet.length;
   const slide = currentSet[currentIndex];
-  // Keep fade pulse state in sync with current project
-  modalImg.classList.toggle('fade-pulse', currentKey === 'bendy');
+  // Ensure no fade pulse animation is applied
+  modalImg.classList.remove('fade-pulse');
+  // No callout overlay
+
+  // Ensure image is visible
+  if (modalImg) modalImg.style.display = 'block';
   // Set the fallback image immediately to avoid alt text showing
   modalImg.classList.remove('loaded');
   // Spinner removed
   // Preload image in a separate object to ensure reliable load events
   const baseUrl = new URL(slide.src, window.location.href).href;
+  // Set src immediately so users see the image without waiting for onload
+  modalImg.src = baseUrl;
   const loader = new Image();
   loader.decoding = 'async';
   loader.loading = 'eager';
