@@ -119,7 +119,23 @@ const galleries = {
     }
   ],
   bendy: [ { src: 'assets/images/whitelogo.png', title: 'More Projects!', desc: '' } ],
-  neopets: [ { src: 'assets/images/Neopets.jpg', title: 'Neopets', desc: 'Case study coming soon.' } ],
+  neopets: [
+    {
+      src: 'assets/images/neopets_series1.jpg',
+      title: 'Neopets Mystery Plush Series 1',
+      desc: 'I developed the complete packaging look that helped reintroduce the beloved brand to consumers at Walmart and Target. I created all box graphics, DLC code artwork, and poly-bag designs, ensuring everything felt true to classic Neopets while appealing to a modern audience. I also engineered a custom dieline for the carry-style box, building a cohesive, collectible-forward presentation across the entire SKU.'
+    },
+    {
+      src: 'assets/images/neopets_series2mf.jpg',
+      title: 'Neopets Minifigures Series 2',
+      desc: 'For Neopets Minifigures Series 2, I led all packaging direction—from concept through final mechanicals. I coordinated directly with the licensor to source character assets, then configured the full visual composition for both the CDU and blind bags. I designed all graphics, layout systems, and the custom dieline, ensuring the line felt vibrant, collectible, and authentically Neopets across every touchpoint.'
+    },
+    {
+      src: 'assets/images/neopets_series2cp.jpg',
+      title: 'neopets_series2cp',
+      desc: 'For Neopets Mystery Plush Series 2, I refreshed the packaging direction with a brighter, boutique-inspired look that expanded the visual world of the line. I designed all graphics and layout compositions, integrating licensor-provided assets into a cohesive storybook scene across the box and carry panel. I also built the full dieline myself, ensuring the structure supported both display and unboxing while maintaining the playful charm of the Neopets brand.'
+    }
+  ],
   fisch: [
     {
       src: 'assets/images/fisch_mf1.jpg',
