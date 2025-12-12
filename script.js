@@ -52,7 +52,7 @@ const galleries = {
     {
       src: 'assets/images/dti_mm1.jpg',
       title: 'Series 1 Mystery Models',
-      desc: 'For Dress to Impress Mystery Models, I fully developed the star capsule packaging from the ground up—designing the structure, dielines, and all printable components using Illustrator, KeyShot, and additional tools. I established a completely new visual look for this emerging girl brand, which launched successfully at both Target and Walmart. Beyond the capsule itself, I created the tray dielines (including a built-in collector sheet on the reverse), the DLC card, collector insert, and overall packaging system. Every element of the look and feel was directed, designed, and executed by me.'
+      desc: 'For Dress to Impress Mystery Models, I developed the star capsule packaging from the ground up, designing the structure, dielines, and all printable components using Illustrator and KeyShot. I established a new visual direction for the brand, which launched successfully at Target and Walmart. I also created the tray dielines, DLC card, collector insert, and overall packaging system, directing and executing the complete look and feel across retail.'
     },
     {
       src: 'assets/images/dti_mm2.jpg',
@@ -110,7 +110,7 @@ const galleries = {
     {
       src: 'assets/images/fnaf_construction2.jpg',
       title: "Five Nights at Freddy's Security Breach Single Figure Construction Set",
-      desc: "For the Five Nights at Freddy’s Charging Station Series, I designed both the packaging box and the CDU, developing a cohesive visual system that aligned with the Security Breach aesthetic and our PhatStacks branding. I collaborated with the product team to produce the 3D KeyShot renders featured on pack, created all instruction manuals, and partnered closely with the factory to engineer a custom dieline that met structural and production requirements. Every component—from layout to graphics to mechanical accuracy—was directed and executed by me."
+      desc: "For the Five Nights at Freddy’s Charging Station Series, I designed both the packaging box and CDU, developing a cohesive visual system aligned with the Security Breach aesthetic and PhatStacks branding. I collaborated with the product team to produce 3D KeyShot renders for pack, created all instruction manuals, and partnered with the factory to engineer a custom dieline meeting structural and production needs. Every component, from layout to graphics to mechanical accuracy, was directed and executed by me for retail launch."
     },
     {
       src: 'assets/images/fnaf_headbundle1.jpg',
