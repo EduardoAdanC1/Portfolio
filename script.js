@@ -18,14 +18,17 @@ darkModeToggle.addEventListener('click', () => {
 
 // Projects (cards) and their associated galleries
 const projects = [
-  { key: 'blox', title: 'Blox Fruits', cat: 'Branding + Packaging Design', thumb: 'assets/images/blox_hero.jpg' },
+  { key: 'neopets', title: 'Neopets', cat: 'Branding + Packaging Design', thumb: 'assets/images/Neopets.jpg' },
   { key: 'dress', title: 'Dress to Impress', cat: 'Branding + Packaging Design', thumb: 'assets/images/dress.jpg' },
   { key: 'clean', title: 'Clean Girl', cat: 'Branding + Packaging Design', thumb: 'assets/images/clean.jpg' },
   { key: 'rainbow', title: 'Rainbow Friends', cat: 'Branding + Packaging Design', thumb: 'assets/images/rainbow.jpg' },
-  { key: 'pet', title: 'Pet Simulator', cat: 'Branding + Packaging Design', thumb: 'assets/images/pet.jpg' },
   { key: 'fnaf', title: 'Five Nights at Freddys', cat: 'Branding + Packaging Design', thumb: 'assets/images/fnaf.jpg' },
+  { key: 'pet', title: 'Pet Simulator', cat: 'Branding + Packaging Design', thumb: 'assets/images/pet.jpg' },
   { key: 'fisch', title: 'Fisch', cat: 'Branding + Packaging Design', thumb: 'assets/images/fisch.jpg' },
-  { key: 'neopets', title: 'Neopets', cat: 'Branding + Packaging Design', thumb: 'assets/images/Neopets.jpg' },
+  { key: 'blox', title: 'Blox Fruits', cat: 'Branding + Packaging Design', thumb: 'assets/images/blox_hero.jpg' },
+  { key: 'proj1', title: 'Poppy Playtime', cat: 'Branding + Packaging Design', thumb: 'assets/images/comingsoon.jpg' },
+  { key: 'proj2', title: 'Project 2', cat: 'Branding + Packaging Design', thumb: 'assets/images/comingsoon.jpg' },
+  { key: 'proj3', title: 'Project 3', cat: 'Branding + Packaging Design', thumb: 'assets/images/comingsoon.jpg' },
   { key: 'bendy', title: 'More Projects!', cat: 'Branding + Packaging Design', thumb: 'assets/images/whitelogo.png' },
 ];
 
@@ -119,6 +122,9 @@ const galleries = {
     }
   ],
   bendy: [ { src: 'assets/images/comingsoon.jpg', title: 'Coming Soon', desc: '' } ],
+  proj1: [ { src: 'assets/images/comingsoon.jpg', title: 'Poppy Playtime', desc: '' } ],
+  proj2: [ { src: 'assets/images/comingsoon.jpg', title: 'Coming Soon', desc: '' } ],
+  proj3: [ { src: 'assets/images/comingsoon.jpg', title: 'Coming Soon', desc: '' } ],
   neopets: [
     {
       src: 'assets/images/neopets_series1.jpg',

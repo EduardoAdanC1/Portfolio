@@ -227,7 +227,18 @@
     const PASSWORD = 'EACPortfolio25';
     const overlay = document.getElementById('landingOverlay');
     const enterBtn = document.getElementById('enterBtnIndex');
-    // Create modal elements if not present
+    const params = new URLSearchParams(window.location.search);
+    const skip = params.get('skip') === '1';
+    // If skip flag present, bypass overlay/password entirely
+    if (skip) {
+      if (overlay) {
+        overlay.classList.add('hidden');
+        overlay.setAttribute('aria-hidden','true');
+      }
+      return; // do not create password modal, allow site content as-is
+    }
+
+    // Create modal elements if not bypassing
     const modal = document.createElement('div');
     modal.className = 'pwd-modal-overlay';
     modal.id = 'pwdModalIndex';

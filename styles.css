@@ -15,9 +15,10 @@ html.dark-mode {
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Inter,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg);transition:background .3s ease, color .3s ease}
-/* Section snap scrolling */
-.snap-container{scroll-snap-type:y mandatory;overflow-y:auto;height:100vh}
-.snap-section{scroll-snap-align:start}
+/* Disable section snap scrolling site-wide */
+.snap-container{scroll-snap-type:none;overflow-y:auto;height:100vh}
+.snap-section{scroll-snap-align:none}
+/* Site-wide snap disabled; specific overrides no longer needed */
 
 /* Disable snap/nested scrolling on mobile for smoother natural flow */
 @media (max-width: 768px){
@@ -123,11 +124,11 @@ html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe 
 .section{padding:56px 20px;background:transparent}
 .snap-section.section{min-height:100vh;display:flex;align-items:center;justify-content:space-evenly}
 .snap-section.section .inner{width:100%}
-.section .inner{max-width:1200px;margin:0 auto;display:block}
+.section .inner{max-width:1400px;margin:0 auto;display:block}
 .section h2{font-size:28px;margin:0 0 6px 0}
 .section p.sub{color:var(--muted);margin:0 0 18px 0}
 
-.resume-section{padding:110px 20px 90px !important}
+.resume-section{padding:50px 20px 80px !important}
 .snap-section.resume-section{min-height:100vh}
 .resume-section .inner{display:block}
 .resume-section h2{font-size:36px;margin:0 0 50px 0;text-align:center}
@@ -145,7 +146,13 @@ html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe 
   position: static; /* Ensure it stays static once visible */
 }
 
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.card img{width:100%;height:200px;object-fit:cover;display:block}
+@media (min-width: 1440px){
+  .section .inner{max-width:1600px}
+  .grid{gap:28px}
+  .card img{height:220px}
+}
 .card{background:#f0f0f0;color:#000;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;display:flex;flex-direction:column;border-radius:16px}
 /* Fade-in animation for cards */
 .card{opacity:0;transform:translateY(16px);transition:opacity .5s ease, transform .5s ease, box-shadow .2s ease}
@@ -224,8 +231,8 @@ html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe 
 }
 
 /* contact section */
-.contact-section{background:linear-gradient(90deg,#fffbe6 0%, #ffe585 100%);padding:90px 20px !important;border-radius:16px;margin:60px 20px}
-.snap-section.contact-section{min-height:100vh;margin:0}
+.contact-section{background:linear-gradient(90deg,#fffbe6 0%, #ffe585 100%);padding:70px 20px !important;border-radius:16px;margin:30px 20px}
+.snap-section.contact-section{min-height:auto;margin:0}
 .contact-section .inner{display:block;text-align:center}
 .contact-section h2{font-size:32px;margin:0 0 12px 0;color:var(--text)}
 .contact-subtitle{font-size:18px;color:var(--text);margin:0 0 28px 0;line-height:1.5}
