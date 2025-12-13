@@ -447,6 +447,17 @@ footer{background:transparent;border-top:none;padding:24px 20px 40px;color:#6a71
     align-items: center;
     gap: 16px; /* Ensure even spacing */
   }
+
+  /* Hide sticky header while modal is open (mobile) */
+  body.modal-open .header{
+    opacity: 0;
+    transform: translateY(-120%);
+    pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  body:not(.modal-open) .header{
+    transition: opacity .2s ease, transform .2s ease;
+  }
 }
 .landing-overlay{position:fixed;inset:0;background:linear-gradient(180deg,#0f1216,#1c2128);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999}
 .landing-overlay.hidden{display:none}
