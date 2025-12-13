@@ -26,9 +26,9 @@ const projects = [
   { key: 'pet', title: 'Pet Simulator', cat: 'Branding + Packaging Design', thumb: 'assets/images/pet.jpg' },
   { key: 'fisch', title: 'Fisch', cat: 'Branding + Packaging Design', thumb: 'assets/images/fisch.jpg' },
   { key: 'blox', title: 'Blox Fruits', cat: 'Branding + Packaging Design', thumb: 'assets/images/blox_hero.jpg' },
-  { key: 'proj1', title: 'Poppy Playtime', cat: 'Branding + Packaging Design', thumb: 'assets/images/comingsoon.jpg' },
-  { key: 'proj2', title: 'Project 2', cat: 'Branding + Packaging Design', thumb: 'assets/images/comingsoon.jpg' },
-  { key: 'proj3', title: 'Project 3', cat: 'Branding + Packaging Design', thumb: 'assets/images/comingsoon.jpg' },
+  { key: 'proj1', title: 'Poppy Playtime', cat: 'Branding + Packaging Design', thumb: 'assets/images/Poppy Banner.jpg' },
+  { key: 'proj2', title: 'Invincible', cat: 'Branding + Packaging Design', thumb: 'assets/images/invincible.jpg' },
+  { key: 'proj3', title: 'One Piece', cat: 'Branding + Packaging Design', thumb: 'assets/images/OnePiece.jpg' },
   { key: 'bendy', title: 'More Projects!', cat: 'Branding + Packaging Design', thumb: 'assets/images/whitelogo.png' },
 ];
 
@@ -123,8 +123,8 @@ const galleries = {
   ],
   bendy: [ { src: 'assets/images/comingsoon.jpg', title: 'Coming Soon', desc: '' } ],
   proj1: [ { src: 'assets/images/comingsoon.jpg', title: 'Poppy Playtime', desc: '' } ],
-  proj2: [ { src: 'assets/images/comingsoon.jpg', title: 'Coming Soon', desc: '' } ],
-  proj3: [ { src: 'assets/images/comingsoon.jpg', title: 'Coming Soon', desc: '' } ],
+  proj2: [ { src: 'assets/images/invincible.jpg', title: 'Invincible', desc: '' } ],
+  proj3: [ { src: 'assets/images/OnePiece.jpg', title: 'One Piece', desc: '' } ],
   neopets: [
     {
       src: 'assets/images/neopets_series1.jpg',
