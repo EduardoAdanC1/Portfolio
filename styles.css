@@ -206,28 +206,62 @@ html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe 
 #projectGrid{transition:filter .25s ease, opacity .25s ease;will-change:filter}
 .modal-open #projectGrid{filter:blur(2px);opacity:.85}
 
-/* Mobile adjustments to ensure carousel panel is fully reachable */
+/* Mobile: make carousel modals usable (full-height, scrollable caption, safe-area aware controls) */
 @media (max-width: 768px){
   .modal{
-    padding: max(12px, env(safe-area-inset-top)) 0 max(12px, env(safe-area-inset-bottom));
-    align-items:center;
-    justify-content:center;
+    padding:
+      max(12px, env(safe-area-inset-top))
+      12px
+      max(12px, env(safe-area-inset-bottom));
+    align-items: center;
+    justify-content: center;
   }
-  /* Constrain panel strictly within viewport width/height */
+
   .modal .panel{
     width: calc(100vw - 24px);
     max-width: 100vw;
-    max-height: calc(100vh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    height: auto;
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
     margin: 0 auto;
-    border-radius: 12px;
+    border-radius: 14px;
+    box-shadow: 0 20px 70px rgba(0,0,0,.55);
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
-  .modal .slide{overflow:hidden}
-  .modal .slide img{max-height:52vh; width:100%; height:auto; object-fit:contain}
-  .close-btn{top:10px; right:10px;}
-  .zoom-btn{top:10px; right:54px;}
-  .nav-btn{top:50%;}
-  .controls{inset:auto 0 calc(8px + env(safe-area-inset-bottom)) 0;}
+
+  /* Keep image area compact so the caption is reachable */
+  .modal .slide{
+    flex: 0 0 auto;
+    padding-bottom: 44px; /* room for dots */
+  }
+  .modal .slide img{
+    /* Prioritize imagery on mobile */
+    max-height: 66dvh;
+    max-height: 66vh;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* Let the whole panel scroll (image + caption) on mobile */
+  .modal .caption{
+    flex: 1 1 auto;
+    max-height: none;
+    overflow: visible;
+    padding: 8px 12px 12px 12px;
+  }
+  .modal .caption h3{font-size: clamp(16px, 4.8vw, 20px); line-height: 1.15; margin: 0 0 6px 0;}
+  .modal .caption p{font-size: clamp(12px, 3.4vw, 14px); line-height: 1.45;}
+
+  /* Make dots take less vertical attention */
+  .controls{gap:10px}
+  .dot{width:10px;height:10px}
+
+  /* Controls: keep tappable and out of the way */
+  .close-btn,.zoom-btn,.nav-btn{width:38px;height:38px}
+  .close-btn,.zoom-btn{top: calc(10px + env(safe-area-inset-top));}
+  .nav-btn{top: 50%;}
+  .controls{inset:auto 0 calc(10px + env(safe-area-inset-bottom)) 0;}
 }
 
 /* contact section */
@@ -386,11 +420,6 @@ footer{background:transparent;border-top:none;padding:24px 20px 40px;color:#6a71
   display: block;
 }
 
-/* Mobile tuning for taller phones */
-@media (max-width: 600px){
-  .modal .slide img{max-height:70vh}
-}
-
 @media (max-width: 768px) {
   #projectGrid {
     display: flex;
@@ -418,11 +447,6 @@ footer{background:transparent;border-top:none;padding:24px 20px 40px;color:#6a71
     align-items: center;
     gap: 16px; /* Ensure even spacing */
   }
-}
-
-/* Responsive spacing for modal on small screens */
-@media (max-width: 768px){
-  .modal{padding:24px}
 }
 .landing-overlay{position:fixed;inset:0;background:linear-gradient(180deg,#0f1216,#1c2128);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999}
 .landing-overlay.hidden{display:none}
