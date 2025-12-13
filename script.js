@@ -122,9 +122,9 @@ const galleries = {
     }
   ],
   bendy: [ { src: 'assets/images/comingsoon.jpg', title: 'Coming Soon', desc: '' } ],
-  proj1: [ { src: 'assets/images/comingsoon.jpg', title: 'Poppy Playtime', desc: '' } ],
-  proj2: [ { src: 'assets/images/invincible.jpg', title: 'Invincible', desc: '' } ],
-  proj3: [ { src: 'assets/images/OnePiece.jpg', title: 'One Piece', desc: '' } ],
+  proj1: [ { src: 'assets/images/comingsoon.jpg', title: 'Poppy Playtime', desc: 'More to come soon!' } ],
+  proj2: [ { src: 'assets/images/invincible.jpg', title: 'Invincible', desc: 'More to come soon!' } ],
+  proj3: [ { src: 'assets/images/OnePiece.jpg', title: 'One Piece', desc: 'More to come soon!' } ],
   neopets: [
     {
       src: 'assets/images/neopets_series1.jpg',
