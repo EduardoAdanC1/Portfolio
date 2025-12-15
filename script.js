@@ -121,10 +121,52 @@ const galleries = {
       desc: "For the Five Nights at Freddy’s Head Bundle, I developed all packaging components, including the shrink-wrap design, product stickers, and the full back panel layout. I also created the collectible cards and poster using provided character art, ensuring everything felt cohesive and true to the franchise. Every graphic element—from branding to layout to on-product labeling—was designed and executed by me to deliver a premium unboxing experience."
     }
   ],
-  bendy: [ { src: 'assets/images/comingsoon.jpg', title: 'Coming Soon', desc: '' } ],
-  proj1: [ { src: 'assets/images/comingsoon.jpg', title: 'Poppy Playtime', desc: 'More to come soon!' } ],
-  proj2: [ { src: 'assets/images/invincible.jpg', title: 'Invincible', desc: 'More to come soon!' } ],
-  proj3: [ { src: 'assets/images/OnePiece.jpg', title: 'One Piece', desc: 'More to come soon!' } ],
+  bendy: [
+    { src: 'assets/images/steal_1.jpg', title: '', desc: '' },
+    { src: 'assets/images/steal_2.jpg', title: '', desc: '' },
+    { src: 'assets/images/steal_3.jpg', title: '', desc: '' }
+  ],
+  proj1: [
+    {
+      src: 'assets/images/poppy_mf.jpg',
+      title: 'Poppy Playtime Nightmare Critters Minifigures',
+      desc: 'For Poppy Playtime: Nightmare Critters Minifigures, I designed the complete packaging system from the ground up, establishing the visual look across the CDU, box panels, and foil bags. Using character art provided by the product design team, I built a bold, cohesive graphic language that emphasized contrast, collectibility, and shelf impact. The final direction was reviewed and approved by the licensor, ensuring the presentation stayed true to the IP while introducing a distinct retail presence.'
+    },
+    {
+      src: 'assets/images/poppy_10pk.jpg',
+      title: 'Poppy Playtime Nightare Critters 10-Pack',
+      desc: 'For the Poppy Playtime: Nightmare Critters 10-Pack, I designed the full packaging layout and visual system, creating a bold, character-forward presentation that clearly showcased the assortment while maintaining strong shelf presence. Using product designer–supplied character art, I developed the composition, callouts, and back-of-box collector guide to balance clarity and collectibility. The final packaging direction was reviewed and approved by the licensor, ensuring brand accuracy while introducing a distinct premium look for a larger pack format.'
+    },
+    {
+      src: 'assets/images/poppy_1pk.jpg',
+      title: 'Poppy Playtime Nightmare Critters 1-Pack',
+      desc: 'For the Poppy Playtime: Nightmare Critters Single Pack, I adapted the established visual system into a streamlined, cost-efficient packaging solution designed specifically for value retailers such as Five Below. Using licensor-approved product designer art, I created the full packaging layout, front-and-back graphics, and collector callouts while optimizing materials, structure, and print coverage to meet tighter cost targets. The result maintained strong shelf impact and brand recognition while remaining scalable for high-volume, lower-price channels.'
+    }
+  ],
+  proj2: [
+    {
+      src: 'assets/images/invincible_mf.jpg',
+      title: 'Invincible Minifigures',
+      desc: 'For the Invincible Minifigures (Series 1), I developed the complete packaging look and visual system, translating the Amazon Original style guide into a bold, collectible-focused retail presentation. I collaborated closely with product designers to obtain CAD files and produced all final product renders in KeyShot, ensuring accurate scale, materials, and lighting. The final packaging balanced strong character presence with clear assortment communication for both the CDU and foil bag formats.'
+    }
+  ],
+  proj3: [
+    {
+      src: 'assets/images/op_boat.jpg',
+      title: 'One Piece 10 Figure Boat Bundle',
+      desc: 'For the One Piece 10 Figure Boat Bundle (Going Merry Microfigure Playset), I created the packaging system from concept to production—building the style guide, defining call-outs/snipes, and delivering print-ready mechanicals for the full box and components.'
+    },
+    {
+      src: 'assets/images/op_plush.jpg',
+      title: 'One Piece Collectible Plush',
+      desc: 'For the One Piece Plush Display Set, I designed the full packaging system for the SKU, including the CDU-style tray and all retail-facing graphics. I also directed and captured all plush photography, ensuring consistent lighting, color accuracy, and character expression across marketing and packaging assets. The result was a cohesive shelf presentation that highlighted the characters clearly while maintaining strong brand alignment with the One Piece Netflix series.'
+    },
+    {
+      src: 'assets/images/op_4pack.jpg',
+      title: 'One Piece 4-Pack',
+      desc: 'For the One Piece Treasure Chest Minifigure Pack, I designed a completely new packaging layout distinct from other SKUs in the line to give the product its own premium presence on shelf. I developed a darker, treasure-inspired visual direction that elevated the figures and made them stand out through contrast and material cues. This fresh approach was reviewed and approved directly by the licensor, allowing the pack to feel both unique and authentic to the One Piece universe.'
+    }
+  ],
   neopets: [
     {
       src: 'assets/images/neopets_series1.jpg',
