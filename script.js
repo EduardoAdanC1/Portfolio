@@ -29,7 +29,7 @@ const projects = [
   { key: 'proj1', title: 'Poppy Playtime', cat: 'Branding + Packaging Design', thumb: 'assets/images/Poppy Banner.jpg' },
   { key: 'proj2', title: 'Invincible', cat: 'Branding + Packaging Design', thumb: 'assets/images/invincible.jpg' },
   { key: 'proj3', title: 'One Piece', cat: 'Branding + Packaging Design', thumb: 'assets/images/OnePiece.jpg' },
-  { key: 'bendy', title: 'More Projects!', cat: 'Branding + Packaging Design', thumb: 'assets/images/whitelogo.png' },
+  { key: 'bendy', title: 'More Projects!', cat: 'Design', thumb: 'assets/images/whitelogo.png' },
 ];
 
 const galleries = {
@@ -600,4 +600,98 @@ window.addEventListener('load', ()=>{
     });
   }, { threshold: 0.2 });
   ioResume.observe(resumeSection);
+})();
+
+// Custom cursor that replaces the native cursor over images (desktop / fine pointers only)
+(() => {
+  const supportsFinePointer =
+    window.matchMedia?.('(pointer: fine)').matches &&
+    window.matchMedia?.('(hover: hover)').matches;
+  if (!supportsFinePointer) return;
+
+  const cursorEl = document.getElementById('customCursor');
+  if (!cursorEl) return;
+
+  const root = document.documentElement;
+  let enabled = false;
+  const enable = () => {
+    if (enabled) return;
+    enabled = true;
+    root.classList.add('cursor-enabled');
+  };
+
+  const imageSelector = '#projectGrid .card img, #modalImg';
+
+  let x = 0;
+  let y = 0;
+  let raf = 0;
+  let visible = false;
+
+  const render = () => {
+    raf = 0;
+    cursorEl.style.left = x + 'px';
+    cursorEl.style.top = y + 'px';
+  };
+
+  const setPos = (e) => {
+    x = e.clientX;
+    y = e.clientY;
+    if (!raf) raf = window.requestAnimationFrame(render);
+  };
+
+  const setVisible = (on) => {
+    visible = on;
+    cursorEl.classList.toggle('is-visible', on);
+  };
+
+  const setImageHover = (on) => {
+    cursorEl.classList.toggle('is-image', on);
+  };
+
+  // Track mouse position
+  window.addEventListener('pointermove', (e) => {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    enable();
+    setPos(e);
+    if (!visible) setVisible(true);
+  }, { passive: true });
+  window.addEventListener('mousemove', (e) => {
+    enable();
+    setPos(e);
+    if (!visible) setVisible(true);
+  }, { passive: true });
+
+  // Only change cursor style when hovering supported images
+  document.addEventListener('pointerover', (e) => {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    const img = e.target?.closest?.(imageSelector);
+    if (!img) return;
+    enable();
+    setPos(e);
+    setImageHover(true);
+  });
+
+  document.addEventListener('pointerout', (e) => {
+    const fromImg = e.target?.closest?.(imageSelector);
+    if (!fromImg) return;
+    const to = e.relatedTarget;
+    if (to && to.closest && to.closest(imageSelector)) return;
+    setImageHover(false);
+  });
+
+  // Safety: hide cursor when leaving the window/tab
+  window.addEventListener('blur', () => {
+    setVisible(false);
+    setImageHover(false);
+  });
+  window.addEventListener('mouseleave', () => {
+    setVisible(false);
+    setImageHover(false);
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      setVisible(false);
+      setImageHover(false);
+    }
+  });
 })();

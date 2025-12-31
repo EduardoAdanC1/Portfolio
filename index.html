@@ -17,7 +17,10 @@
   <div id="landingOverlay" class="landing-overlay hidden" aria-hidden="true">
     <img src="assets/images/whitelogo.png" alt="Logo" class="logo">
     <div class="tagline">Visual + Packaging Designer</div>
-    <button class="enter-btn" id="enterBtnIndex">Enter</button>
+    <div class="enter-actions" role="group" aria-label="Choose portfolio">
+      <button class="enter-btn" id="enterBtnIndex">Packaging Design</button>
+      <button class="enter-btn" id="enterBtnGraphic">Graphic Design</button>
+    </div>
   </div>
 
 <header class="header">
@@ -221,12 +224,20 @@
   <div class="footer-inner">© 2025 Eduardo Chavez. All rights reserved.</div>
 </footer>
 
+<!-- Custom cursor (enabled for fine pointers via JS) -->
+<div id="customCursor" class="custom-cursor" aria-hidden="true">
+  <span class="cursor-icon cursor-plus" aria-hidden="true"></span>
+  <span class="cursor-icon cursor-circle" aria-hidden="true"></span>
+  <span class="cursor-icon cursor-star" aria-hidden="true"></span>
+</div>
+
 <script src="script.js"></script>
 <script>
   (function(){
     const PASSWORD = 'EACPortfolio25';
     const overlay = document.getElementById('landingOverlay');
     const enterBtn = document.getElementById('enterBtnIndex');
+    const enterBtnGraphic = document.getElementById('enterBtnGraphic');
     const params = new URLSearchParams(window.location.search);
     const skip = params.get('skip') === '1';
     // If skip flag present, bypass overlay/password entirely
@@ -237,6 +248,8 @@
       }
       return; // do not create password modal, allow site content as-is
     }
+
+    let requestedRoute = 'packaging'; // 'packaging' | 'graphic'
 
     // Create modal elements if not bypassing
     const modal = document.createElement('div');
@@ -299,12 +312,33 @@
         overlay.classList.add('hidden');
         overlay.setAttribute('aria-hidden','true');
         closeModal();
+
+         // If user chose Graphic Design, route there after auth
+         if (requestedRoute === 'graphic') {
+           window.location.href = 'graphic.html';
+         }
       } else {
         if(error) error.style.display = 'block';
       }
     }
 
-    if(enterBtn){ enterBtn.addEventListener('click', openModal); }
+    function handleEnter(route){
+      requestedRoute = route;
+      const isAuthorized = sessionStorage.getItem('eacAuthorized') === '1';
+      if (isAuthorized) {
+        if (route === 'graphic') {
+          window.location.href = 'graphic.html';
+        } else {
+          overlay.classList.add('hidden');
+          overlay.setAttribute('aria-hidden','true');
+        }
+        return;
+      }
+      openModal();
+    }
+
+    if(enterBtn){ enterBtn.addEventListener('click', ()=>handleEnter('packaging')); }
+    if(enterBtnGraphic){ enterBtnGraphic.addEventListener('click', ()=>handleEnter('graphic')); }
     if(submit){ submit.addEventListener('click', submitPwd); }
     if(cancel){ cancel.addEventListener('click', closeModal); }
     if(toggle){ toggle.addEventListener('click', ()=>{
