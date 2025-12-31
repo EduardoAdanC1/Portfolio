@@ -11,10 +11,69 @@ if (savedDarkMode === 'true' || (!savedDarkMode && prefersDarkMode)) {
 }
 
 // Toggle dark mode
-darkModeToggle.addEventListener('click', () => {
-  htmlElement.classList.toggle('dark-mode');
-  localStorage.setItem('darkMode', htmlElement.classList.contains('dark-mode'));
-});
+if (darkModeToggle) {
+  darkModeToggle.addEventListener('click', () => {
+    htmlElement.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', htmlElement.classList.contains('dark-mode'));
+  });
+}
+
+// Mobile nav (hamburger)
+(() => {
+  const nav = document.querySelector('.header .nav');
+  const toggle = document.getElementById('menuToggle');
+  const links = nav?.querySelector?.('.nav-links');
+  if (!nav || !toggle || !links) return;
+
+  const setExpanded = (expanded) => {
+    toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    toggle.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
+  };
+
+  const closeMenu = () => {
+    if (!nav.classList.contains('is-open')) return;
+    nav.classList.remove('is-open');
+    setExpanded(false);
+  };
+
+  const openMenu = () => {
+    if (nav.classList.contains('is-open')) return;
+    nav.classList.add('is-open');
+    setExpanded(true);
+  };
+
+  toggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const willOpen = !nav.classList.contains('is-open');
+    if (willOpen) openMenu();
+    else closeMenu();
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!nav.classList.contains('is-open')) return;
+    if (nav.contains(e.target)) return;
+    closeMenu();
+  });
+
+  // Close on ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // Close after choosing a link
+  links.addEventListener('click', (e) => {
+    const a = e.target?.closest?.('a');
+    if (!a) return;
+    closeMenu();
+  });
+
+  // If the viewport grows to desktop, ensure menu is closed
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) closeMenu();
+  }, { passive: true });
+})();
 
 // Projects (cards) and their associated galleries
 const projects = [

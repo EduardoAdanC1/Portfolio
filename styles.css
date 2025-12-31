@@ -4,6 +4,8 @@
   --accent:#ffe44d;
   --bg: #f9f9f9;
   --surface: #fff;
+  --star-icon: url('assets/images/starblack.png');
+  --cursor-accent: rgba(0,0,0,.88);
 }
 
 html.dark-mode {
@@ -12,6 +14,8 @@ html.dark-mode {
   --accent: #ffe44d;
   --bg: #0e1114;
   --surface: #1a1f26;
+  --star-icon: url('assets/images/Star.png');
+  --cursor-accent: rgba(255,228,77,.95);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Inter,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg);transition:background .3s ease, color .3s ease}
@@ -47,7 +51,7 @@ html.cursor-enabled .custom-cursor{display:block}
 .custom-cursor.is-image{
   width:52px;
   height:52px;
-  border-color:rgba(255,228,77,.95);
+  border-color:var(--cursor-accent);
   background-color:rgba(0,0,0,.22);
 }
 
@@ -66,8 +70,8 @@ html.cursor-enabled .custom-cursor{display:block}
   width:18px;
   height:18px;
   background:
-    linear-gradient(rgba(255,228,77,.95), rgba(255,228,77,.95)) center/18px 2px no-repeat,
-    linear-gradient(rgba(255,228,77,.95), rgba(255,228,77,.95)) center/2px 18px no-repeat;
+    linear-gradient(var(--cursor-accent), var(--cursor-accent)) center/18px 2px no-repeat,
+    linear-gradient(var(--cursor-accent), var(--cursor-accent)) center/2px 18px no-repeat;
 }
 
 /* Circle */
@@ -75,7 +79,7 @@ html.cursor-enabled .custom-cursor{display:block}
   width:22px;
   height:22px;
   border-radius:999px;
-  border:2px solid rgba(255,228,77,.95);
+  border:2px solid var(--cursor-accent);
   background:transparent;
 }
 
@@ -83,10 +87,10 @@ html.cursor-enabled .custom-cursor{display:block}
 .custom-cursor .cursor-star{
   width:26px;
   height:26px;
-  background:url('assets/images/Star.png') center/contain no-repeat;
+  background:var(--star-icon) center/contain no-repeat;
 }
 
-/* Only animate icons while hovering images */
+/* Cycle icons while hovering images: + then circle then star */
 .custom-cursor.is-image .cursor-plus,
 .custom-cursor.is-image .cursor-circle,
 .custom-cursor.is-image .cursor-star{
@@ -146,19 +150,132 @@ html.cursor-enabled *{cursor:none !important}
 
 /* header */
 .header{position:sticky;top:0;z-index:50;background:#fff;backdrop-filter:saturate(1.2) blur(6px);border-bottom:1px solid rgba(0,0,0,.05)}
-.inner{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.inner{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:relative}
 .brand{display:flex;align-items:center;gap:10px}
-.brand img{height:32px;width:auto}
+.brand img{height:32px;width:auto;display:block}
 .brand .mark{font-weight:800;letter-spacing:.5px}
 
 /* --- NAV LAYOUT FIX --- */
-.nav{display:flex;align-items:center;gap:18px;flex-wrap:nowrap}
+.nav{display:flex;align-items:center;gap:14px;flex-wrap:nowrap}
+.nav-links{display:flex;align-items:center;gap:18px;flex-wrap:nowrap}
+.nav-actions{display:flex;align-items:center;gap:10px;flex-wrap:nowrap}
 .nav a{display:inline-flex;align-items:center;text-decoration:none;color:var(--text);font-weight:500}
 .nav .cta{background:var(--accent);color:#000;padding:8px 14px;border-radius:10px;font-weight:700}
-.dark-mode-btn{background:transparent;border:none;color:var(--text);width:32px;height:32px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:opacity .2s ease}
+.dark-mode-btn{background:transparent;border:none;color:var(--text);width:32px;height:32px;padding:0;line-height:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:opacity .2s ease}
 .dark-mode-btn:hover{opacity:.7}
 .linkedin-link{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;color:var(--text);transition:opacity .2s ease}
 .linkedin-link:hover{opacity:.7}
+
+.menu-btn{
+  display:none;
+  background:transparent;
+  border:1px solid rgba(0,0,0,.14);
+  color:var(--text);
+  width:32px;
+  height:32px;
+  padding:0;
+  line-height:0;
+  border-radius:10px;
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+html.dark-mode .menu-btn{border-color:rgba(255,255,255,.18)}
+
+.dark-mode-btn svg,
+.menu-btn svg{display:block}
+
+/* Hamburger hover animation: retract lines -> show star */
+.menu-btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--star-icon) center/18px 18px no-repeat;
+  opacity:0;
+  transform:scale(.75);
+  transition:
+    opacity .14s ease,
+    transform .18s ease;
+  pointer-events:none;
+}
+
+.menu-btn svg{
+  position:relative;
+  z-index:1;
+  transition:opacity .14s ease;
+}
+
+.menu-btn svg line{
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+/* stagger retraction */
+.menu-btn svg line:nth-of-type(1){transition-delay:0ms}
+.menu-btn svg line:nth-of-type(2){transition-delay:40ms}
+.menu-btn svg line:nth-of-type(3){transition-delay:80ms}
+
+.menu-btn:hover svg line,
+.menu-btn:focus-visible svg line{
+  transform:scaleX(0);
+  opacity:0;
+}
+
+.menu-btn:hover svg,
+.menu-btn:focus-visible svg{
+  opacity:0;
+  transition-delay:120ms;
+}
+
+.menu-btn:hover::after,
+.menu-btn:focus-visible::after{
+  opacity:1;
+  transform:scale(1);
+  transition-delay:140ms;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .menu-btn svg,
+  .menu-btn svg line,
+  .menu-btn::after{transition:none}
+  .menu-btn:hover svg,
+  .menu-btn:focus-visible svg{opacity:0}
+  .menu-btn:hover::after,
+  .menu-btn:focus-visible::after{opacity:1;transform:scale(1)}
+}
+
+@media (max-width: 768px){
+  .nav{gap:10px}
+  .menu-btn{display:inline-flex}
+
+  /* Hide links until hamburger opens */
+  .nav-links{
+    display:none;
+    position:absolute;
+    top:calc(100% + 10px);
+    left:16px;
+    right:16px;
+    flex-direction:column;
+    align-items:stretch;
+    gap:6px;
+    padding:10px;
+    background:var(--surface);
+    border-radius:16px;
+    border:1px solid rgba(0,0,0,.10);
+    box-shadow:0 18px 50px rgba(0,0,0,.18);
+  }
+  html.dark-mode .nav-links{border-color:rgba(255,255,255,.14);box-shadow:0 18px 50px rgba(0,0,0,.45)}
+  .nav.is-open .nav-links{display:flex}
+
+  .nav-links a{width:100%;padding:12px 12px;border-radius:12px;justify-content:flex-start}
+  .nav-links a:hover{background:rgba(0,0,0,.05)}
+  html.dark-mode .nav-links a:hover{background:rgba(255,255,255,.06)}
+  .nav-links .cta{justify-content:center}
+  .nav-links .linkedin-link{width:100%;height:auto;justify-content:flex-start}
+}
 
 /* hero */
 .hero{position:relative;padding:56px 20px;min-height:90vh;display:block;background-image:url('assets/images/blox_hero.jpg');background-size:cover;background-position:center;background-attachment:fixed}
@@ -549,22 +666,7 @@ footer{background:transparent;border-top:none;padding:24px 20px 40px;color:#6a71
     width: 100%;
   }
 
-  .nav a, .cta, .dark-mode-btn {
-    margin: 0 8px; /* Ensure even spacing */
-  }
-
-  .nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px; /* Add spacing between items */
-  }
-
-  .header .inner {
-    flex-direction: column;
-    align-items: center;
-    gap: 16px; /* Ensure even spacing */
-  }
+  /* Note: header/nav mobile layout is handled earlier (hamburger + dropdown). */
 
   /* Hide sticky header while modal is open (mobile) */
   body.modal-open .header{

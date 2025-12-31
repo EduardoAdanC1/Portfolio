@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eduardo Chavez – Graphic Design</title>
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/whitelogo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/whitelogo.png">
+  <link rel="apple-touch-icon" href="assets/images/whitelogo.png">
+  <link rel="shortcut icon" href="assets/images/whitelogo.png">
+  <meta name="theme-color" content="#0b1220">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Lightweight page-specific layout (keeps site styles intact) */
+    .gd-wrap{min-height:calc(100vh - 140px);display:flex;align-items:center;justify-content:center;padding:56px 20px}
+    .gd-card{width:min(900px, 100%);background:var(--surface);border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:28px}
+    .dark-mode .gd-card{box-shadow:0 12px 40px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.1)}
+    .gd-card h1{margin:0 0 10px 0;font-size:clamp(28px,4vw,42px)}
+    .gd-card p{margin:0 0 18px 0;color:var(--muted);line-height:1.6;font-size:16px}
+    .gd-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .gd-actions a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:10px;padding:10px 14px;font-weight:700}
+    .gd-actions a.primary{background:var(--accent);color:#000}
+    .gd-actions a.ghost{border:1px solid rgba(0,0,0,.15);color:var(--text)}
+    .dark-mode .gd-actions a.ghost{border-color:rgba(255,255,255,.18)}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="inner">
+      <div class="brand">
+        <img src="assets/images/logo.png" alt="EC logo" />
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <div class="nav-links" id="navLinks">
+          <a href="index.html">Packaging Design</a>
+          <a href="graphic.html">Graphic Design</a>
+          <a href="mailto:designer@eduardoachavez.com">Contact</a>
+        </div>
+        <div class="nav-actions">
+          <button id="darkModeToggle" class="dark-mode-btn" type="button" aria-label="Toggle dark mode">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+          <button id="menuToggle" class="menu-btn" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+              <line x1="4" y1="7" x2="20" y2="7"></line>
+              <line x1="4" y1="12" x2="20" y2="12"></line>
+              <line x1="4" y1="17" x2="20" y2="17"></line>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="gd-wrap">
+    <section class="gd-card" aria-label="Graphic Design">
+      <h1>Graphic Design</h1>
+      <p>This page is ready for your graphic design work. Send me the first project images + titles/descriptions and I’ll build out a matching grid + modal carousel like the packaging page.</p>
+      <div class="gd-actions">
+        <a class="primary" href="index.html">Back to Packaging Design</a>
+        <a class="ghost" href="index.html?skip=1">Open Packaging (skip gate)</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">© 2025 Eduardo Chavez. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Gate access: require existing session authorization unless ?skip=1 is present.
+    (function(){
+      const params = new URLSearchParams(window.location.search);
+      const skip = params.get('skip') === '1';
+      const authorized = sessionStorage.getItem('eacAuthorized') === '1';
+      if(!skip && !authorized){
+        window.location.replace('index.html');
+        return;
+      }
+
+      // Dark mode toggle (standalone, avoids loading full script.js)
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      const htmlElement = document.documentElement;
+      const savedDarkMode = localStorage.getItem('darkMode');
+      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedDarkMode === 'true' || (!savedDarkMode && prefersDarkMode)) {
+        htmlElement.classList.add('dark-mode');
+      }
+      if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', () => {
+          htmlElement.classList.toggle('dark-mode');
+          localStorage.setItem('darkMode', htmlElement.classList.contains('dark-mode'));
+        });
+      }
+
+      // Mobile nav (hamburger)
+      (() => {
+        const nav = document.querySelector('.header .nav');
+        const toggle = document.getElementById('menuToggle');
+        const links = nav?.querySelector?.('.nav-links');
+        if (!nav || !toggle || !links) return;
+
+        const setExpanded = (expanded) => {
+          toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+          toggle.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
+        };
+        const closeMenu = () => {
+          if (!nav.classList.contains('is-open')) return;
+          nav.classList.remove('is-open');
+          setExpanded(false);
+        };
+        const openMenu = () => {
+          if (nav.classList.contains('is-open')) return;
+          nav.classList.add('is-open');
+          setExpanded(true);
+        };
+
+        toggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const willOpen = !nav.classList.contains('is-open');
+          if (willOpen) openMenu();
+          else closeMenu();
+        });
+        document.addEventListener('click', (e) => {
+          if (!nav.classList.contains('is-open')) return;
+          if (nav.contains(e.target)) return;
+          closeMenu();
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeMenu();
+        });
+        links.addEventListener('click', (e) => {
+          const a = e.target?.closest?.('a');
+          if (!a) return;
+          closeMenu();
+        });
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > 768) closeMenu();
+        }, { passive: true });
+      })();
+    })();
+  </script>
+</body>
+</html>
