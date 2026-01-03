@@ -48,6 +48,9 @@ if (darkModeToggle) {
     const willOpen = !nav.classList.contains('is-open');
     if (willOpen) openMenu();
     else closeMenu();
+
+    // Prevent lingering focus styles (mobile browsers can keep focus/hover “stuck”)
+    toggle.blur();
   });
 
   // Close when clicking outside
