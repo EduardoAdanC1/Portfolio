@@ -10,6 +10,20 @@ if (savedDarkMode === 'true' || (!savedDarkMode && prefersDarkMode)) {
   htmlElement.classList.add('dark-mode');
 }
 
+// Footer text fallback (handles any cached/old markup)
+(() => {
+  const desired = 'Website made by Eduardo Chavez';
+  const nodes = document.querySelectorAll('footer .footer-inner, footer');
+  nodes.forEach((node) => {
+    const t = (node.textContent || '').trim();
+    if (!t) return;
+    if (t === desired) return;
+    if (/^©\s*\d{4}\s*Eduardo\s*Chavez/i.test(t) || /all\s*rights\s*reserved/i.test(t)) {
+      node.textContent = desired;
+    }
+  });
+})();
+
 // Toggle dark mode
 if (darkModeToggle) {
   darkModeToggle.addEventListener('click', () => {
