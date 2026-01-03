@@ -218,6 +218,21 @@ html.dark-mode .menu-btn{border-color:rgba(255,255,255,.18)}
 .menu-btn svg line:nth-of-type(2){transition-delay:40ms}
 .menu-btn svg line:nth-of-type(3){transition-delay:80ms}
 
+/* Programmatic/timed star state (used for touch devices) */
+.menu-btn.is-star svg line{
+  transform:scaleX(0);
+  opacity:0;
+}
+.menu-btn.is-star svg{
+  opacity:0;
+  transition-delay:120ms;
+}
+.menu-btn.is-star::after{
+  opacity:1;
+  transform:scale(1);
+  transition-delay:140ms;
+}
+
 /* Only run hover animation on devices that actually support hover (prevents sticky hover on mobile) */
 @media (hover: hover) and (pointer: fine){
   .menu-btn:hover svg line,
@@ -244,6 +259,8 @@ html.dark-mode .menu-btn{border-color:rgba(255,255,255,.18)}
   .menu-btn svg,
   .menu-btn svg line,
   .menu-btn::after{transition:none}
+  .menu-btn.is-star svg{opacity:0}
+  .menu-btn.is-star::after{opacity:1;transform:scale(1)}
   @media (hover: hover) and (pointer: fine){
     .menu-btn:hover svg,
     .menu-btn:focus-visible svg{opacity:0}

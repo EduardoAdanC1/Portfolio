@@ -103,6 +103,20 @@
         const links = nav?.querySelector?.('.nav-links');
         if (!nav || !toggle || !links) return;
 
+        const isTouchLike =
+          window.matchMedia?.('(hover: none)').matches ||
+          window.matchMedia?.('(pointer: coarse)').matches;
+        let starTimer = 0;
+        const flashStar = () => {
+          if (!isTouchLike) return;
+          toggle.classList.add('is-star');
+          if (starTimer) window.clearTimeout(starTimer);
+          starTimer = window.setTimeout(() => {
+            toggle.classList.remove('is-star');
+            starTimer = 0;
+          }, 2000);
+        };
+
         const setExpanded = (expanded) => {
           toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
           toggle.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
@@ -124,6 +138,8 @@
           const willOpen = !nav.classList.contains('is-open');
           if (willOpen) openMenu();
           else closeMenu();
+
+          flashStar();
 
           // Prevent lingering focus styles (mobile browsers can keep focus/hover “stuck”)
           toggle.blur();
