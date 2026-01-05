@@ -12,17 +12,307 @@
   <meta name="theme-color" content="#0b1220">
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Lightweight page-specific layout (keeps site styles intact) */
-    .gd-wrap{min-height:calc(100vh - 140px);display:flex;align-items:center;justify-content:center;padding:56px 20px}
-    .gd-card{width:min(900px, 100%);background:var(--surface);border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.12);padding:28px}
-    .dark-mode .gd-card{box-shadow:0 12px 40px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.1)}
-    .gd-card h1{margin:0 0 10px 0;font-size:clamp(28px,4vw,42px)}
-    .gd-card p{margin:0 0 18px 0;color:var(--muted);line-height:1.6;font-size:16px}
-    .gd-actions{display:flex;gap:12px;flex-wrap:wrap}
-    .gd-actions a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:10px;padding:10px 14px;font-weight:700}
+    /* Basic Graphic Design page (intentionally simple; ready to expand) */
+    .gd-page{padding:42px 20px 64px}
+    .gd-inner{max-width:1200px;margin:0 auto}
+
+    .gd-hero{padding:40px 0 28px}
+    .gd-hero h1{margin:0 0 10px 0;font-size:clamp(34px,5vw,56px);letter-spacing:-.02em}
+    .gd-hero p{margin:0;color:var(--muted);max-width:68ch;line-height:1.65;font-size:16px}
+
+    .gd-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .gd-actions a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:12px;padding:10px 14px;font-weight:800}
     .gd-actions a.primary{background:var(--accent);color:#000}
-    .gd-actions a.ghost{border:1px solid rgba(0,0,0,.15);color:var(--text)}
-    .dark-mode .gd-actions a.ghost{border-color:rgba(255,255,255,.18)}
+    .gd-actions a.ghost{border:1px solid rgba(0,0,0,.15);color:var(--text);background:transparent}
+    html.dark-mode .gd-actions a.ghost{border-color:rgba(255,255,255,.18)}
+
+    .gd-section{padding:22px 0}
+    .gd-section h2{margin:0 0 10px 0;font-size:22px}
+    .gd-section p{margin:0;color:var(--muted);line-height:1.6}
+
+    /* Work scroller (inspired by willpaterson.design) */
+    .gd-work{padding:72px 0;min-height:82vh}
+    .gd-work-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:12px}
+    .gd-work-head h2{margin:0;font-size:22px}
+    .gd-work-head .hint{margin:0;color:var(--muted);font-size:13px;white-space:nowrap}
+    .gd-work-head .hint kbd{font:inherit;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:2px 8px;background:rgba(0,0,0,.03)}
+    html.dark-mode .gd-work-head .hint kbd{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
+
+    .gd-rail{
+      /* No manual left/right scrolling; marquee runs on its own */
+      overflow-x:hidden;
+      /* Let the 3D plane breathe vertically */
+      overflow-y:visible;
+      padding:132px 0 132px;
+      /* Full-bleed (edge-to-edge) like the reference */
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+      touch-action: pan-y;
+      overscroll-behavior-x: none;
+      perspective: 1600px;
+      perspective-origin: right center;
+      transform-style: preserve-3d;
+    }
+    .gd-rail::-webkit-scrollbar{display:none}
+    .gd-rail:focus{outline:none}
+    .gd-rail:focus-visible{outline:2px solid rgba(255,228,77,.8);outline-offset:6px;border-radius:14px}
+
+    /* 3D plane that creates the uniform taper (reference-style) */
+    .gd-rail-plane{
+      display:inline-block;
+      transform-style: preserve-3d;
+      transform-origin: right center;
+      /* These angles are the "look" — adjust here if needed */
+      transform: translateY(28px) rotateX(4deg) rotateY(12deg) rotateZ(1deg);
+    }
+
+    /* Marquee track (moves continuously) */
+    .gd-rail-track{
+      display:flex;
+      gap:6px;
+      will-change: transform;
+      animation: gdMarquee var(--gd-marquee-duration, 40s) linear infinite;
+      animation-play-state: running;
+    }
+
+    @keyframes gdMarquee{
+      from{transform:translateX(0)}
+      to{transform:translateX(calc(-1 * var(--gd-marquee-distance, 0px)))}
+    }
+
+    .gd-project{
+      flex:0 0 auto;
+      width:min(260px, 62vw);
+      border-radius:16px;
+      overflow:hidden;
+      background:var(--surface);
+      border:1px solid rgba(0,0,0,.08);
+      box-shadow:0 12px 34px rgba(0,0,0,.10);
+      scroll-snap-align:start;
+      scroll-snap-stop:always;
+      /* Cards live on a single 3D plane (.gd-rail-inner). */
+      transform: translateZ(0);
+      transform-origin: center;
+      backface-visibility: hidden;
+      will-change: transform;
+      transition:transform .22s ease, box-shadow .22s ease;
+      cursor:pointer;
+    }
+    html.dark-mode .gd-project{border-color:rgba(255,255,255,.12);box-shadow:0 16px 50px rgba(0,0,0,.45)}
+    @media (hover:hover) and (pointer:fine){
+      .gd-project:hover{transform:translateY(-6px) translateZ(18px);box-shadow:0 24px 70px rgba(0,0,0,.20)}
+      html.dark-mode .gd-project:hover{box-shadow:0 20px 70px rgba(0,0,0,.55)}
+    }
+
+    /* Reduce tilt on smaller screens so it doesn't feel cramped */
+    @media (max-width: 720px){
+      .gd-rail{perspective: 1100px}
+      .gd-rail-plane{transform: translateY(22px) rotateX(3deg) rotateY(9deg) rotateZ(0.75deg)}
+    }
+    @media (max-width: 420px){
+      .gd-rail{perspective: 980px}
+      .gd-rail-plane{transform: translateY(18px) rotateX(2.5deg) rotateY(7deg) rotateZ(0.5deg)}
+    }
+    /* Match modal ratio: 720x1080 (2:3) */
+    .gd-thumb{aspect-ratio: 2 / 3;background:#e9eef6;display:block}
+    .gd-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .gd-thumb img{backface-visibility:hidden}
+    /* Image-only cards (keep meta in DOM for modal data, but hide visually) */
+    .gd-meta{display:none}
+
+    .gd-note{margin-top:10px;font-size:13px;color:var(--muted)}
+
+    /* Modal styles */
+    .project-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .project-modal.is-open {
+      display: flex;
+      opacity: 1;
+    }
+    .modal-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      cursor: pointer;
+    }
+    html.dark-mode .modal-backdrop {
+      background: rgba(0, 0, 0, 0.88);
+    }
+    .modal-panel {
+      position: relative;
+      /* Target design: 720x1080 (2:3). Keep it responsive to viewport. */
+      width: min(720px, 92vw, calc(92vh * 2 / 3));
+      aspect-ratio: 2 / 3;
+      height: auto;
+      max-height: min(1080px, 92vh);
+      background: transparent;
+      border-radius: 0;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      transform: scale(0.92);
+      transition: transform 0.25s ease;
+      z-index: 1;
+    }
+    .project-modal.is-open .modal-panel {
+      transform: scale(1);
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: rgba(255, 255, 255, 0.92);
+      color: #1a1a1a;
+      font-size: 30px;
+      line-height: 1;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    html.dark-mode .modal-close {
+      background: rgba(30, 30, 30, 0.95);
+      color: #fff;
+    }
+    .modal-close:hover {
+      transform: scale(1.08);
+      background: rgba(255, 255, 255, 1);
+    }
+    html.dark-mode .modal-close:hover {
+      background: rgba(40, 40, 40, 1);
+    }
+    .modal-prev,
+    .modal-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border: none;
+      background: rgba(255, 255, 255, 0.92);
+      color: #1a1a1a;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      opacity: 0.9;
+    }
+    .modal-prev {
+      left: 20px;
+    }
+    .modal-next {
+      right: 20px;
+    }
+    html.dark-mode .modal-prev,
+    html.dark-mode .modal-next {
+      background: rgba(30, 30, 30, 0.95);
+      color: #fff;
+    }
+    .modal-prev:hover,
+    .modal-next:hover {
+      opacity: 1;
+      transform: translateY(-50%) scale(1.08);
+      background: rgba(255, 255, 255, 1);
+    }
+    html.dark-mode .modal-prev:hover,
+    html.dark-mode .modal-next:hover {
+      background: rgba(40, 40, 40, 1);
+    }
+    .modal-prev:disabled,
+    .modal-next:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .modal-content {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      overflow: hidden;
+      display: block;
+    }
+    .modal-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 0;
+      object-fit: cover;
+    }
+    .modal-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(128, 128, 128, 0.4);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      padding: 0;
+    }
+    .modal-dot.active {
+      background: var(--text);
+      transform: scale(1.2);
+    }
+    .modal-dot:hover {
+      background: rgba(128, 128, 128, 0.7);
+    }
+
+    @media (max-width: 560px){
+      .gd-page{padding:28px 16px 56px}
+      .modal-panel {
+        max-width: 95vw;
+        border-radius: 16px;
+      }
+      .modal-content {
+        padding: 16px;
+      }
+      .modal-title {
+        font-size: 24px;
+      }
+      .modal-close {
+        width: 36px;
+        height: 36px;
+        font-size: 26px;
+        top: 12px;
+        right: 12px;
+      }
+      .modal-prev,
+      .modal-next {
+        width: 40px;
+        height: 40px;
+      }
+      .modal-prev {
+        left: 12px;
+      }
+      .modal-next {
+        right: 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -33,9 +323,16 @@
       </div>
       <nav class="nav" aria-label="Primary">
         <div class="nav-links" id="navLinks">
-          <a href="index.html">Packaging Design</a>
-          <a href="graphic.html">Graphic Design</a>
-          <a href="mailto:designer@eduardoachavez.com">Contact</a>
+          <a href="#home">Home</a>
+          <a href="https://www.dropbox.com/scl/fi/yoq5v4vw58mto6mhoipm0/pdf-portfolio-ec-lo.pdf?rlkey=ayc18qh89vhoaal84tukv37ky&st=0loh7lkv&dl=0" target="_blank" rel="noopener">PDF Portfolio</a>
+          <a href="#contact">Contact</a>
+          <a href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener" class="linkedin-link" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.002 1.413-.103.249-.129.597-.129.946v5.446h-3.554s.05-8.836 0-9.754h3.554v1.391c.43-.666 1.204-1.614 2.928-1.614 2.136 0 3.743 1.395 3.743 4.393v5.584zM5.337 9.433c-1.144 0-1.915-.758-1.915-1.709 0-.968.771-1.71 1.958-1.71 1.187 0 1.914.742 1.938 1.71 0 .951-.751 1.709-1.981 1.709zm1.946 11.019H3.39V9.698h3.893v10.754zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+            </svg>
+          </a>
+          <a class="cta secondary" href="index.html">Packaging Design</a>
+          <a class="cta" href="assets/resume.pdf" download>Resume</a>
         </div>
         <div class="nav-actions">
           <button id="darkModeToggle" class="dark-mode-btn" type="button" aria-label="Toggle dark mode">
@@ -55,20 +352,111 @@
     </div>
   </header>
 
-  <main class="gd-wrap">
-    <section class="gd-card" aria-label="Graphic Design">
-      <h1>Graphic Design</h1>
-      <p>This page is ready for your graphic design work. Send me the first project images + titles/descriptions and I’ll build out a matching grid + modal carousel like the packaging page.</p>
-      <div class="gd-actions">
-        <a class="primary" href="index.html">Back to Packaging Design</a>
-        <a class="ghost" href="index.html?skip=1">Open Packaging (skip gate)</a>
-      </div>
-    </section>
+  <main class="gd-page">
+    <div class="gd-inner">
+      <section class="gd-hero" id="home" aria-label="Graphic Design">
+        <h1>Graphic Design</h1>
+        <p>A simple, expandable space for brand systems, key art, social, posters, and everything in between. We’ll build this out into a full grid + modal gallery next.</p>
+        <div class="gd-actions">
+          <a class="primary" href="#work">View work</a>
+          <a class="ghost" href="index.html">Packaging portfolio</a>
+        </div>
+        <div class="gd-note">Tip: send me your first 6–12 pieces (image + title + 1 sentence) and I’ll wire up the full gallery.</div>
+      </section>
+
+      <section class="gd-work" id="work" aria-label="Featured work">
+        <div class="gd-work-head">
+          <h2>Featured work</h2>
+        </div>
+
+        <div class="gd-rail" id="gdRail" tabindex="0" aria-label="Graphic design projects">
+          <div class="gd-rail-plane">
+            <div class="gd-rail-track" role="list">
+            <article class="gd-project" role="listitem">
+              <div class="gd-thumb"><img src="assets/images/MoonCard.png" alt="Moon Coffee brand identity" /></div>
+              <div class="gd-meta">
+                <p class="title">Moon Coffee</p>
+                <p class="tag">Brand Identity</p>
+              </div>
+            </article>
+            <article class="gd-project" role="listitem">
+              <div class="gd-thumb"><img src="assets/images/comingsoon.jpg" alt="Brand system exploration" /></div>
+              <div class="gd-meta">
+                <p class="title">Brand System</p>
+                <p class="tag">Lockups · components</p>
+              </div>
+            </article>
+            <article class="gd-project" role="listitem">
+              <div class="gd-thumb"><img src="assets/images/comingsoon.jpg" alt="Poster design coming soon" /></div>
+              <div class="gd-meta">
+                <p class="title">Poster Series</p>
+                <p class="tag">Print · composition</p>
+              </div>
+            </article>
+            <article class="gd-project" role="listitem">
+              <div class="gd-thumb"><img src="assets/images/comingsoon.jpg" alt="Key art coming soon" /></div>
+              <div class="gd-meta">
+                <p class="title">Key Art</p>
+                <p class="tag">Hero visuals · campaigns</p>
+              </div>
+            </article>
+            <article class="gd-project" role="listitem">
+              <div class="gd-thumb"><img src="assets/images/comingsoon.jpg" alt="Social templates coming soon" /></div>
+              <div class="gd-meta">
+                <p class="title">Social Templates</p>
+                <p class="tag">Systems · reusable layouts</p>
+              </div>
+            </article>
+            <article class="gd-project" role="listitem">
+              <div class="gd-thumb"><img src="assets/images/comingsoon.jpg" alt="Editorial layout coming soon" /></div>
+              <div class="gd-meta">
+                <p class="title">Editorial</p>
+                <p class="tag">Typography · layout</p>
+              </div>
+            </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="gd-section" id="contact" aria-label="Contact">
+        <h2>Contact</h2>
+        <p>Have a project in mind? <a href="mailto:designer@eduardoachavez.com">designer@eduardoachavez.com</a></p>
+      </section>
+    </div>
   </main>
 
   <footer>
     <div class="footer-inner">Website made by Eduardo Chavez</div>
   </footer>
+
+  <!-- Custom cursor (enabled for fine pointers via JS) -->
+  <div id="customCursor" class="custom-cursor" aria-hidden="true">
+    <span class="cursor-icon cursor-plus" aria-hidden="true"></span>
+    <span class="cursor-icon cursor-circle" aria-hidden="true"></span>
+    <span class="cursor-icon cursor-star" aria-hidden="true"></span>
+  </div>
+
+  <!-- Project Modal (image-only) -->
+  <div id="projectModal" class="project-modal" role="dialog" aria-modal="true" aria-label="Project image">
+    <div class="modal-backdrop"></div>
+    <div class="modal-panel">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <button class="modal-prev" aria-label="Previous project">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <button class="modal-next" aria-label="Next project">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+      <div class="modal-content">
+        <img class="modal-image" alt="" />
+      </div>
+    </div>
+  </div>
 
   <script>
     // Gate access: require existing session authorization unless ?skip=1 is present.
@@ -158,6 +546,168 @@
           // Prevent lingering focus styles (mobile browsers can keep focus/hover “stuck”)
           toggle.blur();
         });
+
+        // Custom cursor (same behavior as packaging; enabled on fine pointers only)
+        (() => {
+          const supportsFinePointer =
+            window.matchMedia?.('(pointer: fine)').matches &&
+            window.matchMedia?.('(hover: hover)').matches;
+          if (!supportsFinePointer) return;
+
+          const cursorEl = document.getElementById('customCursor');
+          if (!cursorEl) return;
+
+          const root = document.documentElement;
+          let enabled = false;
+          const enable = () => {
+            if (enabled) return;
+            enabled = true;
+            root.classList.add('cursor-enabled');
+          };
+
+          let x = 0;
+          let y = 0;
+          let raf = 0;
+          let visible = false;
+
+          const render = () => {
+            raf = 0;
+            cursorEl.style.left = x + 'px';
+            cursorEl.style.top = y + 'px';
+          };
+
+          const setPos = (e) => {
+            x = e.clientX;
+            y = e.clientY;
+            if (!raf) raf = window.requestAnimationFrame(render);
+          };
+
+          const setVisible = (on) => {
+            visible = on;
+            cursorEl.classList.toggle('is-visible', on);
+          };
+
+          window.addEventListener('pointermove', (e) => {
+            if (e.pointerType && e.pointerType !== 'mouse') return;
+            enable();
+            setPos(e);
+            if (!visible) setVisible(true);
+          }, { passive: true });
+
+          window.addEventListener('mousemove', (e) => {
+            enable();
+            setPos(e);
+            if (!visible) setVisible(true);
+          }, { passive: true });
+
+          window.addEventListener('blur', () => {
+            setVisible(false);
+          });
+          window.addEventListener('mouseleave', () => {
+            setVisible(false);
+          });
+          document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+              setVisible(false);
+            }
+          });
+        })();
+
+        // Custom cursor that replaces the native cursor over images (desktop / fine pointers only)
+        (() => {
+          const supportsFinePointer =
+            window.matchMedia?.('(pointer: fine)').matches &&
+            window.matchMedia?.('(hover: hover)').matches;
+          if (!supportsFinePointer) return;
+
+          const cursorEl = document.getElementById('customCursor');
+          if (!cursorEl) return;
+
+          const root = document.documentElement;
+          let enabled = false;
+          const enable = () => {
+            if (enabled) return;
+            enabled = true;
+            root.classList.add('cursor-enabled');
+          };
+
+          // Match packaging behavior: only animate over portfolio images.
+          // (Graphic page uses .gd-grid; keep #modalImg for future gallery parity.)
+          const imageSelector = '.gd-grid img, #modalImg';
+
+          let x = 0;
+          let y = 0;
+          let raf = 0;
+          let visible = false;
+
+          const render = () => {
+            raf = 0;
+            cursorEl.style.left = x + 'px';
+            cursorEl.style.top = y + 'px';
+          };
+
+          const setPos = (e) => {
+            x = e.clientX;
+            y = e.clientY;
+            if (!raf) raf = window.requestAnimationFrame(render);
+          };
+
+          const setVisible = (on) => {
+            visible = on;
+            cursorEl.classList.toggle('is-visible', on);
+          };
+
+          const setImageHover = (on) => {
+            cursorEl.classList.toggle('is-image', on);
+          };
+
+          // Track mouse position
+          window.addEventListener('pointermove', (e) => {
+            if (e.pointerType && e.pointerType !== 'mouse') return;
+            enable();
+            setPos(e);
+            if (!visible) setVisible(true);
+          }, { passive: true });
+          window.addEventListener('mousemove', (e) => {
+            enable();
+            setPos(e);
+            if (!visible) setVisible(true);
+          }, { passive: true });
+
+          // Only change cursor style when hovering supported images
+          document.addEventListener('pointerover', (e) => {
+            if (e.pointerType && e.pointerType !== 'mouse') return;
+            const img = e.target?.closest?.(imageSelector);
+            if (!img) return;
+            enable();
+            setPos(e);
+            setImageHover(true);
+          });
+
+          document.addEventListener('pointerout', (e) => {
+            const fromImg = e.target?.closest?.(imageSelector);
+            if (!fromImg) return;
+            const to = e.relatedTarget;
+            if (to && to.closest && to.closest(imageSelector)) return;
+            setImageHover(false);
+          });
+
+          // Safety: hide cursor when leaving the window/tab
+          window.addEventListener('blur', () => {
+            setVisible(false);
+            setImageHover(false);
+          });
+          window.addEventListener('mouseleave', () => {
+            setVisible(false);
+            setImageHover(false);
+          });
+          document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+              setVisible(false);
+              setImageHover(false);
+            }
+          });
+        })();
         document.addEventListener('click', (e) => {
           if (!nav.classList.contains('is-open')) return;
           if (nav.contains(e.target)) return;
@@ -173,6 +723,256 @@
         });
         window.addEventListener('resize', () => {
           if (window.innerWidth > 768) closeMenu();
+        }, { passive: true });
+      })();
+
+      // Project modal (image-only) with navigation
+      (() => {
+        const modal = document.getElementById('projectModal');
+        const modalImg = modal?.querySelector('.modal-image');
+        const modalClose = modal?.querySelector('.modal-close');
+        const modalPrev = modal?.querySelector('.modal-prev');
+        const modalNext = modal?.querySelector('.modal-next');
+        const backdrop = modal?.querySelector('.modal-backdrop');
+        const rail = document.getElementById('gdRail');
+        
+        if (!modal || !modalImg || !modalClose || !rail) return;
+
+        let isModalOpen = false;
+        let currentIndex = 0;
+        let projects = [];
+
+        // Gather all project data from the rail (only original cards, not duplicates)
+        const initProjects = () => {
+          const cards = rail.querySelectorAll('.gd-project');
+          const totalCards = cards.length;
+          // If cards are duplicated for looping, only get first half
+          const isLooped = rail.dataset.looped === '1';
+          const originalCount = isLooped ? Math.floor(totalCards / 2) : totalCards;
+          
+          projects = Array.from(cards).slice(0, originalCount).map(card => ({
+            image: card.querySelector('.gd-thumb img')?.src || '',
+            title: card.querySelector('.title')?.textContent || 'Untitled',
+            tag: card.querySelector('.tag')?.textContent || ''
+          }));
+        };
+
+        const showProject = (index) => {
+          if (index < 0 || index >= projects.length) return;
+          currentIndex = index;
+          const project = projects[index];
+          
+          modalImg.src = project.image;
+          modalImg.alt = project.title;
+          
+          // Update navigation button states
+          if (modalPrev) modalPrev.disabled = index === 0;
+          if (modalNext) modalNext.disabled = index === projects.length - 1;
+        };
+
+        const openModal = (index) => {
+          currentIndex = index;
+          showProject(index);
+          modal.classList.add('is-open');
+          isModalOpen = true;
+          document.body.style.overflow = 'hidden';
+          
+          // Pause auto-scroll when modal is open
+          if (window.gdRailAutoScrollPause) window.gdRailAutoScrollPause();
+        };
+
+        const closeModal = () => {
+          if (!isModalOpen) return;
+          modal.classList.remove('is-open');
+          isModalOpen = false;
+          document.body.style.overflow = '';
+          
+          // Resume auto-scroll when modal closes
+          if (window.gdRailAutoScrollResume) window.gdRailAutoScrollResume(800);
+        };
+
+        const prevProject = () => {
+          if (currentIndex > 0) showProject(currentIndex - 1);
+        };
+
+        const nextProject = () => {
+          if (currentIndex < projects.length - 1) showProject(currentIndex + 1);
+        };
+
+        // Open modal on tap/click (supports touch + mouse). Ignore drags.
+        const MOVE_THRESHOLD = 8;
+        let down = null;
+        let moved = false;
+
+        rail.addEventListener('pointerdown', (e) => {
+          // Only primary button for mouse; allow touch/pen.
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+          // Pause auto-scroll so the card doesn't drift under the finger/cursor.
+          if (window.gdRailAutoScrollPause) window.gdRailAutoScrollPause();
+
+          down = { id: e.pointerId, x: e.clientX, y: e.clientY };
+          moved = false;
+        }, { passive: true });
+
+        rail.addEventListener('pointermove', (e) => {
+          if (!down || e.pointerId !== down.id) return;
+          const dx = Math.abs(e.clientX - down.x);
+          const dy = Math.abs(e.clientY - down.y);
+          if (dx + dy > MOVE_THRESHOLD) moved = true;
+        }, { passive: true });
+
+        rail.addEventListener('pointerup', (e) => {
+          if (!down || e.pointerId !== down.id) return;
+          const wasMoved = moved;
+          down = null;
+          moved = false;
+          if (wasMoved) {
+            if (window.gdRailAutoScrollResume) window.gdRailAutoScrollResume(650);
+            return;
+          }
+
+          const card = e.target.closest('.gd-project');
+          if (!card) return;
+
+          if (projects.length === 0) initProjects();
+
+          const cards = Array.from(rail.querySelectorAll('.gd-project'));
+          let index = cards.indexOf(card);
+          const isLooped = rail.dataset.looped === '1';
+          if (isLooped) {
+            const half = Math.floor(cards.length / 2);
+            if (index >= half) index -= half;
+          }
+
+          if (index < 0 || index >= projects.length) return;
+
+          // Prevent the synthesized click that may follow on some browsers.
+          e.preventDefault();
+          openModal(index);
+        }, { passive: false });
+
+        // Navigation button handlers
+        if (modalPrev) modalPrev.addEventListener('click', prevProject);
+        if (modalNext) modalNext.addEventListener('click', nextProject);
+
+        // Close modal handlers
+        backdrop.addEventListener('click', closeModal);
+        modalClose.addEventListener('click', closeModal);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+          if (!isModalOpen) return;
+
+          if (e.key === 'Escape') {
+            closeModal();
+          } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            prevProject();
+          } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            nextProject();
+          }
+        });
+      })();
+
+      // Horizontal rail: always-on marquee (no manual left/right scrolling)
+      (() => {
+        const rail = document.getElementById('gdRail');
+        if (!rail) return;
+
+        const track = rail.querySelector('.gd-rail-track');
+        if (!track) return;
+
+        const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+        const SPEED_PX_PER_SEC = prefersReducedMotion ? 14 : 26;
+
+        let resumeTimer = 0;
+
+        const setPlayState = (state) => {
+          track.style.animationPlayState = state;
+        };
+
+        const pauseAuto = () => {
+          if (resumeTimer) window.clearTimeout(resumeTimer);
+          resumeTimer = 0;
+          setPlayState('paused');
+        };
+
+        const resumeAutoSoon = (delayMs = 650) => {
+          if (resumeTimer) window.clearTimeout(resumeTimer);
+          resumeTimer = window.setTimeout(() => {
+            setPlayState('running');
+            resumeTimer = 0;
+          }, delayMs);
+        };
+
+        // Expose pause/resume for modal integration
+        window.gdRailAutoScrollPause = pauseAuto;
+        window.gdRailAutoScrollResume = resumeAutoSoon;
+
+        const clearClones = () => {
+          track.querySelectorAll('[data-gd-clone="1"]').forEach((n) => n.remove());
+        };
+
+        const buildMarquee = () => {
+          clearClones();
+
+          // Measure original width
+          const originalWidth = track.scrollWidth;
+          if (!originalWidth || track.children.length === 0) return;
+
+          // Duplicate once for seamless loop
+          const kids = Array.from(track.children);
+          kids.forEach((node) => {
+            const clone = node.cloneNode(true);
+            clone.setAttribute('data-gd-clone', '1');
+            clone.setAttribute('aria-hidden', 'true');
+            track.appendChild(clone);
+          });
+
+          // Set distance + duration based on px/sec.
+          track.style.setProperty('--gd-marquee-distance', originalWidth + 'px');
+          const seconds = Math.max(8, originalWidth / Math.max(8, SPEED_PX_PER_SEC));
+          track.style.setProperty('--gd-marquee-duration', seconds.toFixed(2) + 's');
+
+          // Ensure running
+          setPlayState('running');
+        };
+
+        // Prevent horizontal wheel/trackpad scrolling while allowing vertical page scroll.
+        rail.addEventListener('wheel', (e) => {
+          const absX = Math.abs(e.deltaX || 0);
+          const absY = Math.abs(e.deltaY || 0);
+          if (e.shiftKey || absX > absY) e.preventDefault();
+        }, { passive: false });
+
+        // Build after layout settles.
+        const init = () => {
+          // If we don't overflow, don't animate.
+          if (track.scrollWidth <= rail.clientWidth + 2) {
+            track.style.setProperty('--gd-marquee-distance', '0px');
+            setPlayState('paused');
+            return;
+          }
+          buildMarquee();
+        };
+
+        // Retry for a moment (images/fonts can affect widths)
+        let attempts = 0;
+        const tickInit = () => {
+          attempts += 1;
+          init();
+          if (track.scrollWidth <= rail.clientWidth + 2 && attempts < 120) {
+            window.requestAnimationFrame(tickInit);
+          }
+        };
+
+        window.requestAnimationFrame(tickInit);
+        window.addEventListener('load', tickInit, { once: true });
+        window.addEventListener('resize', () => {
+          attempts = 0;
+          tickInit();
         }, { passive: true });
       })();
     })();

@@ -161,6 +161,8 @@ html.cursor-enabled *{cursor:none !important}
 .nav-actions{display:flex;align-items:center;gap:10px;flex-wrap:nowrap}
 .nav a{display:inline-flex;align-items:center;text-decoration:none;color:var(--text);font-weight:500}
 .nav .cta{background:var(--accent);color:#000;padding:8px 14px;border-radius:10px;font-weight:700}
+.nav .cta.secondary{background:transparent;color:var(--text);border:1px solid rgba(0,0,0,.15)}
+html.dark-mode .nav .cta.secondary{border-color:rgba(255,255,255,.18)}
 .dark-mode-btn{background:transparent;border:none;color:var(--text);width:32px;height:32px;padding:0;line-height:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:opacity .2s ease}
 .dark-mode-btn:hover{opacity:.7}
 .linkedin-link{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;color:var(--text);transition:opacity .2s ease}
