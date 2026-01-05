@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="assets/images/whitelogo.png">
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20260105" />
 </head>
 <body>
   <!-- Landing overlay merged into index -->
@@ -243,7 +243,7 @@
   <span class="cursor-icon cursor-star" aria-hidden="true"></span>
 </div>
 
-<script src="script.js"></script>
+<script src="script.js?v=20260105"></script>
 <script>
   (function(){
     const PASSWORD = 'EACPortfolio25';
@@ -254,6 +254,8 @@
     const skip = params.get('skip') === '1';
     // If skip flag present, bypass overlay/password entirely
     if (skip) {
+      // Also set a session flag so other pages (e.g., graphic.html) don't bounce back.
+      try { sessionStorage.setItem('eacAuthorized','1'); } catch (e) {}
       if (overlay) {
         overlay.classList.add('hidden');
         overlay.setAttribute('aria-hidden','true');
