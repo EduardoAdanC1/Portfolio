@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="assets/images/whitelogo.png">
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
-  <link rel="stylesheet" href="styles.css?v=20260105" />
+  <link rel="stylesheet" href="styles.css?v=20260105_2" />
   <style>
     /* Basic Graphic Design page (intentionally simple; ready to expand) */
     .gd-page{padding:42px 20px 64px}
@@ -986,10 +986,12 @@
           if (e.shiftKey || absX > absY) e.preventDefault();
         }, { passive: false });
 
+        const isOverflowing = () => track.scrollWidth > rail.clientWidth + 2;
+
         // Build after layout settles.
         const init = () => {
           // If we don't overflow, don't animate.
-          if (track.scrollWidth <= rail.clientWidth + 2) {
+          if (!isOverflowing()) {
             track.style.setProperty('--gd-marquee-distance', '0px');
             setPlayState('paused');
             rail.dataset.looped = '0';
@@ -1003,13 +1005,63 @@
         const tickInit = () => {
           attempts += 1;
           init();
-          if (track.scrollWidth <= rail.clientWidth + 2 && attempts < 120) {
+          // Keep trying longer on slow networks; stop once we overflow or after ~10s.
+          if (!isOverflowing() && attempts < 600) {
             window.requestAnimationFrame(tickInit);
           }
         };
 
+        // Re-init when images finish loading/decoding (common reason it "starts" only after resize).
+        const hookImageLoads = () => {
+          const imgs = Array.from(track.querySelectorAll('img'));
+          imgs.forEach((img) => {
+            if (img.complete) return;
+            img.addEventListener('load', () => {
+              attempts = 0;
+              tickInit();
+            }, { once: true, passive: true });
+            img.addEventListener('error', () => {
+              attempts = 0;
+              tickInit();
+            }, { once: true, passive: true });
+          });
+
+          // If supported, decoding is a stronger signal than load timing.
+          imgs.forEach((img) => {
+            if (typeof img.decode !== 'function') return;
+            img.decode().then(() => {
+              attempts = 0;
+              tickInit();
+            }).catch(() => {});
+          });
+        };
+
+        // Fonts can change widths too.
+        const hookFonts = () => {
+          const fonts = document.fonts;
+          if (!fonts || !fonts.ready) return;
+          fonts.ready.then(() => {
+            attempts = 0;
+            tickInit();
+          }).catch(() => {});
+        };
+
+        // Build now, and re-check on common lifecycle events.
         window.requestAnimationFrame(tickInit);
-        window.addEventListener('load', tickInit, { once: true });
+        window.addEventListener('load', () => {
+          hookImageLoads();
+          hookFonts();
+          attempts = 0;
+          tickInit();
+        }, { once: true });
+
+        // If the tab was backgrounded during load, kick it once visible again.
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) return;
+          attempts = 0;
+          tickInit();
+        });
+
         window.addEventListener('resize', () => {
           attempts = 0;
           tickInit();
