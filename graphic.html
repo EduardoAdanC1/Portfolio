@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="assets/images/whitelogo.png">
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
-  <link rel="stylesheet" href="styles.css?v=20260105_2" />
+  <link rel="stylesheet" href="styles.css?v=20260105_3" />
   <style>
     /* Basic Graphic Design page (intentionally simple; ready to expand) */
     .gd-page{padding:42px 20px 64px}
@@ -46,7 +46,7 @@
       overflow-x:hidden;
       /* Let the 3D plane breathe vertically */
       overflow-y:visible;
-      padding:132px 0 132px;
+      padding:110px 0 110px;
       /* Full-bleed (edge-to-edge) like the reference */
       width: 100vw;
       margin-left: calc(50% - 50vw);
@@ -69,7 +69,7 @@
       transform-style: preserve-3d;
       transform-origin: right center;
       /* These angles are the "look" — adjust here if needed */
-      transform: translateY(28px) rotateX(4deg) rotateY(12deg) rotateZ(1deg);
+      transform: translateY(60px) rotateX(4deg) rotateY(12deg) rotateZ(1deg);
     }
 
     /* Marquee track (moves continuously) */
@@ -88,7 +88,8 @@
 
     .gd-project{
       flex:0 0 auto;
-      width:min(260px, 62vw);
+      /* Slightly smaller on desktop/fullscreen; still roomy on mobile */
+      width: clamp(210px, 54vw, 238px);
       border-radius:16px;
       overflow:hidden;
       background:var(--surface);
@@ -113,11 +114,11 @@
     /* Reduce tilt on smaller screens so it doesn't feel cramped */
     @media (max-width: 720px){
       .gd-rail{perspective: 1100px}
-      .gd-rail-plane{transform: translateY(22px) rotateX(3deg) rotateY(9deg) rotateZ(0.75deg)}
+      .gd-rail-plane{transform: translateY(48px) rotateX(3deg) rotateY(9deg) rotateZ(0.75deg)}
     }
     @media (max-width: 420px){
       .gd-rail{perspective: 980px}
-      .gd-rail-plane{transform: translateY(18px) rotateX(2.5deg) rotateY(7deg) rotateZ(0.5deg)}
+      .gd-rail-plane{transform: translateY(42px) rotateX(2.5deg) rotateY(7deg) rotateZ(0.5deg)}
     }
     /* Match modal ratio: 720x1080 (2:3) */
     .gd-thumb{aspect-ratio: 2 / 3;background:#e9eef6;display:block}
@@ -769,15 +770,17 @@
         let currentIndex = 0;
         let projects = [];
 
+        const getOriginalCards = () =>
+          Array.from(rail.querySelectorAll('.gd-project')).filter(
+            (c) => c.getAttribute('data-gd-clone') !== '1'
+          );
+
+        const getAllCards = () => Array.from(rail.querySelectorAll('.gd-project'));
+
         // Gather all project data from the rail (only original cards, not duplicates)
         const initProjects = () => {
-          const cards = rail.querySelectorAll('.gd-project');
-          const totalCards = cards.length;
-          // If cards are duplicated for looping, only get first half
-          const isLooped = rail.dataset.looped === '1';
-          const originalCount = isLooped ? Math.floor(totalCards / 2) : totalCards;
-          
-          projects = Array.from(cards).slice(0, originalCount).map(card => ({
+          const cards = getOriginalCards();
+          projects = cards.map(card => ({
             image: card.querySelector('.gd-thumb img')?.src || '',
             title: card.querySelector('.title')?.textContent || 'Untitled',
             tag: card.querySelector('.tag')?.textContent || ''
@@ -873,12 +876,20 @@
 
           if (projects.length === 0) initProjects();
 
-          const cards = Array.from(rail.querySelectorAll('.gd-project'));
-          let index = cards.indexOf(card);
-          const isLooped = rail.dataset.looped === '1';
-          if (isLooped) {
-            const half = Math.floor(cards.length / 2);
-            if (index >= half) index -= half;
+          const originalCards = getOriginalCards();
+          const allCards = getAllCards();
+          const originalCount = originalCards.length;
+          if (originalCount === 0) return;
+
+          let index = -1;
+
+          // If an original card was clicked, use its index among originals.
+          if (card.getAttribute('data-gd-clone') !== '1') {
+            index = originalCards.indexOf(card);
+          } else {
+            // If a clone was clicked, map back to the original sequence.
+            const allIndex = allCards.indexOf(card);
+            if (allIndex >= 0) index = allIndex % originalCount;
           }
 
           if (index < 0 || index >= projects.length) return;
@@ -954,21 +965,31 @@
         const buildMarquee = () => {
           clearClones();
 
+          // Reset loop marker until we actually add clones.
+          rail.dataset.looped = '0';
+
           // Measure original width
           const originalWidth = track.scrollWidth;
           if (!originalWidth || track.children.length === 0) return;
 
-          // Duplicate once for seamless loop
-          const kids = Array.from(track.children);
-          kids.forEach((node) => {
-            const clone = node.cloneNode(true);
-            clone.setAttribute('data-gd-clone', '1');
-            clone.setAttribute('aria-hidden', 'true');
-            track.appendChild(clone);
-          });
+          // Ensure we have enough content to animate on very wide screens.
+          // If the original set fits fully within the viewport, it can look "stuck".
+          // We clone the full set enough times to exceed ~2x the rail width.
+          const railWidth = rail.clientWidth || window.innerWidth || 0;
+          const targetTotal = Math.max(originalWidth * 2, railWidth * 2);
+          const copies = Math.min(10, Math.max(2, Math.ceil(targetTotal / originalWidth)));
 
-          // Flag that the rail now contains duplicated cards
-          rail.dataset.looped = '1';
+          const kids = Array.from(track.children);
+          for (let c = 1; c < copies; c += 1) {
+            kids.forEach((node) => {
+              const clone = node.cloneNode(true);
+              clone.setAttribute('data-gd-clone', '1');
+              clone.setAttribute('aria-hidden', 'true');
+              track.appendChild(clone);
+            });
+          }
+
+          if (copies > 1) rail.dataset.looped = '1';
 
           // Set distance + duration based on px/sec.
           track.style.setProperty('--gd-marquee-distance', originalWidth + 'px');
@@ -986,17 +1007,8 @@
           if (e.shiftKey || absX > absY) e.preventDefault();
         }, { passive: false });
 
-        const isOverflowing = () => track.scrollWidth > rail.clientWidth + 2;
-
         // Build after layout settles.
         const init = () => {
-          // If we don't overflow, don't animate.
-          if (!isOverflowing()) {
-            track.style.setProperty('--gd-marquee-distance', '0px');
-            setPlayState('paused');
-            rail.dataset.looped = '0';
-            return;
-          }
           buildMarquee();
         };
 
@@ -1005,8 +1017,8 @@
         const tickInit = () => {
           attempts += 1;
           init();
-          // Keep trying longer on slow networks; stop once we overflow or after ~10s.
-          if (!isOverflowing() && attempts < 600) {
+          // Keep trying longer on slow networks; stop after ~10s.
+          if (attempts < 600) {
             window.requestAnimationFrame(tickInit);
           }
         };
