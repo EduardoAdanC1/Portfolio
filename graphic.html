@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Eduardo Chavez – Graphic Design</title>
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/whitelogo.png">
@@ -254,6 +257,7 @@
       padding: 0;
       overflow: hidden;
       display: block;
+      position: relative;
     }
     .modal-image {
       width: 100%;
@@ -262,6 +266,22 @@
       border-radius: 0;
       object-fit: cover;
     }
+
+    /* Caption overlay (helps when multiple cards share the same placeholder image) */
+    .modal-caption{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      padding:14px 16px 16px;
+      color:#fff;
+      background:linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.38) 46%, rgba(0,0,0,0) 100%);
+      pointer-events:none;
+    }
+    .modal-caption-row{display:flex;align-items:baseline;gap:12px}
+    .modal-title{margin:0;font-size:15px;line-height:1.25;font-weight:800;letter-spacing:-.01em}
+    .modal-count{margin-left:auto;font-size:12px;opacity:.9;white-space:nowrap}
+    .modal-tag{margin:4px 0 0;font-size:12.5px;line-height:1.3;opacity:.92}
     .modal-dot {
       width: 8px;
       height: 8px;
@@ -451,6 +471,13 @@
       </button>
       <div class="modal-content">
         <img class="modal-image" alt="" />
+        <div class="modal-caption" aria-live="polite">
+          <div class="modal-caption-row">
+            <h3 class="modal-title"></h3>
+            <span class="modal-count"></span>
+          </div>
+          <p class="modal-tag"></p>
+        </div>
       </div>
     </div>
   </div>
@@ -727,6 +754,9 @@
       (() => {
         const modal = document.getElementById('projectModal');
         const modalImg = modal?.querySelector('.modal-image');
+        const modalTitle = modal?.querySelector('.modal-title');
+        const modalTag = modal?.querySelector('.modal-tag');
+        const modalCount = modal?.querySelector('.modal-count');
         const modalClose = modal?.querySelector('.modal-close');
         const modalPrev = modal?.querySelector('.modal-prev');
         const modalNext = modal?.querySelector('.modal-next');
@@ -755,16 +785,23 @@
         };
 
         const showProject = (index) => {
-          if (index < 0 || index >= projects.length) return;
+          if (projects.length === 0) return;
+          // Wrap for circular nav
+          index = ((index % projects.length) + projects.length) % projects.length;
           currentIndex = index;
           const project = projects[index];
           
           modalImg.src = project.image;
           modalImg.alt = project.title;
+
+          if (modalTitle) modalTitle.textContent = project.title || '';
+          if (modalTag) modalTag.textContent = project.tag || '';
+          if (modalCount) modalCount.textContent = (index + 1) + ' / ' + projects.length;
           
-          // Update navigation button states
-          if (modalPrev) modalPrev.disabled = index === 0;
-          if (modalNext) modalNext.disabled = index === projects.length - 1;
+          // Enable nav only if there are multiple projects
+          const canNav = projects.length > 1;
+          if (modalPrev) modalPrev.disabled = !canNav;
+          if (modalNext) modalNext.disabled = !canNav;
         };
 
         const openModal = (index) => {
@@ -789,11 +826,13 @@
         };
 
         const prevProject = () => {
-          if (currentIndex > 0) showProject(currentIndex - 1);
+          if (projects.length <= 1) return;
+          showProject(currentIndex - 1);
         };
 
         const nextProject = () => {
-          if (currentIndex < projects.length - 1) showProject(currentIndex + 1);
+          if (projects.length <= 1) return;
+          showProject(currentIndex + 1);
         };
 
         // Open modal on tap/click (supports touch + mouse). Ignore drags.
@@ -928,6 +967,9 @@
             track.appendChild(clone);
           });
 
+          // Flag that the rail now contains duplicated cards
+          rail.dataset.looped = '1';
+
           // Set distance + duration based on px/sec.
           track.style.setProperty('--gd-marquee-distance', originalWidth + 'px');
           const seconds = Math.max(8, originalWidth / Math.max(8, SPEED_PX_PER_SEC));
@@ -950,6 +992,7 @@
           if (track.scrollWidth <= rail.clientWidth + 2) {
             track.style.setProperty('--gd-marquee-distance', '0px');
             setPlayState('paused');
+            rail.dataset.looped = '0';
             return;
           }
           buildMarquee();
