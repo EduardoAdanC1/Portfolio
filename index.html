@@ -284,16 +284,14 @@
     const navGraphicLink = document.getElementById('navGraphicLink');
     const params = new URLSearchParams(window.location.search);
     const skip = params.get('skip') === '1';
-    // If skip flag present, bypass overlay/password entirely
+    // If skip flag present, bypass the packaging overlay (but still keep Graphic Design password-protected).
     if (skip) {
-      // Also set session flags so other pages (e.g., graphic.html) don't bounce back.
+      // Mark packaging as authorized for this session so the overlay doesn't appear.
       try { sessionStorage.setItem(AUTH_PACKAGING_KEY,'1'); } catch (e) {}
-      try { sessionStorage.setItem(AUTH_GRAPHIC_KEY,'1'); } catch (e) {}
       if (overlay) {
         overlay.classList.add('hidden');
         overlay.setAttribute('aria-hidden','true');
       }
-      return; // do not create password modal, allow site content as-is
     }
 
     let requestedRoute = 'packaging'; // 'packaging' | 'graphic'
@@ -336,7 +334,7 @@
     const toggle = document.getElementById('pwdToggleIndex');
 
     const authorizedPackaging = sessionStorage.getItem(AUTH_PACKAGING_KEY) === '1';
-    if(!authorizedPackaging){
+    if(!authorizedPackaging && !skip){
       overlay.classList.remove('hidden');
       overlay.setAttribute('aria-hidden','false');
     }
