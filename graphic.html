@@ -772,10 +772,14 @@
       const params = new URLSearchParams(window.location.search);
       const skip = params.get('skip') === '1';
 
-      const authorized = sessionStorage.getItem('eacAuthorized') === '1';
-      // If skip flag present, also set a session flag so other pages don't bounce back.
+      const AUTH_PACKAGING_KEY = 'eacAuthorizedPackaging';
+      const AUTH_GRAPHIC_KEY = 'eacAuthorizedGraphic';
+
+      const authorized = sessionStorage.getItem(AUTH_GRAPHIC_KEY) === '1';
+      // If skip flag present, also set session flags so other pages don't bounce back.
       if (skip) {
-        try { sessionStorage.setItem('eacAuthorized','1'); } catch (e) {}
+        try { sessionStorage.setItem(AUTH_PACKAGING_KEY,'1'); } catch (e) {}
+        try { sessionStorage.setItem(AUTH_GRAPHIC_KEY,'1'); } catch (e) {}
       }
       if(!skip && !authorized){
         window.location.replace('index.html');

@@ -38,7 +38,7 @@
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.002 1.413-.103.249-.129.597-.129.946v5.446h-3.554s.05-8.836 0-9.754h3.554v1.391c.43-.666 1.204-1.614 2.928-1.614 2.136 0 3.743 1.395 3.743 4.393v5.584zM5.337 9.433c-1.144 0-1.915-.758-1.915-1.709 0-.968.771-1.71 1.958-1.71 1.187 0 1.914.742 1.938 1.71 0 .951-.751 1.709-1.981 1.709zm1.946 11.019H3.39V9.698h3.893v10.754zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
           </svg>
         </a>
-        <a class="cta secondary" href="graphic.html">Graphic Design</a>
+        <a class="cta secondary" href="graphic.html" id="navGraphicLink">Graphic Design</a>
         <a class="cta" href="assets/resume.pdf" download>Resume</a>
       </div>
 
@@ -273,16 +273,22 @@
 <script src="script.js?v=20260105"></script>
 <script>
   (function(){
-    const PASSWORD = 'EACPortfolio25';
+    const PASSWORD_PACKAGING = 'EACPortfolio25';
+    const PASSWORD_GRAPHIC = 'EACPortfolio26G';
+
+    const AUTH_PACKAGING_KEY = 'eacAuthorizedPackaging';
+    const AUTH_GRAPHIC_KEY = 'eacAuthorizedGraphic';
     const overlay = document.getElementById('landingOverlay');
     const enterBtn = document.getElementById('enterBtnIndex');
     const enterBtnGraphic = document.getElementById('enterBtnGraphic');
+    const navGraphicLink = document.getElementById('navGraphicLink');
     const params = new URLSearchParams(window.location.search);
     const skip = params.get('skip') === '1';
     // If skip flag present, bypass overlay/password entirely
     if (skip) {
-      // Also set a session flag so other pages (e.g., graphic.html) don't bounce back.
-      try { sessionStorage.setItem('eacAuthorized','1'); } catch (e) {}
+      // Also set session flags so other pages (e.g., graphic.html) don't bounce back.
+      try { sessionStorage.setItem(AUTH_PACKAGING_KEY,'1'); } catch (e) {}
+      try { sessionStorage.setItem(AUTH_GRAPHIC_KEY,'1'); } catch (e) {}
       if (overlay) {
         overlay.classList.add('hidden');
         overlay.setAttribute('aria-hidden','true');
@@ -329,8 +335,8 @@
     const cancel = document.getElementById('pwdCancelIndex');
     const toggle = document.getElementById('pwdToggleIndex');
 
-    const authorized = sessionStorage.getItem('eacAuthorized') === '1';
-    if(!authorized){
+    const authorizedPackaging = sessionStorage.getItem(AUTH_PACKAGING_KEY) === '1';
+    if(!authorizedPackaging){
       overlay.classList.remove('hidden');
       overlay.setAttribute('aria-hidden','false');
     }
@@ -348,8 +354,13 @@
     }
     function submitPwd(){
       const val = (input && input.value || '').trim();
-      if(val === PASSWORD){
-        sessionStorage.setItem('eacAuthorized','1');
+      const expected = requestedRoute === 'graphic' ? PASSWORD_GRAPHIC : PASSWORD_PACKAGING;
+      if(val === expected){
+        if (requestedRoute === 'graphic') {
+          sessionStorage.setItem(AUTH_GRAPHIC_KEY,'1');
+        } else {
+          sessionStorage.setItem(AUTH_PACKAGING_KEY,'1');
+        }
         overlay.classList.add('hidden');
         overlay.setAttribute('aria-hidden','true');
         closeModal();
@@ -365,7 +376,9 @@
 
     function handleEnter(route){
       requestedRoute = route;
-      const isAuthorized = sessionStorage.getItem('eacAuthorized') === '1';
+      const isAuthorized = route === 'graphic'
+        ? (sessionStorage.getItem(AUTH_GRAPHIC_KEY) === '1')
+        : (sessionStorage.getItem(AUTH_PACKAGING_KEY) === '1');
       if (isAuthorized) {
         if (route === 'graphic') {
           window.location.href = 'graphic.html';
@@ -380,6 +393,13 @@
 
     if(enterBtn){ enterBtn.addEventListener('click', ()=>handleEnter('packaging')); }
     if(enterBtnGraphic){ enterBtnGraphic.addEventListener('click', ()=>handleEnter('graphic')); }
+    // Gate the header "Graphic Design" tab behind the same password flow.
+    if(navGraphicLink){
+      navGraphicLink.addEventListener('click', (e)=>{
+        e.preventDefault();
+        handleEnter('graphic');
+      });
+    }
     if(submit){ submit.addEventListener('click', submitPwd); }
     if(cancel){ cancel.addEventListener('click', closeModal); }
     if(toggle){ toggle.addEventListener('click', ()=>{
