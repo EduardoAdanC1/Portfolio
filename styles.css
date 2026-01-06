@@ -29,7 +29,8 @@ html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe 
   height:18px;
   border-radius:999px;
   pointer-events:none;
-  z-index:2000;
+  /* Must be above any full-screen overlays/modals (graphic.html modal uses z-index: 9999) */
+  z-index:20000;
   opacity:0;
   transform:translate(-50%,-50%) scale(.92);
   transition:
@@ -536,6 +537,64 @@ html.dark-mode .menu-btn{border-color:rgba(255,255,255,.18)}
 .linkedin-link-contact:hover{opacity:.7}
 footer{background:transparent;border-top:none;padding:24px 20px 40px;color:#6a717c;text-align:center;margin:0 auto}
 .footer-inner{max-width:1200px;margin:0 auto}
+
+/* Site footer (reference-style, custom content) */
+.site-footer{
+  background:#0b0d10;
+  color:rgba(255,255,255,.78);
+  padding:54px 20px 0;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.site-footer a{color:rgba(255,255,255,.86);text-decoration:none}
+.site-footer a:hover{text-decoration:underline;text-underline-offset:3px}
+.site-footer .inner{max-width:1200px;margin:0 auto}
+
+/* Light mode footer */
+html:not(.dark-mode) .site-footer{
+  background:#ffffff;
+  color:rgba(15,18,22,.74);
+  border-top:1px solid rgba(0,0,0,.08);
+}
+html:not(.dark-mode) .site-footer a{color:rgba(10,12,16,.82)}
+html:not(.dark-mode) .site-footer .footer-brand-title{color:#0b0d10}
+html:not(.dark-mode) .site-footer .footer-brand-sub,
+html:not(.dark-mode) .site-footer .footer-blurb,
+html:not(.dark-mode) .site-footer .footer-nav a{color:rgba(15,18,22,.66)}
+html:not(.dark-mode) .site-footer .footer-email{color:#0b0d10}
+
+.site-footer .footer-top{
+  display:grid;
+  grid-template-columns: 260px minmax(280px, 1fr) minmax(280px, 360px);
+  gap:32px;
+  align-items:center;
+  padding-bottom:40px;
+}
+
+.site-footer .footer-brand{display:flex;gap:14px;align-items:center}
+.site-footer .footer-logo{
+  width:52px;
+  height:52px;
+  object-fit:contain;
+  flex:0 0 auto;
+}
+.site-footer .footer-logo--dark{display:none}
+html.dark-mode .site-footer .footer-logo--light{display:none}
+html.dark-mode .site-footer .footer-logo--dark{display:block}
+.site-footer .footer-brand-title{margin:0 0 6px 0;font-size:20px;font-weight:900;letter-spacing:-.015em;color:#fff}
+.site-footer .footer-brand-sub{margin:0;color:rgba(255,255,255,.62);font-size:13px;line-height:1.35}
+
+.site-footer .footer-blurb{margin:0;color:rgba(255,255,255,.64);line-height:1.65;font-size:14px;max-width:62ch}
+
+.site-footer .footer-right{text-align:right;min-width:0}
+.site-footer .footer-email{display:inline-block;font-weight:900;color:#fff;font-size:20px;letter-spacing:-.01em}
+.site-footer .footer-nav{display:flex;gap:14px;flex-wrap:nowrap;justify-content:flex-end;margin-top:10px;align-items:baseline}
+.site-footer .footer-nav a{font-size:14px;color:rgba(255,255,255,.78);line-height:1.2;white-space:nowrap}
+
+@media (max-width: 920px){
+  .site-footer .footer-top{grid-template-columns:1fr;gap:22px}
+  .site-footer .footer-right{text-align:left}
+  .site-footer .footer-nav{justify-content:flex-start;flex-wrap:wrap}
+}
 
 /* resume section */
 .resume-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}

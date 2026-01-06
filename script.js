@@ -12,8 +12,10 @@ if (savedDarkMode === 'true' || (!savedDarkMode && prefersDarkMode)) {
 
 // Footer text fallback (handles any cached/old markup)
 (() => {
-  const desired = 'Website made by Eduardo Chavez';
-  const nodes = document.querySelectorAll('footer .footer-inner, footer');
+  // If a full structured footer is present, do not rewrite it.
+  if (document.querySelector('.site-footer')) return;
+  const desired = `© ${new Date().getFullYear()} Eduardo Chavez`;
+  const nodes = document.querySelectorAll('footer .footer-inner');
   nodes.forEach((node) => {
     const t = (node.textContent || '').trim();
     if (!t) return;

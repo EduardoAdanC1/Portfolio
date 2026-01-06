@@ -19,9 +19,197 @@
     .gd-page{padding:42px 20px 64px}
     .gd-inner{max-width:1200px;margin:0 auto}
 
-    .gd-hero{padding:40px 0 28px}
-    .gd-hero h1{margin:0 0 10px 0;font-size:clamp(34px,5vw,56px);letter-spacing:-.02em}
-    .gd-hero p{margin:0;color:var(--muted);max-width:68ch;line-height:1.65;font-size:16px}
+    /* Hero with parallax video background */
+    .gd-hero{
+      position:relative;
+      overflow:hidden;
+      /* Full-bleed (edge-to-edge) */
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      border-radius:0;
+      /* Taller hero to reveal more of the video */
+      min-height: min(660px, 78vh);
+      display:flex;
+      align-items:flex-end;
+      padding:0;
+      isolation:isolate;
+    }
+    .gd-hero-media{
+      position:absolute;
+      /* Slightly less crop so more of the footage is visible */
+      inset:-10% 0 -16% 0;
+      pointer-events:none;
+      z-index:0;
+      transform:translate3d(0, var(--gd-hero-parallax, 0px), 0);
+      will-change:transform;
+    }
+    .gd-hero-video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transform:scale(1.04);
+      filter:grayscale(1);
+    }
+    .gd-hero-scrim{
+      position:absolute;
+      inset:0;
+      /* Vignette: darken top + bottom edges for legibility */
+      background:
+        radial-gradient(1200px 680px at 50% 35%, rgba(0,0,0,0) 36%, rgba(0,0,0,.74) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,.90) 0%, rgba(0,0,0,0) 42%),
+        linear-gradient(to top, rgba(0,0,0,.92) 0%, rgba(0,0,0,0) 52%);
+      z-index:1;
+      pointer-events:none;
+    }
+    /* Top intro copy (sits near the top of the hero, independent from headline/buttons) */
+    .gd-hero-topcopy{
+      position:absolute;
+      top:clamp(12px, 2.6vh, 28px);
+      left:0;
+      right:0;
+      z-index:2;
+      pointer-events:none;
+    }
+    .gd-hero-topcopy .gd-hero-topcopy-inner{
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 20px;
+    }
+    /* Align with header logo gutter (.header .inner uses max-width:1200px and padding: 0 20px) */
+    .gd-hero-content{position:relative;z-index:2;padding:22px 20px 28px;max-width:1200px;margin:0 auto;width:100%}
+    .gd-hero h1{margin:0 0 10px 0;font-size:clamp(34px,5vw,56px);letter-spacing:-.02em;color:#fff;position:relative;display:inline-block}
+    .gd-hero p{margin:0;color:rgba(255,255,255,.84);max-width:68ch;line-height:1.65;font-size:16px}
+    .gd-hero .gd-hero-lead{font-size:clamp(18px,2.15vw,24px);line-height:1.5;color:rgba(255,255,255,.94);max-width:80ch;margin:0}
+
+    /* Packaging-style yellow underline */
+    .gd-hero .underline{
+      position:relative;
+      background-image: linear-gradient(0deg, rgba(255,228,77,1), rgba(255,228,77,1));
+      background-position: 0 100%;
+      background-repeat: no-repeat;
+      background-size: 0% .11em;
+      padding-bottom: .08em;
+    }
+    .gd-hero .underline::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      height:.12em;
+      width:0;
+      background:
+        radial-gradient(40% 100% at 10% 50%, rgba(255,228,77,1) 0%, rgba(255,228,77,.6) 35%, rgba(255,228,77,0) 70%),
+        linear-gradient(90deg, rgba(255,228,77,0) 0%, rgba(255,228,77,1) 50%, rgba(255,228,77,0) 100%);
+      mix-blend-mode: screen;
+      box-shadow: 0 0 12px rgba(255,228,77,.55), 0 0 24px rgba(255,228,77,.35);
+      transform-origin: left center;
+    }
+    .gd-hero.loaded .underline{animation:underlineBG 540ms cubic-bezier(.18,.62,.22,1) forwards}
+    .gd-hero.loaded .underline::after{animation:underlineZap 540ms cubic-bezier(.18,.62,.22,1) forwards, zapJitter 420ms ease-out 0s 1}
+
+    .gd-hero .gd-actions a.ghost{border-color:rgba(255,255,255,.35);color:#fff}
+    html.dark-mode .gd-hero .gd-actions a.ghost{border-color:rgba(255,255,255,.35)}
+
+    @media (max-width: 720px){
+      .gd-hero{min-height:min(560px, 68vh)}
+      .gd-hero-content{padding:18px 20px 22px}
+      .gd-hero-topcopy{top:12px}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .gd-hero-media{transform:none}
+    }
+
+    /* Break marquee between hero and work */
+    .gd-break{
+      margin:0;
+      padding:18px 0;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      overflow:hidden;
+      position:relative;
+      border-top:1px solid rgba(255,255,255,.10);
+      border-bottom:1px solid rgba(255,255,255,.10);
+      /* Solid band + upward shadow = clear separation from video */
+      background:#0b0d10;
+      box-shadow:
+        0 -22px 42px rgba(0,0,0,.72),
+        inset 0 1px 0 rgba(255,228,77,.42);
+    }
+    html:not(.dark-mode) .gd-break{
+      border-top:1px solid rgba(0,0,0,.10);
+      border-bottom:1px solid rgba(0,0,0,.10);
+      background:#f1f1f1;
+      box-shadow:
+        0 -18px 30px rgba(0,0,0,.16),
+        inset 0 1px 0 rgba(0,0,0,.08);
+    }
+
+    .gd-break::before,
+    .gd-break::after{
+      content:"";
+      position:absolute;
+      top:0;
+      bottom:0;
+      width:80px;
+      z-index:2;
+      pointer-events:none;
+    }
+    .gd-break::before{
+      left:0;
+      background:linear-gradient(to right, rgba(11,13,16,1), rgba(11,13,16,0));
+    }
+    .gd-break::after{
+      right:0;
+      background:linear-gradient(to left, rgba(11,13,16,1), rgba(11,13,16,0));
+    }
+    html:not(.dark-mode) .gd-break::before{
+      background:linear-gradient(to right, rgba(241,241,241,1), rgba(241,241,241,0));
+    }
+    html:not(.dark-mode) .gd-break::after{
+      background:linear-gradient(to left, rgba(241,241,241,1), rgba(241,241,241,0));
+    }
+
+    .gd-break-marquee{
+      display:flex;
+      width:max-content;
+      will-change:transform;
+      animation: gdBreakMarquee var(--gd-break-duration, 28s) linear infinite;
+    }
+    .gd-break-row{
+      display:flex;
+      align-items:center;
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
+    .gd-break-item{
+      font-size:clamp(28px, 6.2vw, 74px);
+      letter-spacing:.08em;
+      font-weight:300;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.88);
+    }
+    .gd-break-sep{
+      font-size:clamp(24px, 5.6vw, 62px);
+      letter-spacing:.06em;
+      font-weight:300;
+      color:rgba(255,255,255,.34);
+      margin:0 32px;
+    }
+    html:not(.dark-mode) .gd-break-item{color:rgba(0,0,0,.70)}
+    html:not(.dark-mode) .gd-break-sep{color:rgba(0,0,0,.22)}
+
+    @keyframes gdBreakMarquee{
+      from{transform:translateX(0)}
+      to{transform:translateX(-50%)}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .gd-break-marquee{animation:none}
+    }
 
     .gd-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
     .gd-actions a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:12px;padding:10px 14px;font-weight:800}
@@ -72,6 +260,11 @@
       transform: translateY(60px) rotateX(4deg) rotateY(12deg) rotateZ(1deg);
     }
 
+    /* Fullscreen/desktop: drop the plane a bit more */
+    @media (min-width: 1024px){
+      .gd-rail-plane{transform: translateY(84px) rotateX(4deg) rotateY(12deg) rotateZ(1deg)}
+    }
+
     /* Marquee track (moves continuously) */
     .gd-rail-track{
       display:flex;
@@ -88,8 +281,8 @@
 
     .gd-project{
       flex:0 0 auto;
-      /* Slightly smaller on desktop/fullscreen; still roomy on mobile */
-      width: clamp(210px, 54vw, 238px);
+      /* Smaller on desktop/fullscreen; mobile gets an override below */
+      width: clamp(170px, 13.5vw, 210px);
       border-radius:16px;
       overflow:hidden;
       background:var(--surface);
@@ -115,6 +308,7 @@
     @media (max-width: 720px){
       .gd-rail{perspective: 1100px}
       .gd-rail-plane{transform: translateY(48px) rotateX(3deg) rotateY(9deg) rotateZ(0.75deg)}
+      .gd-project{width: min(260px, 70vw)}
     }
     @media (max-width: 420px){
       .gd-rail{perspective: 980px}
@@ -159,11 +353,11 @@
     }
     .modal-panel {
       position: relative;
-      /* Target design: 720x1080 (2:3). Keep it responsive to viewport. */
-      width: min(720px, 92vw, calc(92vh * 2 / 3));
-      aspect-ratio: 2 / 3;
+      /* Target aspect: Letter landscape (11" x 8.5"). Keep it responsive to viewport. */
+      width: min(1100px, 94vw, calc(92vh * 11 / 8.5));
+      aspect-ratio: 11 / 8.5;
       height: auto;
-      max-height: min(1080px, 92vh);
+      max-height: min(850px, 92vh);
       background: transparent;
       border-radius: 0;
       box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
@@ -259,13 +453,14 @@
       overflow: hidden;
       display: block;
       position: relative;
+      background: #000;
     }
     .modal-image {
       width: 100%;
       height: 100%;
       display: block;
       border-radius: 0;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     /* Caption overlay (helps when multiple cards share the same placeholder image) */
@@ -344,14 +539,13 @@
         <div class="nav-links" id="navLinks">
           <a href="#home">Home</a>
           <a href="https://www.dropbox.com/scl/fi/yoq5v4vw58mto6mhoipm0/pdf-portfolio-ec-lo.pdf?rlkey=ayc18qh89vhoaal84tukv37ky&st=0loh7lkv&dl=0" target="_blank" rel="noopener">PDF Portfolio</a>
-          <a href="#contact">Contact</a>
           <a href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener" class="linkedin-link" aria-label="LinkedIn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.002 1.413-.103.249-.129.597-.129.946v5.446h-3.554s.05-8.836 0-9.754h3.554v1.391c.43-.666 1.204-1.614 2.928-1.614 2.136 0 3.743 1.395 3.743 4.393v5.584zM5.337 9.433c-1.144 0-1.915-.758-1.915-1.709 0-.968.771-1.71 1.958-1.71 1.187 0 1.914.742 1.938 1.71 0 .951-.751 1.709-1.981 1.709zm1.946 11.019H3.39V9.698h3.893v10.754zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
             </svg>
           </a>
           <a class="cta secondary" href="index.html">Packaging Design</a>
-          <a class="cta" href="assets/resume.pdf" download>Resume</a>
+          <a class="cta" href="#resume">Resume</a>
         </div>
         <div class="nav-actions">
           <button id="darkModeToggle" class="dark-mode-btn" type="button" aria-label="Toggle dark mode">
@@ -374,19 +568,55 @@
   <main class="gd-page">
     <div class="gd-inner">
       <section class="gd-hero" id="home" aria-label="Graphic Design">
-        <h1>Graphic Design</h1>
-        <p>A simple, expandable space for brand systems, key art, social, posters, and everything in between. We’ll build this out into a full grid + modal gallery next.</p>
-        <div class="gd-actions">
-          <a class="primary" href="#work">View work</a>
-          <a class="ghost" href="index.html">Packaging portfolio</a>
+        <div class="gd-hero-media" aria-hidden="true">
+          <video class="gd-hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/blox_hero.jpg">
+            <source src="assets/images/graphicsvideo.mp4" type="video/mp4" />
+            <source src="assets/images/herovideo.mp4" type="video/mp4" />
+          </video>
+          <div class="gd-hero-scrim"></div>
+        </div>
+
+        <div class="gd-hero-topcopy" aria-hidden="false">
+          <div class="gd-hero-topcopy-inner">
+            <p class="gd-hero-lead">I’m Eduardo Chavez, a Los Angeles–based graphic designer specializing in packaging, brand systems, and digital experiences. I design with a product-first mindset—balancing creativity, clarity, and real-world execution.</p>
+          </div>
+        </div>
+
+        <div class="gd-hero-content">
+          <h1><span class="underline">Graphic Design Portfolio</span></h1>
+          <div class="gd-actions">
+            <a class="primary" href="#work">View work</a>
+            <a class="ghost" href="index.html">Packaging portfolio</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="gd-break" aria-label="Featured work divider">
+        <div class="gd-break-marquee" aria-hidden="false">
+          <div class="gd-break-row">
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+          </div>
+          <div class="gd-break-row" aria-hidden="true">
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+            <span class="gd-break-item">FEATURED WORK</span><span class="gd-break-sep">//</span>
+          </div>
         </div>
       </section>
 
       <section class="gd-work" id="work" aria-label="Featured work">
-        <div class="gd-work-head">
-          <h2>Featured work</h2>
-        </div>
-
         <div class="gd-rail" id="gdRail" tabindex="0" aria-label="Graphic design projects">
           <div class="gd-rail-plane">
             <div class="gd-rail-track" role="list">
@@ -437,15 +667,68 @@
         </div>
       </section>
 
-      <section class="gd-section" id="contact" aria-label="Contact">
-        <h2>Contact</h2>
-        <p>Have a project in mind? <a href="mailto:designer@eduardoachavez.com">designer@eduardoachavez.com</a></p>
+      <section id="resume" class="resume-section visible" aria-label="Resume">
+        <div class="inner">
+          <h2>Resume</h2>
+          <div class="resume-grid">
+            <div class="resume-column">
+              <h3>Experience</h3>
+              <div class="resume-item">
+                <h4>PhatMojo, LLC. — Packaging Design Manager</h4>
+                <p class="date">07.10.2018 - Present</p>
+                <p>Led end-to-end packaging development for high-volume toy and consumer product lines. Managed mechanicals, dielines, and production-ready artwork across multiple SKUs. Coordinated with global vendors and factories on design approvals, production reviews, and quality control. Mentored junior designers and delivered packaging for brands including Blox Fruits, Dress to Impress, Poppy Playtime, and multiple Roblox IPs.</p>
+              </div>
+              <div class="resume-item">
+                <h4>Kellogg and Huntley Galleries — Graphic Designer</h4>
+                <p class="date">04.01.2015 - 04.05.2018</p>
+                <p>Designed marketing collateral for university art gallery exhibitions. Created digital and print materials promoting events. Provided on-site support for gallery operations, visitor engagement, and artwork installation.</p>
+              </div>
+            </div>
+            <div class="resume-column">
+              <h3>Education</h3>
+              <div class="resume-item">
+                <p><strong>Cal Poly Pomona — BFA Graphic Design · Minor Art History</strong></p>
+              </div>
+              <h3>Skills</h3>
+              <div class="resume-item">
+                <p>Brand Identity, Packaging, Typography, Creative Direction, 3D Renders, Prototyping, Production, Vendor Management</p>
+              </div>
+              <h3>Download</h3>
+              <a href="assets/resume.pdf" download class="btn-download">Download PDF Resume</a>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   </main>
 
-  <footer>
-    <div class="footer-inner">Website made by Eduardo Chavez</div>
+  <footer class="site-footer">
+      <div class="inner">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <img class="footer-logo footer-logo--light" src="assets/images/ecmonogram.png" alt="EC monogram" />
+            <img class="footer-logo footer-logo--dark" src="assets/images/ecmonogramwhite.png" alt="EC monogram" />
+            <div>
+              <div class="footer-brand-title">Eduardo Chavez</div>
+              <p class="footer-brand-sub">Visual + Packaging Designer</p>
+            </div>
+          </div>
+
+          <p class="footer-blurb">
+            I create brand identity, graphic systems, and UI/UX assets that keep your visuals consistent, clear, and polished across every touchpoint.
+          </p>
+
+          <div class="footer-right">
+            <a class="footer-email" href="mailto:designer@eduardoachavez.com">designer@eduardoachavez.com</a>
+            <nav class="footer-nav" aria-label="Footer">
+              <a href="#home">Home</a>
+              <a href="#work">Work</a>
+              <a href="index.html">Packaging</a>
+              <a href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener">LinkedIn</a>
+            </nav>
+          </div>
+        </div>
+      </div>
   </footer>
 
   <!-- Custom cursor (enabled for fine pointers via JS) -->
@@ -488,7 +771,12 @@
     (function(){
       const params = new URLSearchParams(window.location.search);
       const skip = params.get('skip') === '1';
+
       const authorized = sessionStorage.getItem('eacAuthorized') === '1';
+      // If skip flag present, also set a session flag so other pages don't bounce back.
+      if (skip) {
+        try { sessionStorage.setItem('eacAuthorized','1'); } catch (e) {}
+      }
       if(!skip && !authorized){
         window.location.replace('index.html');
         return;
@@ -511,8 +799,10 @@
 
       // Footer text fallback (handles any cached/old markup)
       (() => {
-        const desired = 'Website made by Eduardo Chavez';
-        const nodes = document.querySelectorAll('footer .footer-inner, footer');
+        // If a full structured footer is present, do not rewrite it.
+        if (document.querySelector('.site-footer')) return;
+        const desired = `© ${new Date().getFullYear()} Eduardo Chavez`;
+        const nodes = document.querySelectorAll('footer .footer-inner');
         nodes.forEach((node) => {
           const t = (node.textContent || '').trim();
           if (!t) return;
@@ -521,6 +811,20 @@
             node.textContent = desired;
           }
         });
+      })();
+
+      // Footer year
+      (() => {
+        const y = document.getElementById('footerYear');
+        if (y) y.textContent = String(new Date().getFullYear());
+      })();
+
+      // Hero underline animation (matches packaging page feel)
+      (() => {
+        const hero = document.querySelector('.gd-hero');
+        if (!hero) return;
+        // Wait one frame so layout is stable before animating.
+        window.requestAnimationFrame(() => hero.classList.add('loaded'));
       })();
 
       // Mobile nav (hamburger)
@@ -656,9 +960,9 @@
             root.classList.add('cursor-enabled');
           };
 
-          // Match packaging behavior: only animate over portfolio images.
-          // (Graphic page uses .gd-grid; keep #modalImg for future gallery parity.)
-          const imageSelector = '.gd-grid img, #modalImg';
+          // Animate the cursor over thumbnail areas (and the modal image).
+          // Using the thumb container avoids flicker when moving within the image.
+          const imageSelector = '.gd-thumb, #projectModal .modal-image';
 
           let x = 0;
           let y = 0;
@@ -733,6 +1037,79 @@
             }
           });
         })();
+
+        // Grayscale video parallax (Graphic Design hero)
+        (() => {
+          const hero = document.querySelector('.gd-hero');
+          const media = hero?.querySelector?.('.gd-hero-media');
+          if (!hero || !media) return;
+
+          const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+          if (reduce) return;
+
+          let raf = 0;
+
+          const update = () => {
+            raf = 0;
+            const rect = hero.getBoundingClientRect();
+            const vh = window.innerHeight || 0;
+
+            // Only update when near the viewport (avoid needless work).
+            if (rect.bottom < -200 || rect.top > vh + 200) return;
+
+            // Parallax offset: move media slower than scroll.
+            // When hero is at top (rect.top ~ 0), offset ~ 0.
+            const speed = 0.18;
+            const offset = Math.round(rect.top * -speed);
+            hero.style.setProperty('--gd-hero-parallax', offset + 'px');
+          };
+
+          const request = () => {
+            if (!raf) raf = window.requestAnimationFrame(update);
+          };
+
+          // Initial + on scroll/resize
+          update();
+          window.addEventListener('scroll', request, { passive: true });
+          window.addEventListener('resize', request, { passive: true });
+          document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) request();
+          });
+        })();
+
+        // Featured Work divider marquee speed (match work rail px/sec feel)
+        (() => {
+          const marquee = document.querySelector('.gd-break-marquee');
+          if (!marquee) return;
+
+          const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+          if (prefersReducedMotion) return;
+
+          // Match the work rail speed constant.
+          const SPEED_PX_PER_SEC = 26;
+          let raf = 0;
+
+          const update = () => {
+            raf = 0;
+            const total = marquee.scrollWidth || 0;
+            // We translate -50% for a seamless loop (two identical rows), so distance is half.
+            const distance = Math.max(1, Math.round(total / 2));
+            const seconds = Math.max(10, distance / Math.max(8, SPEED_PX_PER_SEC));
+            marquee.style.setProperty('--gd-break-duration', seconds.toFixed(2) + 's');
+          };
+
+          const request = () => {
+            if (!raf) raf = window.requestAnimationFrame(update);
+          };
+
+          // Initial + refresh after fonts load and on resize.
+          update();
+          window.addEventListener('resize', request, { passive: true });
+          if (document.fonts?.ready) {
+            document.fonts.ready.then(request).catch(() => {});
+          }
+          window.addEventListener('load', request, { once: true, passive: true });
+        })();
         document.addEventListener('click', (e) => {
           if (!nav.classList.contains('is-open')) return;
           if (nav.contains(e.target)) return;
@@ -768,7 +1145,16 @@
 
         let isModalOpen = false;
         let currentIndex = 0;
+        let currentImageIndex = 0;
         let projects = [];
+
+        const toAbs = (path) => {
+          try {
+            return new URL(path, window.location.href).href;
+          } catch {
+            return path;
+          }
+        };
 
         const getOriginalCards = () =>
           Array.from(rail.querySelectorAll('.gd-project')).filter(
@@ -780,36 +1166,61 @@
         // Gather all project data from the rail (only original cards, not duplicates)
         const initProjects = () => {
           const cards = getOriginalCards();
-          projects = cards.map(card => ({
-            image: card.querySelector('.gd-thumb img')?.src || '',
-            title: card.querySelector('.title')?.textContent || 'Untitled',
-            tag: card.querySelector('.tag')?.textContent || ''
-          }));
+          projects = cards.map(card => {
+            const title = (card.querySelector('.title')?.textContent || 'Untitled').trim();
+            const tag = (card.querySelector('.tag')?.textContent || '').trim();
+            const thumb = card.querySelector('.gd-thumb img')?.src || '';
+
+            // Default: single image per project (uses the card thumbnail)
+            let images = [thumb].filter(Boolean);
+
+            // Moon Coffee: open a 4-image gallery
+            if (/^moon\s*coffee$/i.test(title)) {
+              images = [
+                toAbs('assets/images/moon_1.jpg'),
+                toAbs('assets/images/moon_2.jpg'),
+                toAbs('assets/images/moon_3.jpg'),
+                toAbs('assets/images/moon_4.jpg')
+              ];
+            }
+
+            return { images, title, tag };
+          });
         };
 
-        const showProject = (index) => {
+        const showProject = (index, imageIndex = 0) => {
           if (projects.length === 0) return;
           // Wrap for circular nav
           index = ((index % projects.length) + projects.length) % projects.length;
           currentIndex = index;
           const project = projects[index];
+
+          const imgs = Array.isArray(project.images) ? project.images : [];
+          const count = Math.max(1, imgs.length);
+          imageIndex = ((imageIndex % count) + count) % count;
+          currentImageIndex = imageIndex;
+          const src = imgs[imageIndex] || '';
           
-          modalImg.src = project.image;
+          modalImg.src = src;
           modalImg.alt = project.title;
 
           if (modalTitle) modalTitle.textContent = project.title || '';
           if (modalTag) modalTag.textContent = project.tag || '';
-          if (modalCount) modalCount.textContent = (index + 1) + ' / ' + projects.length;
+          if (modalCount) {
+            const projPart = (index + 1) + ' / ' + projects.length;
+            const imgPart = count > 1 ? (' • ' + (imageIndex + 1) + ' / ' + count) : '';
+            modalCount.textContent = projPart + imgPart;
+          }
           
-          // Enable nav only if there are multiple projects
-          const canNav = projects.length > 1;
+          // Enable nav if there is more than one image across the whole sequence.
+          const canNav = projects.length > 1 || count > 1;
           if (modalPrev) modalPrev.disabled = !canNav;
           if (modalNext) modalNext.disabled = !canNav;
         };
 
         const openModal = (index) => {
           currentIndex = index;
-          showProject(index);
+          showProject(index, 0);
           modal.classList.add('is-open');
           isModalOpen = true;
           document.body.style.overflow = 'hidden';
@@ -829,13 +1240,36 @@
         };
 
         const prevProject = () => {
-          if (projects.length <= 1) return;
-          showProject(currentIndex - 1);
+          if (projects.length === 0) return;
+          const project = projects[currentIndex];
+          const imgs = Array.isArray(project?.images) ? project.images : [];
+          const count = Math.max(1, imgs.length);
+
+          if (count > 1 && currentImageIndex > 0) {
+            showProject(currentIndex, currentImageIndex - 1);
+            return;
+          }
+
+          const nextIndex = ((currentIndex - 1) % projects.length + projects.length) % projects.length;
+          const nextProject = projects[nextIndex];
+          const nextImgs = Array.isArray(nextProject?.images) ? nextProject.images : [];
+          const nextCount = Math.max(1, nextImgs.length);
+          showProject(nextIndex, Math.max(0, nextCount - 1));
         };
 
         const nextProject = () => {
-          if (projects.length <= 1) return;
-          showProject(currentIndex + 1);
+          if (projects.length === 0) return;
+          const project = projects[currentIndex];
+          const imgs = Array.isArray(project?.images) ? project.images : [];
+          const count = Math.max(1, imgs.length);
+
+          if (count > 1 && currentImageIndex < count - 1) {
+            showProject(currentIndex, currentImageIndex + 1);
+            return;
+          }
+
+          const nextIndex = (currentIndex + 1) % projects.length;
+          showProject(nextIndex, 0);
         };
 
         // Open modal on tap/click (supports touch + mouse). Ignore drags.
