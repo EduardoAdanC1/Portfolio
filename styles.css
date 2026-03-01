@@ -156,6 +156,11 @@ html.cursor-enabled *{cursor:none !important}
 .brand img{height:32px;width:auto;display:block}
 .brand .mark{font-weight:800;letter-spacing:.5px}
 
+/* Header logo swap (light/dark variants) */
+.brand .brand-logo--dark{display:none}
+html.dark-mode .brand .brand-logo--light{display:none}
+html.dark-mode .brand .brand-logo--dark{display:block}
+
 /* --- NAV LAYOUT FIX --- */
 .nav{display:flex;align-items:center;gap:14px;flex-wrap:nowrap}
 .nav-links{display:flex;align-items:center;gap:18px;flex-wrap:nowrap}
@@ -455,8 +460,32 @@ html.dark-mode .menu-btn{border-color:rgba(255,255,255,.18)}
 .modal .caption p{margin:0;color:#c7cdd7;line-height:1.55}
 
 /* carousel controls */
-.controls{position:absolute;inset:auto 0 12px 0;display:flex;justify-content:center;gap:12px}
-.dot{width:12px;height:12px;border-radius:50%;border:2px solid #fff;background:#4b545f;opacity:.95;cursor:pointer}
+.controls{position:absolute;inset:auto 0 12px 0;display:flex;justify-content:center;align-items:center;gap:12px}
+.dot{
+  width:12px;
+  height:12px;
+  aspect-ratio:1/1;
+  box-sizing:border-box;
+  flex:0 0 auto;
+  flex-shrink:0;
+  display:inline-block;
+  padding:0;
+  margin:0;
+  min-width:12px;
+  min-height:12px;
+  max-width:12px;
+  max-height:12px;
+  border-radius:999px;
+  border:2px solid #fff;
+  background:#4b545f;
+  opacity:.95;
+  cursor:pointer;
+  font-size:0;
+  appearance:none;
+  -webkit-appearance:none;
+  -webkit-tap-highlight-color: transparent;
+  line-height:0;
+}
 .dot.active{background:#ffe44d;border-color:#fff}
 
 /* Vertical dot navigation */
@@ -515,7 +544,7 @@ html.dark-mode .menu-btn{border-color:rgba(255,255,255,.18)}
 
   /* Make dots take less vertical attention */
   .controls{gap:10px}
-  .dot{width:10px;height:10px}
+  .dot{width:10px;height:10px;min-width:10px;min-height:10px;max-width:10px;max-height:10px}
 
   /* Controls: keep tappable and out of the way */
   .close-btn,.zoom-btn,.nav-btn{width:38px;height:38px}
@@ -804,9 +833,7 @@ html.dark-mode .site-footer .footer-logo--dark{display:block}
   color: var(--text); /* Adjust link and button colors for dark mode */
 }
 
-.dark-mode .brand img {
-  filter: invert(1) brightness(2); /* Make logo white in dark mode */
-}
+/* (Header logo now swaps assets instead of using a filter) */
 
 .dark-mode .cta {
   background: #000; /* Change button background to black */

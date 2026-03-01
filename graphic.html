@@ -124,7 +124,7 @@
 
     /* Break marquee between hero and work */
     .gd-break{
-      margin:0;
+      margin:44px 0 0;
       padding:18px 0;
       width: 100vw;
       margin-left: calc(50% - 50vw);
@@ -230,11 +230,12 @@
     html.dark-mode .gd-work-head .hint kbd{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
 
     .gd-rail{
-      /* No manual left/right scrolling; marquee runs on its own */
+      /* Default: no manual left/right scrolling; marquee runs on its own */
       overflow-x:hidden;
-      /* Let the 3D plane breathe vertically */
+      /* NOTE: In Firefox/Safari, overflow-x:hidden can effectively clip overflow-y.
+         So we give the 3D plane extra vertical room inside the rail. */
       overflow-y:visible;
-      padding:110px 0 110px;
+      padding:140px 0 160px;
       /* Full-bleed (edge-to-edge) like the reference */
       width: 100vw;
       margin-left: calc(50% - 50vw);
@@ -257,12 +258,12 @@
       transform-style: preserve-3d;
       transform-origin: right center;
       /* These angles are the "look" — adjust here if needed */
-      transform: translateY(60px) rotateX(4deg) rotateY(12deg) rotateZ(1deg);
+      transform: translateY(78px) rotateX(4deg) rotateY(12deg) rotateZ(1deg);
     }
 
     /* Fullscreen/desktop: drop the plane a bit more */
     @media (min-width: 1024px){
-      .gd-rail-plane{transform: translateY(84px) rotateX(4deg) rotateY(12deg) rotateZ(1deg)}
+      .gd-rail-plane{transform: translateY(102px) rotateX(4deg) rotateY(12deg) rotateZ(1deg)}
     }
 
     /* Marquee track (moves continuously) */
@@ -274,6 +275,11 @@
       animation-play-state: running;
     }
 
+    :root{
+      /* Keep featured cards a consistent scale across desktop window sizes */
+      --gd-card-width: 208px;
+    }
+
     @keyframes gdMarquee{
       from{transform:translateX(0)}
       to{transform:translateX(calc(-1 * var(--gd-marquee-distance, 0px)))}
@@ -281,8 +287,7 @@
 
     .gd-project{
       flex:0 0 auto;
-      /* Smaller on desktop/fullscreen; mobile gets an override below */
-      width: clamp(170px, 13.5vw, 210px);
+      width: var(--gd-card-width);
       border-radius:16px;
       overflow:hidden;
       background:var(--surface);
@@ -307,12 +312,18 @@
     /* Reduce tilt on smaller screens so it doesn't feel cramped */
     @media (max-width: 720px){
       .gd-rail{perspective: 1100px}
-      .gd-rail-plane{transform: translateY(48px) rotateX(3deg) rotateY(9deg) rotateZ(0.75deg)}
-      .gd-project{width: min(260px, 70vw)}
+      .gd-rail{padding:120px 0 140px}
+      .gd-rail-plane{transform: translateY(62px) rotateX(3deg) rotateY(9deg) rotateZ(0.75deg)}
+      .gd-project{width: var(--gd-card-width)}
     }
     @media (max-width: 420px){
       .gd-rail{perspective: 980px}
-      .gd-rail-plane{transform: translateY(42px) rotateX(2.5deg) rotateY(7deg) rotateZ(0.5deg)}
+      .gd-rail{padding:110px 0 132px}
+      .gd-rail-plane{transform: translateY(56px) rotateX(2.5deg) rotateY(7deg) rotateZ(0.5deg)}
+    }
+
+    @media (max-width: 720px){
+      .gd-break{margin-top:28px}
     }
     /* Match modal ratio: 720x1080 (2:3) */
     .gd-thumb{aspect-ratio: 2 / 3;background:#e9eef6;display:block}
@@ -533,7 +544,8 @@
   <header class="header">
     <div class="inner">
       <div class="brand">
-        <img src="assets/images/logo.png" alt="EC logo" />
+        <img class="brand-logo brand-logo--light" src="assets/images/ecmonogram.png" alt="EC monogram" />
+        <img class="brand-logo brand-logo--dark" src="assets/images/ecmonogramwhite.png" alt="EC monogram" />
       </div>
       <nav class="nav" aria-label="Primary">
         <div class="nav-links" id="navLinks">
@@ -619,50 +631,7 @@
       <section class="gd-work" id="work" aria-label="Featured work">
         <div class="gd-rail" id="gdRail" tabindex="0" aria-label="Graphic design projects">
           <div class="gd-rail-plane">
-            <div class="gd-rail-track" role="list">
-            <article class="gd-project" role="listitem">
-              <div class="gd-thumb"><img src="assets/images/MoonCard.png" alt="Moon Coffee brand identity" /></div>
-              <div class="gd-meta">
-                <p class="title">Moon Coffee</p>
-                <p class="tag">Brand Identity</p>
-              </div>
-            </article>
-            <article class="gd-project" role="listitem">
-              <div class="gd-thumb"><img src="assets/images/comingsoon.jpg" alt="Brand system exploration" /></div>
-              <div class="gd-meta">
-                <p class="title">Brand System</p>
-                <p class="tag">Lockups · components</p>
-              </div>
-            </article>
-            <article class="gd-project" role="listitem">
-              <div class="gd-thumb"><img src="assets/images/comingsoon.jpg" alt="Poster design coming soon" /></div>
-              <div class="gd-meta">
-                <p class="title">Poster Series</p>
-                <p class="tag">Print · composition</p>
-              </div>
-            </article>
-            <article class="gd-project" role="listitem">
-              <div class="gd-thumb"><img src="assets/images/comingsoon.jpg" alt="Key art coming soon" /></div>
-              <div class="gd-meta">
-                <p class="title">Key Art</p>
-                <p class="tag">Hero visuals · campaigns</p>
-              </div>
-            </article>
-            <article class="gd-project" role="listitem">
-              <div class="gd-thumb"><img src="assets/images/comingsoon.jpg" alt="Social templates coming soon" /></div>
-              <div class="gd-meta">
-                <p class="title">Social Templates</p>
-                <p class="tag">Systems · reusable layouts</p>
-              </div>
-            </article>
-            <article class="gd-project" role="listitem">
-              <div class="gd-thumb"><img src="assets/images/comingsoon.jpg" alt="Editorial layout coming soon" /></div>
-              <div class="gd-meta">
-                <p class="title">Editorial</p>
-                <p class="tag">Typography · layout</p>
-              </div>
-            </article>
-            </div>
+            <div class="gd-rail-track" id="gdRailTrack" role="list"></div>
           </div>
         </div>
       </section>
@@ -830,6 +799,16 @@
         // Wait one frame so layout is stable before animating.
         window.requestAnimationFrame(() => hero.classList.add('loaded'));
       })();
+
+      // Shared helpers/state for Featured Work (rail + modal)
+      let gdFeaturedProjects = null;
+      const toAbs = (path) => {
+        try {
+          return new URL(path, window.location.href).href;
+        } catch {
+          return path;
+        }
+      };
 
       // Mobile nav (hamburger)
       (() => {
@@ -1132,6 +1111,158 @@
         }, { passive: true });
       })();
 
+      // Featured projects: load from JSON and render into the rail.
+      // This makes adding/reordering projects a simple data edit.
+      (() => {
+        const FEATURED_PROJECTS_URL = 'assets/data/graphic-featured-projects.json';
+
+        // Fallback list (used if JSON cannot be fetched, e.g., file:// previews)
+        const DEFAULT_FEATURED_PROJECTS = [
+          {
+            id: 'clean-by-pallet',
+            title: 'Clean by Pallet',
+            tag: 'Brand Identity',
+            thumb: 'assets/images/Cleanbypallet.png?v=20260227',
+            alt: 'Clean by Pallet brand identity'
+          },
+          {
+            id: 'sun-books',
+            title: 'Sun Books',
+            tag: 'Brand Identity',
+            thumb: 'assets/images/Sun_Books.png?v=20260227',
+            alt: 'Sun Books brand identity',
+            images: [
+              'assets/images/Sun_Books_1.png',
+              'assets/images/Sun_Books_2.png',
+              'assets/images/Sun_Books_3.png',
+              'assets/images/Sun_Books_4.png'
+            ]
+          },
+          {
+            id: 'moon-coffee',
+            title: 'Moon Coffee',
+            tag: 'Brand Identity',
+            thumb: 'assets/images/MoonCard.png?v=20260227',
+            alt: 'Moon Coffee brand identity',
+            images: [
+              'assets/images/moon_1.jpg',
+              'assets/images/moon_2.jpg',
+              'assets/images/moon_3.jpg',
+              'assets/images/moon_4.jpg'
+            ]
+          },
+          {
+            id: 'kof-orochi-saga',
+            title: 'The King of Fighters: Orochi Saga',
+            tag: 'Brand Identity',
+            thumb: 'assets/images/KoF_BI_1.png',
+            alt: 'The King of Fighters Orochi Saga brand identity',
+            images: [
+              'assets/images/KOF_brand-01.png',
+              'assets/images/KOF_brand-02.png',
+              'assets/images/KOF_brand-03.png'
+            ]
+          },
+          {
+            id: 'brand-system',
+            title: 'Brand System',
+            tag: 'Lockups · components',
+            thumb: 'assets/images/comingsoon.jpg',
+            alt: 'Brand system exploration'
+          },
+          {
+            id: 'poster-series',
+            title: 'Poster Series',
+            tag: 'Print · composition',
+            thumb: 'assets/images/comingsoon.jpg',
+            alt: 'Poster design coming soon'
+          },
+          {
+            id: 'key-art',
+            title: 'Key Art',
+            tag: 'Hero visuals · campaigns',
+            thumb: 'assets/images/comingsoon.jpg',
+            alt: 'Key art coming soon'
+          },
+          {
+            id: 'social-templates',
+            title: 'Social Templates',
+            tag: 'Systems · reusable layouts',
+            thumb: 'assets/images/comingsoon.jpg',
+            alt: 'Social templates coming soon'
+          },
+          {
+            id: 'editorial',
+            title: 'Editorial',
+            tag: 'Typography · layout',
+            thumb: 'assets/images/comingsoon.jpg',
+            alt: 'Editorial layout coming soon'
+          }
+        ];
+
+        const normalizeProject = (p, index) => {
+          const safe = (v) => (typeof v === 'string' ? v : '');
+          const title = safe(p?.title).trim() || 'Untitled';
+          const tag = safe(p?.tag).trim();
+          const alt = safe(p?.alt).trim() || title;
+          const thumb = safe(p?.thumb).trim();
+          const imagesRaw = Array.isArray(p?.images) ? p.images : [];
+          const images = imagesRaw.map(safe).map((s) => s.trim()).filter(Boolean);
+          const resolvedThumb = thumb || images[0] || '';
+          const resolvedImages = (images.length ? images : [resolvedThumb]).filter(Boolean).map(toAbs);
+          return {
+            id: safe(p?.id).trim() || ('project-' + String(index + 1)),
+            title,
+            tag,
+            alt,
+            thumb: resolvedThumb ? toAbs(resolvedThumb) : '',
+            images: resolvedImages
+          };
+        };
+
+        const loadFeaturedProjects = async () => {
+          try {
+            const res = await fetch(FEATURED_PROJECTS_URL, { cache: 'no-store' });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const data = await res.json();
+            const list = Array.isArray(data?.projects) ? data.projects : [];
+            const normalized = list
+              .map(normalizeProject)
+              .filter((p) => p.thumb || (p.images && p.images.length));
+            return normalized.length ? normalized : DEFAULT_FEATURED_PROJECTS.map(normalizeProject);
+          } catch (e) {
+            return DEFAULT_FEATURED_PROJECTS.map(normalizeProject);
+          }
+        };
+
+        const renderFeaturedProjects = (list) => {
+          const track = document.getElementById('gdRailTrack');
+          if (!track) return;
+          track.innerHTML = '';
+          list.forEach((p, i) => {
+            const article = document.createElement('article');
+            article.className = 'gd-project';
+            article.setAttribute('role', 'listitem');
+            article.setAttribute('data-gd-index', String(i));
+            article.innerHTML = `
+              <div class="gd-thumb"><img src="${p.thumb}" alt="${p.alt}" /></div>
+              <div class="gd-meta">
+                <p class="title">${p.title}</p>
+                <p class="tag">${p.tag || ''}</p>
+              </div>
+            `;
+            track.appendChild(article);
+          });
+        };
+
+        // Kick off load+render; marquee will be rebuilt once cards exist.
+        loadFeaturedProjects().then((list) => {
+          gdFeaturedProjects = list;
+          renderFeaturedProjects(list);
+          if (typeof window.__gdRailKickInit === 'function') window.__gdRailKickInit();
+        });
+      })();
+
       // Project modal (image-only) with navigation
       (() => {
         const modal = document.getElementById('projectModal');
@@ -1147,18 +1278,19 @@
         
         if (!modal || !modalImg || !modalClose || !rail) return;
 
+        const FALLBACK_IMAGE = toAbs('assets/images/comingsoon.jpg');
+
+        // If an image fails, swap to a safe placeholder once (per slide).
+        modalImg.addEventListener('error', () => {
+          if (modalImg.dataset.fallbackApplied === '1') return;
+          modalImg.dataset.fallbackApplied = '1';
+          modalImg.src = FALLBACK_IMAGE;
+        });
+
         let isModalOpen = false;
         let currentIndex = 0;
         let currentImageIndex = 0;
         let projects = [];
-
-        const toAbs = (path) => {
-          try {
-            return new URL(path, window.location.href).href;
-          } catch {
-            return path;
-          }
-        };
 
         const getOriginalCards = () =>
           Array.from(rail.querySelectorAll('.gd-project')).filter(
@@ -1167,8 +1299,17 @@
 
         const getAllCards = () => Array.from(rail.querySelectorAll('.gd-project'));
 
-        // Gather all project data from the rail (only original cards, not duplicates)
+        // Gather all project data (prefer JSON-loaded list; fallback to DOM scrape).
         const initProjects = () => {
+          if (Array.isArray(gdFeaturedProjects) && gdFeaturedProjects.length) {
+            projects = gdFeaturedProjects.map((p) => ({
+              images: Array.isArray(p.images) && p.images.length ? p.images : [p.thumb].filter(Boolean),
+              title: p.title || 'Untitled',
+              tag: p.tag || ''
+            }));
+            return;
+          }
+
           const cards = getOriginalCards();
           projects = cards.map(card => {
             const title = (card.querySelector('.title')?.textContent || 'Untitled').trim();
@@ -1178,7 +1319,7 @@
             // Default: single image per project (uses the card thumbnail)
             let images = [thumb].filter(Boolean);
 
-            // Moon Coffee: open a 4-image gallery
+            // Moon Coffee: open a 4-image gallery (legacy fallback)
             if (/^moon\s*coffee$/i.test(title)) {
               images = [
                 toAbs('assets/images/moon_1.jpg'),
@@ -1204,8 +1345,10 @@
           imageIndex = ((imageIndex % count) + count) % count;
           currentImageIndex = imageIndex;
           const src = imgs[imageIndex] || '';
-          
-          modalImg.src = src;
+
+          // Reset per-slide fallback guard.
+          modalImg.dataset.fallbackApplied = '0';
+          modalImg.src = src || FALLBACK_IMAGE;
           modalImg.alt = project.title;
 
           if (modalTitle) modalTitle.textContent = project.title || '';
@@ -1321,8 +1464,15 @@
 
           let index = -1;
 
+          // Preferred: use explicit index (survives cloning and reordering).
+          const explicit = card.getAttribute('data-gd-index');
+          if (explicit != null && explicit !== '') {
+            const n = Number(explicit);
+            if (Number.isFinite(n)) index = n;
+          }
+
           // If an original card was clicked, use its index among originals.
-          if (card.getAttribute('data-gd-clone') !== '1') {
+          if (index < 0 && card.getAttribute('data-gd-clone') !== '1') {
             index = originalCards.indexOf(card);
           } else {
             // If a clone was clicked, map back to the original sequence.
@@ -1459,6 +1609,12 @@
           if (attempts < 600) {
             window.requestAnimationFrame(tickInit);
           }
+        };
+
+        // Expose a safe kick function so async project rendering can restart the build.
+        window.__gdRailKickInit = () => {
+          attempts = 0;
+          window.requestAnimationFrame(tickInit);
         };
 
         // Re-init when images finish loading/decoding (common reason it "starts" only after resize).
