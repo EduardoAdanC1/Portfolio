@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "id": "clean-by-pallet",
+      "title": "Clean by Pallet",
+      "tag": "Brand Identity",
+      "thumb": "assets/images/Cleanbypallet.png?v=20260227",
+      "alt": "Clean by Pallet brand identity"
+    },
+    {
+      "id": "sun-books",
+      "title": "Sun Books",
+      "tag": "Brand Identity",
+      "thumb": "assets/images/Sun_Books.png?v=20260227",
+      "alt": "Sun Books brand identity",
+      "images": [
+        "assets/images/Sun_Books_1.png",
+        "assets/images/Sun_Books_2.png",
+        "assets/images/Sun_Books_3.png",
+        "assets/images/Sun_Books_4.png"
+      ]
+    },
+    {
+      "id": "moon-coffee",
+      "title": "Moon Coffee",
+      "tag": "Brand Identity",
+      "thumb": "assets/images/MoonCard.png?v=20260227",
+      "alt": "Moon Coffee brand identity",
+      "images": [
+        "assets/images/moon_1.jpg",
+        "assets/images/moon_2.jpg",
+        "assets/images/moon_3.jpg",
+        "assets/images/moon_4.jpg"
+      ]
+    },
+    {
+      "id": "kof-orochi-saga",
+      "title": "The King of Fighters: Orochi Saga",
+      "tag": "Brand Identity",
+      "thumb": "assets/images/KoF_BI_1.png",
+      "alt": "The King of Fighters Orochi Saga brand identity",
+      "images": [
+        "assets/images/KOF_brand-01.png",
+        "assets/images/KOF_brand-02.png",
+        "assets/images/KOF_brand-03.png"
+      ]
+    },
+    {
+      "id": "brand-system",
+      "title": "Brand System",
+      "tag": "Lockups · components",
+      "thumb": "assets/images/comingsoon.jpg",
+      "alt": "Brand system exploration"
+    },
+    {
+      "id": "poster-series",
+      "title": "Poster Series",
+      "tag": "Print · composition",
+      "thumb": "assets/images/comingsoon.jpg",
+      "alt": "Poster design coming soon"
+    },
+    {
+      "id": "key-art",
+      "title": "Key Art",
+      "tag": "Hero visuals · campaigns",
+      "thumb": "assets/images/comingsoon.jpg",
+      "alt": "Key art coming soon"
+    },
+    {
+      "id": "social-templates",
+      "title": "Social Templates",
+      "tag": "Systems · reusable layouts",
+      "thumb": "assets/images/comingsoon.jpg",
+      "alt": "Social templates coming soon"
+    },
+    {
+      "id": "editorial",
+      "title": "Editorial",
+      "tag": "Typography · layout",
+      "thumb": "assets/images/comingsoon.jpg",
+      "alt": "Editorial layout coming soon"
+    }
+  ]
+}
