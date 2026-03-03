@@ -218,6 +218,29 @@
 
     /* Work scroller (inspired by willpaterson.design) */
     .gd-work{padding:72px 0;min-height:82vh}
+    .gd-pick-hint{
+      margin:0 0 14px;
+      text-align:center;
+      font-size:clamp(13px, 1.5vw, 16px);
+      letter-spacing:.08em;
+      color:var(--muted);
+      opacity:.72;
+      animation:gdHintPulse 2.2s ease-in-out infinite;
+      user-select:none;
+      pointer-events:none;
+      text-transform:uppercase;
+      font-weight:700;
+    }
+
+    @keyframes gdHintPulse{
+      0%,100%{opacity:.35}
+      50%{opacity:.95}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .gd-pick-hint{animation:none;opacity:.8}
+    }
+
     .gd-work-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:12px}
     .gd-work-head h2{margin:0;font-size:22px}
     .gd-work-head .hint{margin:0;color:var(--muted);font-size:13px;white-space:nowrap}
@@ -225,7 +248,7 @@
     html.dark-mode .gd-work-head .hint kbd{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
 
     .gd-rail{
-      /* Default: no manual left/right scrolling; marquee runs on its own */
+      /* Keep native horizontal scrolling hidden; manual side control is handled via JS offset + drag. */
       overflow-x:hidden;
       /* NOTE: In Firefox/Safari, overflow-x:hidden can effectively clip overflow-y.
          So we give the 3D plane extra vertical room inside the rail. */
@@ -242,6 +265,10 @@
       perspective: 1600px;
       perspective-origin: right center;
       transform-style: preserve-3d;
+    }
+    @media (hover:hover) and (pointer:fine){
+      .gd-rail{cursor:grab}
+      .gd-rail.is-dragging{cursor:grabbing}
     }
     .gd-rail::-webkit-scrollbar{display:none}
     .gd-rail:focus{outline:none}
@@ -266,6 +293,7 @@
       display:flex;
       gap:6px;
       will-change: transform;
+      --gd-marquee-offset: 0px;
       animation: gdMarquee var(--gd-marquee-duration, 40s) linear infinite;
       animation-play-state: running;
     }
@@ -276,8 +304,8 @@
     }
 
     @keyframes gdMarquee{
-      from{transform:translateX(0)}
-      to{transform:translateX(calc(-1 * var(--gd-marquee-distance, 0px)))}
+      from{transform:translateX(var(--gd-marquee-offset, 0px))}
+      to{transform:translateX(calc((-1 * var(--gd-marquee-distance, 0px)) + var(--gd-marquee-offset, 0px)))}
     }
 
     .gd-project{
@@ -624,6 +652,7 @@
       </section>
 
       <section class="gd-work" id="work" aria-label="Featured work">
+        <p class="gd-pick-hint" aria-live="polite">↓ PICK ANY CARD BELOW ↓</p>
         <div class="gd-rail" id="gdRail" tabindex="0" aria-label="Graphic design projects">
           <div class="gd-rail-plane">
             <div class="gd-rail-track" id="gdRailTrack" role="list"></div>
@@ -731,24 +760,8 @@
   </div>
 
   <script>
-    // Gate access: require existing session authorization unless ?skip=1 is present.
+    // Graphic Design page is public (no password/session gate).
     (function(){
-      const params = new URLSearchParams(window.location.search);
-      const skip = params.get('skip') === '1';
-
-      const AUTH_PACKAGING_KEY = 'eacAuthorizedPackaging';
-      const AUTH_GRAPHIC_KEY = 'eacAuthorizedGraphic';
-
-      const authorized = sessionStorage.getItem(AUTH_GRAPHIC_KEY) === '1';
-      // If skip flag present, also set session flags so other pages don't bounce back.
-      if (skip) {
-        try { sessionStorage.setItem(AUTH_PACKAGING_KEY,'1'); } catch (e) {}
-        try { sessionStorage.setItem(AUTH_GRAPHIC_KEY,'1'); } catch (e) {}
-      }
-      if(!skip && !authorized){
-        window.location.replace('index.html');
-        return;
-      }
 
       // Dark mode toggle (standalone, avoids loading full script.js)
       const darkModeToggle = document.getElementById('darkModeToggle');
@@ -1551,7 +1564,7 @@
         });
       })();
 
-      // Horizontal rail: always-on marquee (no manual left/right scrolling)
+      // Horizontal rail: always-on marquee + manual side-to-side drag/wheel control.
       (() => {
         const rail = document.getElementById('gdRail');
         if (!rail) return;
@@ -1563,6 +1576,38 @@
         const SPEED_PX_PER_SEC = prefersReducedMotion ? 14 : 26;
 
         let resumeTimer = 0;
+        let manualOffsetPx = 0;
+        let dragState = null;
+
+        const getMarqueeDistance = () => {
+          const raw = getComputedStyle(track).getPropertyValue('--gd-marquee-distance');
+          const n = Number.parseFloat(raw || '0');
+          return Number.isFinite(n) ? Math.max(0, n) : 0;
+        };
+
+        const normalizeManualOffset = () => {
+          const dist = getMarqueeDistance();
+          if (!dist) {
+            manualOffsetPx = 0;
+            return;
+          }
+
+          // Keep manual scrubbing inside one loop window so no empty gutter appears.
+          // 0 = furthest right we can safely show, -dist = one full set to the left.
+          if (manualOffsetPx > 0) manualOffsetPx = 0;
+          if (manualOffsetPx < -dist) manualOffsetPx = -dist;
+        };
+
+        const applyManualOffset = () => {
+          normalizeManualOffset();
+          track.style.setProperty('--gd-marquee-offset', manualOffsetPx.toFixed(2) + 'px');
+        };
+
+        const nudgeManualOffset = (deltaPx) => {
+          if (!Number.isFinite(deltaPx) || deltaPx === 0) return;
+          manualOffsetPx += deltaPx;
+          applyManualOffset();
+        };
 
         const setPlayState = (state) => {
           track.style.animationPlayState = state;
@@ -1623,17 +1668,79 @@
           track.style.setProperty('--gd-marquee-distance', originalWidth + 'px');
           const seconds = Math.max(8, originalWidth / Math.max(8, SPEED_PX_PER_SEC));
           track.style.setProperty('--gd-marquee-duration', seconds.toFixed(2) + 's');
+          applyManualOffset();
 
           // Ensure running
           setPlayState('running');
         };
 
-        // Prevent horizontal wheel/trackpad scrolling while allowing vertical page scroll.
+        // Horizontal wheel/trackpad = manual side control without changing layout.
         rail.addEventListener('wheel', (e) => {
           const absX = Math.abs(e.deltaX || 0);
           const absY = Math.abs(e.deltaY || 0);
-          if (e.shiftKey || absX > absY) e.preventDefault();
+          const horizontalIntent = e.shiftKey || absX > absY;
+          if (!horizontalIntent) return;
+
+          e.preventDefault();
+          pauseAuto();
+
+          // Shift+wheel often reports vertical delta for horizontal intent.
+          const wheelDelta = e.shiftKey && absX === 0 ? (e.deltaY || 0) : ((e.deltaX || 0) || (e.deltaY || 0));
+          // Mirror native horizontal-scroll feel (positive wheel moves content left).
+          nudgeManualOffset(-wheelDelta);
+
+          resumeAutoSoon(850);
         }, { passive: false });
+
+        // Drag-to-scrub side-to-side while preserving autoplay after release.
+        rail.addEventListener('pointerdown', (e) => {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+          dragState = {
+            id: e.pointerId,
+            startX: e.clientX,
+            startY: e.clientY,
+            lastX: e.clientX,
+            horizontal: false
+          };
+        }, { passive: true });
+
+        rail.addEventListener('pointermove', (e) => {
+          if (!dragState || e.pointerId !== dragState.id) return;
+
+          const totalDx = e.clientX - dragState.startX;
+          const totalDy = e.clientY - dragState.startY;
+
+          if (!dragState.horizontal) {
+            const x = Math.abs(totalDx);
+            const y = Math.abs(totalDy);
+            if (x > 8 && x > y) {
+              dragState.horizontal = true;
+              rail.classList.add('is-dragging');
+              pauseAuto();
+            }
+          }
+
+          if (!dragState.horizontal) return;
+
+          const dx = e.clientX - dragState.lastX;
+          dragState.lastX = e.clientX;
+          nudgeManualOffset(dx);
+
+          // Stop vertical page scroll once user is intentionally dragging horizontally.
+          e.preventDefault();
+        }, { passive: false });
+
+        const endDrag = (e) => {
+          if (!dragState || (e && e.pointerId != null && e.pointerId !== dragState.id)) return;
+          const wasHorizontal = !!dragState.horizontal;
+          dragState = null;
+          rail.classList.remove('is-dragging');
+          if (wasHorizontal) resumeAutoSoon(1000);
+        };
+
+        rail.addEventListener('pointerup', endDrag, { passive: true });
+        rail.addEventListener('pointercancel', endDrag, { passive: true });
+        rail.addEventListener('lostpointercapture', endDrag, { passive: true });
 
         // Build after layout settles.
         const init = () => {

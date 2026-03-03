@@ -2,13 +2,10 @@
 const darkModeToggle = document.getElementById('darkModeToggle');
 const htmlElement = document.documentElement;
 
-// Check for saved dark mode preference or default to system preference
+// Check for saved dark mode preference (default to light mode)
 const savedDarkMode = localStorage.getItem('darkMode');
-const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-if (savedDarkMode === 'true' || (!savedDarkMode && prefersDarkMode)) {
-  htmlElement.classList.add('dark-mode');
-}
+if (savedDarkMode === 'true') htmlElement.classList.add('dark-mode');
+else htmlElement.classList.remove('dark-mode');
 
 // Footer text fallback (handles any cached/old markup)
 (() => {
