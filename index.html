@@ -275,17 +275,15 @@
 <script>
   (function(){
     const PASSWORD_PACKAGING = 'EACPortfolio25';
-    const PASSWORD_GRAPHIC = 'EACPortfolio26G';
 
     const AUTH_PACKAGING_KEY = 'eacAuthorizedPackaging';
-    const AUTH_GRAPHIC_KEY = 'eacAuthorizedGraphic';
     const overlay = document.getElementById('landingOverlay');
     const enterBtn = document.getElementById('enterBtnIndex');
     const enterBtnGraphic = document.getElementById('enterBtnGraphic');
     const navGraphicLink = document.getElementById('navGraphicLink');
     const params = new URLSearchParams(window.location.search);
     const skip = params.get('skip') === '1';
-    // If skip flag present, bypass the packaging overlay (but still keep Graphic Design password-protected).
+    // If skip flag present, bypass the packaging overlay.
     if (skip) {
       // Mark packaging as authorized for this session so the overlay doesn't appear.
       try { sessionStorage.setItem(AUTH_PACKAGING_KEY,'1'); } catch (e) {}
@@ -294,8 +292,7 @@
         overlay.setAttribute('aria-hidden','true');
       }
     }
-
-    let requestedRoute = 'packaging'; // 'packaging' | 'graphic'
+  let requestedRoute = 'packaging';
 
     // Create modal elements if not bypassing
     const modal = document.createElement('div');
@@ -353,21 +350,12 @@
     }
     function submitPwd(){
       const val = (input && input.value || '').trim();
-      const expected = requestedRoute === 'graphic' ? PASSWORD_GRAPHIC : PASSWORD_PACKAGING;
+      const expected = PASSWORD_PACKAGING;
       if(val === expected){
-        if (requestedRoute === 'graphic') {
-          sessionStorage.setItem(AUTH_GRAPHIC_KEY,'1');
-        } else {
-          sessionStorage.setItem(AUTH_PACKAGING_KEY,'1');
-        }
+        sessionStorage.setItem(AUTH_PACKAGING_KEY,'1');
         overlay.classList.add('hidden');
         overlay.setAttribute('aria-hidden','true');
         closeModal();
-
-         // If user chose Graphic Design, route there after auth
-         if (requestedRoute === 'graphic') {
-           window.location.href = 'graphic.html';
-         }
       } else {
         if(error) error.style.display = 'block';
       }
@@ -375,30 +363,19 @@
 
     function handleEnter(route){
       requestedRoute = route;
-      const isAuthorized = route === 'graphic'
-        ? (sessionStorage.getItem(AUTH_GRAPHIC_KEY) === '1')
-        : (sessionStorage.getItem(AUTH_PACKAGING_KEY) === '1');
+      const isAuthorized = sessionStorage.getItem(AUTH_PACKAGING_KEY) === '1';
       if (isAuthorized) {
-        if (route === 'graphic') {
-          window.location.href = 'graphic.html';
-        } else {
-          overlay.classList.add('hidden');
-          overlay.setAttribute('aria-hidden','true');
-        }
+        overlay.classList.add('hidden');
+        overlay.setAttribute('aria-hidden','true');
         return;
       }
       openModal();
     }
 
     if(enterBtn){ enterBtn.addEventListener('click', ()=>handleEnter('packaging')); }
-    if(enterBtnGraphic){ enterBtnGraphic.addEventListener('click', ()=>handleEnter('graphic')); }
-    // Gate the header "Graphic Design" tab behind the same password flow.
-    if(navGraphicLink){
-      navGraphicLink.addEventListener('click', (e)=>{
-        e.preventDefault();
-        handleEnter('graphic');
-      });
-    }
+    // Graphic Design is public from packaging page links.
+    if(enterBtnGraphic){ enterBtnGraphic.addEventListener('click', ()=>{ window.location.href = 'graphic.html'; }); }
+    if(navGraphicLink){ navGraphicLink.setAttribute('href', 'graphic.html'); }
     if(submit){ submit.addEventListener('click', submitPwd); }
     if(cancel){ cancel.addEventListener('click', closeModal); }
     if(toggle){ toggle.addEventListener('click', ()=>{
