@@ -13,37 +13,28 @@
   <link rel="apple-touch-icon" href="assets/images/whitelogo.png">
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
-  <link rel="stylesheet" href="styles.css?v=20260105_3" />
-  <style>
-    /* Basic Graphic Design page (intentionally simple; ready to expand) */
-    .gd-page{padding:42px 20px 64px}
-    .gd-inner{max-width:1200px;margin:0 auto}
 
-    /* Hero with parallax video background */
+  <link rel="stylesheet" href="styles.css?v=20260105" />
+
+  <style>
+    /* Hero layout: ensure consistent positioning across browsers (esp. Firefox) */
     .gd-hero{
       position:relative;
-      overflow:hidden;
-      /* Full-bleed (edge-to-edge) */
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-      margin-right: calc(50% - 50vw);
-      border-radius:0;
-      /* Taller hero to reveal more of the video */
       min-height: min(660px, 78vh);
+      overflow:hidden;
+      background:#000;
       display:flex;
       align-items:flex-end;
-      padding:0;
-      isolation:isolate;
     }
     .gd-hero-media{
       position:absolute;
-      /* Slightly less crop so more of the footage is visible */
       inset:-10% 0 -16% 0;
-      pointer-events:none;
-      z-index:0;
-      transform:translate3d(0, var(--gd-hero-parallax, 0px), 0);
+      /* Background fallback (poster) if the video can't play/load */
+      background:url('assets/images/blox_hero.jpg') center/cover no-repeat;
+      transform:translateY(var(--gd-hero-parallax, 0px));
       will-change:transform;
     }
+
     .gd-hero-video{
       width:100%;
       height:100%;
@@ -51,7 +42,11 @@
       display:block;
       transform:scale(1.04);
       filter:grayscale(1);
+      opacity:1;
+      transition:opacity .25s ease;
     }
+    /* If the video fails (common Firefox codec/auto-play edge cases), fall back to the poster BG */
+    .gd-hero.gd-hero--no-video .gd-hero-video{opacity:0}
     .gd-hero-scrim{
       position:absolute;
       inset:0;
@@ -582,8 +577,8 @@
       <section class="gd-hero" id="home" aria-label="Graphic Design">
         <div class="gd-hero-media" aria-hidden="true">
           <video class="gd-hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/blox_hero.jpg">
-            <source src="assets/images/graphicsvideo.mp4" type="video/mp4" />
-            <source src="assets/images/herovideo.mp4" type="video/mp4" />
+            <source src="assets/images/graphicsvideo.mp4?v=20260302-1724" type="video/mp4" />
+            <source src="assets/images/herovideo.mp4?v=20260302-1724" type="video/mp4" />
           </video>
           <div class="gd-hero-scrim"></div>
         </div>
@@ -759,10 +754,8 @@
       const darkModeToggle = document.getElementById('darkModeToggle');
       const htmlElement = document.documentElement;
       const savedDarkMode = localStorage.getItem('darkMode');
-      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (savedDarkMode === 'true' || (!savedDarkMode && prefersDarkMode)) {
-        htmlElement.classList.add('dark-mode');
-      }
+      if (savedDarkMode === 'true') htmlElement.classList.add('dark-mode');
+      else htmlElement.classList.remove('dark-mode');
       if (darkModeToggle) {
         darkModeToggle.addEventListener('click', () => {
           htmlElement.classList.toggle('dark-mode');
@@ -798,6 +791,53 @@
         if (!hero) return;
         // Wait one frame so layout is stable before animating.
         window.requestAnimationFrame(() => hero.classList.add('loaded'));
+      })();
+
+      // Hero video: Firefox-safe fallback (hide video if it can't load/play)
+      (() => {
+        const hero = document.querySelector('.gd-hero');
+        const video = hero?.querySelector?.('.gd-hero-video');
+        if (!hero || !video) return;
+
+        const markNoVideo = () => {
+          if (hero.classList.contains('gd-hero--no-video')) return;
+          hero.classList.add('gd-hero--no-video');
+          try { video.pause?.(); } catch (e) {}
+        };
+
+        // Some browsers require these properties set before play() for muted autoplay.
+        try { video.muted = true; } catch (e) {}
+        try { video.defaultMuted = true; } catch (e) {}
+        try { video.playsInline = true; } catch (e) {}
+
+        video.addEventListener('error', markNoVideo);
+        video.addEventListener('stalled', () => {
+          try {
+            if (video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) markNoVideo();
+          } catch (e) {}
+        });
+
+        const tryPlay = () => {
+          let p;
+          try { p = video.play?.(); } catch (e) { markNoVideo(); return; }
+          if (p && typeof p.catch === 'function') {
+            p.catch(() => {
+              // If autoplay is blocked or playback fails, just show the poster background.
+              markNoVideo();
+            });
+          }
+        };
+
+        // Try to play once the page is ready.
+        window.addEventListener('load', tryPlay, { once: true, passive: true });
+
+        // Quick watchdog: if the browser reports no usable source, fall back.
+        window.setTimeout(() => {
+          if (hero.classList.contains('gd-hero--no-video')) return;
+          try {
+            if (video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) markNoVideo();
+          } catch (e) {}
+        }, 2500);
       })();
 
       // Shared helpers/state for Featured Work (rail + modal)
@@ -1123,7 +1163,12 @@
             title: 'Clean by Pallet',
             tag: 'Brand Identity',
             thumb: 'assets/images/Cleanbypallet.png?v=20260301',
-            alt: 'Clean by Pallet brand identity'
+            alt: 'Clean by Pallet brand identity',
+            images: [
+              'assets/images/CBP-12.png',
+              'assets/images/CBP-13.png',
+              'assets/images/CBP-14.png'
+            ]
           },
           {
             id: 'sun-books',
@@ -1164,39 +1209,26 @@
             ]
           },
           {
-            id: 'brand-system',
-            title: 'Brand System',
-            tag: 'Lockups · components',
-            thumb: 'assets/images/comingsoon.jpg',
-            alt: 'Brand system exploration'
+            id: 'complexity',
+            title: 'Complexity Surveillance',
+            tag: 'Brand Identity',
+            thumb: 'assets/images/Complexity.png?v=20260302',
+            alt: 'Complexity Surveillance brand identity',
+            images: [
+              'assets/images/Complexity-15.png',
+              'assets/images/Complexity-16.png',
+              'assets/images/Complexity-17.png'
+            ]
           },
           {
-            id: 'poster-series',
-            title: 'Poster Series',
-            tag: 'Print · composition',
-            thumb: 'assets/images/comingsoon.jpg',
-            alt: 'Poster design coming soon'
-          },
-          {
-            id: 'key-art',
-            title: 'Key Art',
-            tag: 'Hero visuals · campaigns',
-            thumb: 'assets/images/comingsoon.jpg',
-            alt: 'Key art coming soon'
-          },
-          {
-            id: 'social-templates',
-            title: 'Social Templates',
-            tag: 'Systems · reusable layouts',
-            thumb: 'assets/images/comingsoon.jpg',
-            alt: 'Social templates coming soon'
-          },
-          {
-            id: 'editorial',
-            title: 'Editorial',
-            tag: 'Typography · layout',
-            thumb: 'assets/images/comingsoon.jpg',
-            alt: 'Editorial layout coming soon'
+            id: 'aadan',
+            title: 'EC Working hard to upload',
+            tag: '',
+            thumb: 'assets/images/aadan.png?v=20260302',
+            alt: 'EC Working hard to upload',
+            images: [
+              'assets/images/comingsoon.jpg'
+            ]
           }
         ];
 
@@ -1251,6 +1283,14 @@
                 <p class="tag">${p.tag || ''}</p>
               </div>
             `;
+            const img = article.querySelector('img');
+            if (img) {
+              img.addEventListener('error', () => {
+                const fallback = toAbs('assets/images/comingsoon.jpg');
+                if (img.src === fallback) return;
+                img.src = fallback;
+              }, { once: true });
+            }
             track.appendChild(article);
           });
         };
