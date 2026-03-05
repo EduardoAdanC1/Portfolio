@@ -34,7 +34,11 @@ Paths are relative to the site root (same level as `graphic.html`), e.g. `assets
 
 ## Preview locally
 
-Run a local static server and open `http://localhost:8000/graphic.html`.
+Run a local static server and open `http://localhost:8000/index.html`.
+
+- `index.html` = portfolio selector landing page
+- `packaging.html` = Packaging portfolio
+- `graphic.html` = Graphic portfolio
 
 ```sh
 python3 -m http.server 8000
