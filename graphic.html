@@ -1782,26 +1782,20 @@
         rail.addEventListener('pointercancel', endDrag, { passive: true });
         rail.addEventListener('lostpointercapture', endDrag, { passive: true });
 
-        // Build after layout settles.
-        const init = () => {
-          buildMarquee();
-        };
-
-        // Retry for a moment (images/fonts can affect widths)
-        let attempts = 0;
-        const tickInit = () => {
-          attempts += 1;
-          init();
-          // Keep trying longer on slow networks; stop after ~10s.
-          if (attempts < 600) {
-            window.requestAnimationFrame(tickInit);
-          }
+        // Build after layout settles (single debounced frame).
+        let buildRaf = 0;
+        const scheduleBuild = () => {
+          if (buildRaf) window.cancelAnimationFrame(buildRaf);
+          buildRaf = window.requestAnimationFrame(() => {
+            buildRaf = 0;
+            buildMarquee();
+          });
         };
 
         // Expose a safe kick function so async project rendering can restart the build.
         window.__gdRailKickInit = () => {
-          attempts = 0;
-          window.requestAnimationFrame(tickInit);
+          hookImageLoads();
+          scheduleBuild();
         };
 
         // Re-init when images finish loading/decoding (common reason it "starts" only after resize).
@@ -1810,12 +1804,10 @@
           imgs.forEach((img) => {
             if (img.complete) return;
             img.addEventListener('load', () => {
-              attempts = 0;
-              tickInit();
+              scheduleBuild();
             }, { once: true, passive: true });
             img.addEventListener('error', () => {
-              attempts = 0;
-              tickInit();
+              scheduleBuild();
             }, { once: true, passive: true });
           });
 
@@ -1823,8 +1815,7 @@
           imgs.forEach((img) => {
             if (typeof img.decode !== 'function') return;
             img.decode().then(() => {
-              attempts = 0;
-              tickInit();
+              scheduleBuild();
             }).catch(() => {});
           });
         };
@@ -1834,30 +1825,31 @@
           const fonts = document.fonts;
           if (!fonts || !fonts.ready) return;
           fonts.ready.then(() => {
-            attempts = 0;
-            tickInit();
+            scheduleBuild();
           }).catch(() => {});
         };
 
         // Build now, and re-check on common lifecycle events.
-        window.requestAnimationFrame(tickInit);
+        scheduleBuild();
         window.addEventListener('load', () => {
           hookImageLoads();
           hookFonts();
-          attempts = 0;
-          tickInit();
+          scheduleBuild();
         }, { once: true });
 
         // If the tab was backgrounded during load, kick it once visible again.
         document.addEventListener('visibilitychange', () => {
           if (document.hidden) return;
-          attempts = 0;
-          tickInit();
+          scheduleBuild();
         });
 
+        let resizeTimer = 0;
         window.addEventListener('resize', () => {
-          attempts = 0;
-          tickInit();
+          if (resizeTimer) window.clearTimeout(resizeTimer);
+          resizeTimer = window.setTimeout(() => {
+            resizeTimer = 0;
+            scheduleBuild();
+          }, 90);
         }, { passive: true });
       })();
     })();
