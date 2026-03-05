@@ -79,7 +79,7 @@
           images: [
             'assets/images/CleanHero1.png',
             'assets/images/CleanLipstick.jpg',
-            'assets/images/liquid.jpg'
+            'assets/images/Liquid.jpg'
           ]
         }
       ]
