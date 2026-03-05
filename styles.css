@@ -308,7 +308,7 @@ html.dark-mode .menu-btn{border-color:rgba(255,255,255,.18)}
 }
 
 /* hero */
-.hero{position:relative;padding:56px 20px;min-height:90vh;display:block;background-image:url('assets/images/blox_hero.jpg');background-size:cover;background-position:center;background-attachment:fixed}
+.hero{position:relative;padding:56px 20px;min-height:90vh;display:block;background:#000;background-size:cover;background-position:center;background-attachment:fixed}
 .hero .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%);z-index:0}
 /* Overlay above video to ensure text legibility */
 .hero .hero-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -841,7 +841,7 @@ html.dark-mode .site-footer .footer-logo--dark{display:block}
 }
 
 /* dark mode hero section */
-.dark-mode .hero{background-image:url('assets/images/blox_hero.jpg')}
+.dark-mode .hero{background-image:none;background-color:#000}
 
 .dark-mode .hero h1, .dark-mode .hero p {
   color: #fff; /* Ensure all text is readable */

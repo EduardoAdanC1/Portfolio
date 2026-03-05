@@ -29,8 +29,8 @@
     .gd-hero-media{
       position:absolute;
       inset:-10% 0 -16% 0;
-      /* Background fallback (poster) if the video can't play/load */
-      background:url('assets/images/blox_hero.jpg') center/cover no-repeat;
+      /* Neutral fallback if the video can't play/load */
+      background:#000;
       transform:translateY(var(--gd-hero-parallax, 0px));
       will-change:transform;
     }
@@ -326,10 +326,22 @@
       transition:transform .22s ease, box-shadow .22s ease;
       cursor:pointer;
     }
+    .gd-project.gd-project--disabled{
+      cursor:not-allowed;
+      opacity:.76;
+      filter:grayscale(.1);
+    }
     html.dark-mode .gd-project{border-color:rgba(255,255,255,.12);box-shadow:0 16px 50px rgba(0,0,0,.45)}
     @media (hover:hover) and (pointer:fine){
       .gd-project:hover{transform:translateY(-6px) translateZ(18px);box-shadow:0 24px 70px rgba(0,0,0,.20)}
       html.dark-mode .gd-project:hover{box-shadow:0 20px 70px rgba(0,0,0,.55)}
+      .gd-project.gd-project--disabled:hover{
+        transform:translateZ(0);
+        box-shadow:0 12px 34px rgba(0,0,0,.10);
+      }
+      html.dark-mode .gd-project.gd-project--disabled:hover{
+        box-shadow:0 16px 50px rgba(0,0,0,.45);
+      }
     }
 
     /* Reduce tilt on smaller screens so it doesn't feel cramped */
@@ -604,7 +616,7 @@
     <div class="gd-inner">
       <section class="gd-hero" id="home" aria-label="Graphic Design">
         <div class="gd-hero-media" aria-hidden="true">
-          <video class="gd-hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/blox_hero.jpg">
+          <video class="gd-hero-video" autoplay muted loop playsinline preload="metadata">
             <source src="assets/images/graphicsvideo.mp4?v=20260302-1724" type="video/mp4" />
             <source src="assets/images/herovideo.mp4?v=20260302-1724" type="video/mp4" />
           </video>
@@ -1198,10 +1210,10 @@
           },
           {
             id: 'moon-coffee',
-            title: 'Moon Coffee',
+            title: 'Moon Coffee Co.',
             tag: 'Brand Identity',
             thumb: 'assets/images/MoonCard.png?v=20260227',
-            alt: 'Moon Coffee brand identity',
+            alt: 'Moon Coffee Co. brand identity',
             images: [
               'assets/images/moon_1.jpg',
               'assets/images/moon_2.jpg',
@@ -1287,8 +1299,12 @@
           list.forEach((p, i) => {
             const article = document.createElement('article');
             article.className = 'gd-project';
+            const isDisabled = p.id === 'aadan';
+            if (isDisabled) article.classList.add('gd-project--disabled');
             article.setAttribute('role', 'listitem');
             article.setAttribute('data-gd-index', String(i));
+            article.setAttribute('data-gd-id', p.id || ('project-' + String(i + 1)));
+            article.setAttribute('data-gd-disabled', isDisabled ? '1' : '0');
             article.innerHTML = `
               <div class="gd-thumb"><img src="${p.thumb}" alt="${p.alt}" /></div>
               <div class="gd-meta">
@@ -1508,6 +1524,11 @@
           const card = e.target.closest('.gd-project');
           if (!card) return;
 
+          if (card.getAttribute('data-gd-disabled') === '1') {
+            if (window.gdRailAutoScrollResume) window.gdRailAutoScrollResume(650);
+            return;
+          }
+
           if (projects.length === 0) initProjects();
 
           const originalCards = getOriginalCards();
@@ -1537,7 +1558,11 @@
 
           // Prevent the synthesized click that may follow on some browsers.
           e.preventDefault();
-          openModal(index);
+          const projectId =
+            card.getAttribute('data-gd-id') ||
+            (Array.isArray(gdFeaturedProjects) && gdFeaturedProjects[index] && gdFeaturedProjects[index].id) ||
+            ('project-' + String(index + 1));
+          window.location.href = `project.html?key=${encodeURIComponent(projectId)}&v=${Date.now()}`;
         }, { passive: false });
 
         // Navigation button handlers
