@@ -283,9 +283,21 @@
       transform: translateY(78px) rotateX(4deg) rotateY(12deg) rotateZ(1deg);
     }
 
+    html.platform-windows .gd-rail{
+      perspective:none;
+      perspective-origin:center center;
+      transform-style:flat;
+      padding:112px 0 140px;
+    }
+    html.platform-windows .gd-rail-plane{
+      transform:translateY(44px);
+      transform-style:flat;
+    }
+
     /* Fullscreen/desktop: drop the plane a bit more */
     @media (min-width: 1024px){
       .gd-rail-plane{transform: translateY(102px) rotateX(4deg) rotateY(12deg) rotateZ(1deg)}
+      html.platform-windows .gd-rail-plane{transform:translateY(58px)}
     }
 
     /* Marquee track (moves continuously) */
@@ -301,6 +313,22 @@
     :root{
       /* Keep featured cards a consistent scale across desktop window sizes */
       --gd-card-width: 208px;
+    }
+    html.platform-windows{
+      --gd-card-width: clamp(236px, 14.5vw, 312px);
+    }
+
+    @media (min-width: 1440px){
+      html.platform-windows{
+        --gd-card-width: clamp(264px, 15.2vw, 340px);
+      }
+    }
+    @media (min-width: 1920px){
+      html.platform-windows{
+        --gd-card-width: clamp(288px, 15vw, 376px);
+      }
+      html.platform-windows .gd-rail{padding:100px 0 136px}
+      html.platform-windows .gd-rail-plane{transform:translateY(42px)}
     }
 
     @keyframes gdMarquee{
@@ -326,6 +354,12 @@
       transition:transform .22s ease, box-shadow .22s ease;
       cursor:pointer;
     }
+    html.platform-windows .gd-project{
+      transform:none;
+      backface-visibility:visible;
+      will-change:auto;
+      box-shadow:0 18px 46px rgba(0,0,0,.14);
+    }
     .gd-project.gd-project--disabled{
       cursor:not-allowed;
       opacity:.76;
@@ -334,9 +368,14 @@
     html.dark-mode .gd-project{border-color:rgba(255,255,255,.12);box-shadow:0 16px 50px rgba(0,0,0,.45)}
     @media (hover:hover) and (pointer:fine){
       .gd-project:hover{transform:translateY(-6px) translateZ(18px);box-shadow:0 24px 70px rgba(0,0,0,.20)}
+      html.platform-windows .gd-project:hover{transform:translateY(-4px);box-shadow:0 20px 56px rgba(0,0,0,.18)}
       html.dark-mode .gd-project:hover{box-shadow:0 20px 70px rgba(0,0,0,.55)}
       .gd-project.gd-project--disabled:hover{
         transform:translateZ(0);
+        box-shadow:0 12px 34px rgba(0,0,0,.10);
+      }
+      html.platform-windows .gd-project.gd-project--disabled:hover{
+        transform:none;
         box-shadow:0 12px 34px rgba(0,0,0,.10);
       }
       html.dark-mode .gd-project.gd-project--disabled:hover{
@@ -349,12 +388,22 @@
       .gd-rail{perspective: 1100px}
       .gd-rail{padding:120px 0 140px}
       .gd-rail-plane{transform: translateY(62px) rotateX(3deg) rotateY(9deg) rotateZ(0.75deg)}
+      html.platform-windows{
+        --gd-card-width: clamp(196px, 42vw, 228px);
+      }
+      html.platform-windows .gd-rail{padding:104px 0 132px}
+      html.platform-windows .gd-rail-plane{transform:translateY(38px)}
       .gd-project{width: var(--gd-card-width)}
     }
     @media (max-width: 420px){
       .gd-rail{perspective: 980px}
       .gd-rail{padding:110px 0 132px}
       .gd-rail-plane{transform: translateY(56px) rotateX(2.5deg) rotateY(7deg) rotateZ(0.5deg)}
+      html.platform-windows{
+        --gd-card-width: clamp(172px, 46vw, 198px);
+      }
+      html.platform-windows .gd-rail{padding:98px 0 126px}
+      html.platform-windows .gd-rail-plane{transform:translateY(34px)}
     }
 
     @media (max-width: 720px){
@@ -362,8 +411,9 @@
     }
     /* Match modal ratio: 720x1080 (2:3) */
     .gd-thumb{aspect-ratio: 2 / 3;background:#e9eef6;display:block}
-    .gd-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .gd-thumb img{width:100%;height:100%;object-fit:cover;display:block;image-rendering:auto}
     .gd-thumb img{backface-visibility:hidden}
+    html.platform-windows .gd-thumb img{backface-visibility:visible}
     /* Image-only cards (keep meta in DOM for modal data, but hide visually) */
     .gd-meta{display:none}
 
@@ -793,6 +843,8 @@
       // Dark mode toggle (standalone, avoids loading full script.js)
       const darkModeToggle = document.getElementById('darkModeToggle');
       const htmlElement = document.documentElement;
+      const platform = navigator.userAgentData?.platform || navigator.platform || navigator.userAgent || '';
+      if (/win/i.test(platform)) htmlElement.classList.add('platform-windows');
       const savedDarkMode = localStorage.getItem('darkMode');
       if (savedDarkMode === 'true') htmlElement.classList.add('dark-mode');
       else htmlElement.classList.remove('dark-mode');
