@@ -24,13 +24,24 @@
       background:linear-gradient(180deg,#161a1f,#0f1114 45%, #1e232a 100%);
       display:block;
       overflow:hidden;
+      min-height:100vh;
+      min-height:100dvh;
+      position:relative;
+      isolation:isolate;
     }
     .center-wrap{
       position:fixed;
       inset:0;
-      display:grid;
-      place-items:center;
-      padding:24px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      padding:
+        max(24px, env(safe-area-inset-top))
+        max(24px, env(safe-area-inset-right))
+        max(24px, env(safe-area-inset-bottom))
+        max(24px, env(safe-area-inset-left));
+      z-index:3;
     }
     .bg-video{
       position:fixed;
@@ -41,13 +52,14 @@
       object-position:right center;
       filter:grayscale(1) brightness(.42);
       transform:scale(1.04);
-      z-index:-3;
+      z-index:0;
       background:#0f1114;
+      pointer-events:none;
     }
     .video-mask{
       position:fixed;
       inset:0;
-      z-index:-2;
+      z-index:1;
       pointer-events:none;
       background:
         /* soften left edge where video crops */
@@ -63,7 +75,8 @@
       background:
         radial-gradient(1200px 600px at 50% 18%, rgba(0,0,0,.16), rgba(0,0,0,.78)),
         linear-gradient(180deg, rgba(0,0,0,.46), rgba(0,0,0,.72));
-      z-index:-1;
+      z-index:2;
+      pointer-events:none;
     }
     .overlay::after{
       content:"";
@@ -75,7 +88,8 @@
       pointer-events:none;
     }
     .card{
-      width:min(680px, 94vw);
+      width:min(680px, 100%);
+      max-width:680px;
       border:1px solid rgba(255,255,255,.14);
       background:rgba(10,12,16,.58);
       backdrop-filter:blur(8px) saturate(1.1);
@@ -162,12 +176,22 @@
       .custom-cursor{ transition:none; }
     }
     @media (max-width: 680px){
+      .center-wrap{
+        padding:
+          max(18px, env(safe-area-inset-top))
+          max(18px, env(safe-area-inset-right))
+          max(18px, env(safe-area-inset-bottom))
+          max(18px, env(safe-area-inset-left));
+      }
       .bg-video{
         object-position:center center;
         transform:scale(1.08);
       }
       .actions{ grid-template-columns:1fr; }
-      .card{ padding:26px 18px; }
+      .card{
+        padding:26px 18px;
+        width:min(680px, 100%);
+      }
     }
   </style>
 </head>
@@ -203,6 +227,15 @@
     (() => {
       const landingVideo = document.getElementById('landingVideo');
       if (landingVideo) {
+        let hasPlayed = false;
+        const showVideo = () => {
+          landingVideo.style.opacity = '1';
+        };
+
+        const hideVideo = () => {
+          landingVideo.style.opacity = '0';
+        };
+
         const enforceInlineAutoplay = () => {
           landingVideo.muted = true;
           landingVideo.defaultMuted = true;
@@ -213,9 +246,24 @@
 
           const playAttempt = landingVideo.play();
           if (playAttempt && typeof playAttempt.catch === 'function') {
-            playAttempt.catch(() => {});
+            playAttempt.catch(() => {
+              if (!hasPlayed) hideVideo();
+            });
           }
         };
+
+        landingVideo.addEventListener('playing', () => {
+          hasPlayed = true;
+          showVideo();
+        });
+
+        landingVideo.addEventListener('canplay', showVideo);
+        landingVideo.addEventListener('loadeddata', showVideo);
+        landingVideo.addEventListener('error', hideVideo);
+
+        window.setTimeout(() => {
+          if (!hasPlayed && landingVideo.readyState < 2) hideVideo();
+        }, 2200);
 
         if (landingVideo.readyState >= 2) enforceInlineAutoplay();
         else landingVideo.addEventListener('loadeddata', enforceInlineAutoplay, { once: true });
