@@ -122,6 +122,17 @@
     }
     .pp-stack{display:grid;gap:18px;margin-top:18px}
 
+    /* KoF hero asset includes a thin outer frame; crop it out for a clean full-bleed hero. */
+    body.pp-theme-kof-orochi-saga .pp-hero{
+      overflow:hidden;
+      background:#1a0827;
+    }
+    body.pp-theme-kof-orochi-saga .pp-hero .pp-img{
+      transform:scale(1.055);
+      transform-origin:center;
+      background:transparent;
+    }
+
     html:not(.dark-mode) body.pp-theme-sun-books .pp-page,
     html:not(.dark-mode) body.pp-theme-clean-by-pallet .pp-page,
     html:not(.dark-mode) body.pp-theme-complexity .pp-page,

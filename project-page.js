@@ -258,21 +258,21 @@
     }
   }
   if (key === 'kof-orochi-saga') {
-    pageData.hero = 'assets/images/KoFHero.jpg';
+    pageData.hero = 'assets/images/KoFHero.png?v=20260309';
     pageData.title = 'King of Fighters The Orichi Saga';
     pageData.subtitle = 'The King of Fighters: The Orochi Saga is a trading card game inspired by the iconic storyline from the King of Fighters series. The game brings together legendary fighters from the saga, allowing players to build decks, battle opponents, and relive the conflict between rival teams and the mysterious Orochi power. Through collectible cards featuring characters, abilities, and special moves, the game translates the energy and strategy of the classic fighting series into a competitive tabletop experience.';
     if (Array.isArray(pageData.sections) && pageData.sections[0]) {
       pageData.sections[0].title = 'Project Brief';
       pageData.sections[0].copy = 'The King of Fighters: The Orochi Saga expandable trading card game required a new logo and packaging system to launch the brand with a bold, collectible presence. The identity leans into KOF’s signature energy—pairing aggressive flame motion with darker, supernatural tones that reflect the Orochi storyline. Packaging was designed for strong hierarchy and instant shelf impact, ensuring clear readability across boxes, card backs, and future expansions. The system was built to feel premium and scalable, establishing a consistent visual foundation for upcoming releases and special edition packs.';
-      pageData.sections[0].images = ['assets/images/KoFHero2.png'];
+      pageData.sections[0].images = ['assets/images/KOF_brand-02.jpg'];
     }
     if (Array.isArray(pageData.sections) && pageData.sections[1]) {
       const kofNextSection = pageData.sections[1];
       kofNextSection.copy = 'The identity was applied across key touchpoints to create a cohesive, launch-ready system for The King of Fighters: The Orochi Saga trading card game. Packaging visuals were developed as premium hero mockups to highlight shelf impact, readability, and character-driven storytelling while keeping the logo as the central focal point. The trading card back direction extends the same energy into gameplay components, using a simplified frame and atmospheric texture to support the brand without overpowering it. Together, these applications demonstrate a scalable design language built to carry across future expansions, special packs, and additional marketing assets.';
       kofNextSection.sectionClass = 'pp-kof-next-hero';
       kofNextSection.images = [
-        'assets/images/KoFHero3.png',
-        'assets/images/KoFCard.jpg',
+        'assets/images/KoFHero3.jpg',
+        'assets/images/KoF Back of Card.jpg',
         'assets/images/KOF_brand-03.png'
       ];
     }

@@ -412,6 +412,7 @@
     /* Match modal ratio: 720x1080 (2:3) */
     .gd-thumb{aspect-ratio: 2 / 3;background:#e9eef6;display:block}
     .gd-thumb img{width:100%;height:100%;object-fit:cover;display:block;image-rendering:auto}
+    .gd-thumb.gd-thumb--contain img{object-fit:contain;background:#0d0d0d}
     .gd-thumb img{backface-visibility:hidden}
     html.platform-windows .gd-thumb img{backface-visibility:visible}
     /* Image-only cards (keep meta in DOM for modal data, but hide visually) */
@@ -1292,7 +1293,7 @@
             id: 'kof-orochi-saga',
             title: 'The King of Fighters: Orochi Saga',
             tag: 'Brand Identity',
-            thumb: 'assets/images/KoF_BI_1.png',
+            thumb: 'assets/images/KoF Hero Card.png?v=20260309',
             alt: 'The King of Fighters Orochi Saga brand identity',
             images: [
               'assets/images/KOF_brand-01.png',
@@ -1367,13 +1368,14 @@
             const article = document.createElement('article');
             article.className = 'gd-project';
             const isDisabled = p.id === 'aadan';
+            const useContainThumb = p.id === 'kof-orochi-saga';
             if (isDisabled) article.classList.add('gd-project--disabled');
             article.setAttribute('role', 'listitem');
             article.setAttribute('data-gd-index', String(i));
             article.setAttribute('data-gd-id', p.id || ('project-' + String(i + 1)));
             article.setAttribute('data-gd-disabled', isDisabled ? '1' : '0');
             article.innerHTML = `
-              <div class="gd-thumb"><img src="${p.thumb}" alt="${p.alt}" /></div>
+              <div class="gd-thumb${useContainThumb ? ' gd-thumb--contain' : ''}"><img src="${p.thumb}" alt="${p.alt}" /></div>
               <div class="gd-meta">
                 <p class="title">${p.title}</p>
                 <p class="tag">${p.tag || ''}</p>
