@@ -807,6 +807,51 @@ html.dark-mode .site-footer .footer-logo--dark{display:block}
     top: -2px;
   }
   .parallax-section .work-pointer{bottom:18px;gap:4px}
+
+  #graphic-process.parallax-section,
+  #concept-to-production.parallax-section{
+    padding-left:20px;
+    padding-right:20px;
+  }
+  #graphic-process.parallax-section .inner,
+  #concept-to-production.parallax-section .inner{
+    padding-left:0;
+    padding-right:0;
+    justify-items:center;
+  }
+  #graphic-process.parallax-section .step,
+  #concept-to-production.parallax-section .step{
+    width:min(100%, 320px);
+    margin:0 auto;
+    display:grid;
+    justify-items:center;
+    padding-top:48px;
+  }
+  #graphic-process.parallax-section .step h1,
+  #concept-to-production.parallax-section .step h1{
+    top:-16px;
+    font-size:clamp(96px, 28vw, 136px);
+  }
+  #graphic-process.parallax-section .step .step-icon,
+  #graphic-process.parallax-section .step h2,
+  #graphic-process.parallax-section .step p,
+  #concept-to-production.parallax-section .step .step-icon,
+  #concept-to-production.parallax-section .step h2,
+  #concept-to-production.parallax-section .step p{
+    margin-left:auto;
+    margin-right:auto;
+  }
+  #graphic-process.parallax-section .step h2,
+  #graphic-process.parallax-section .step p,
+  #concept-to-production.parallax-section .step h2,
+  #concept-to-production.parallax-section .step p{
+    text-align:center;
+    text-wrap:balance;
+  }
+  #graphic-process.parallax-section .step p,
+  #concept-to-production.parallax-section .step p{
+    max-width:18ch;
+  }
 }
 
 /* Parallax image section styling */
