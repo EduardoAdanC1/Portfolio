@@ -138,16 +138,9 @@ html.cursor-enabled .custom-cursor{display:block}
 html.cursor-enabled,
 html.cursor-enabled body,
 html.cursor-enabled *{cursor:none !important}
-/* Disable section snap scrolling site-wide */
-.snap-container{scroll-snap-type:none;overflow-y:auto;height:100vh}
+/* Disable section snap scrolling site-wide and keep content in normal document flow */
+.snap-container{scroll-snap-type:none;overflow:visible;height:auto;min-height:0}
 .snap-section{scroll-snap-align:none}
-/* Site-wide snap disabled; specific overrides no longer needed */
-
-/* Disable snap/nested scrolling on mobile for smoother natural flow */
-@media (max-width: 768px){
-  .snap-container{scroll-snap-type:none;overflow-y:visible;height:auto}
-  .snap-section{scroll-snap-align:none}
-}
 
 /* header */
 .header{position:sticky;top:0;z-index:50;background:#fff;backdrop-filter:saturate(1.2) blur(6px);border-bottom:1px solid rgba(0,0,0,.05)}
@@ -338,51 +331,97 @@ html.dark-mode .menu-btn{border-color:rgba(255,255,255,.18)}
 .hero h1{font-size:clamp(42px,6vw,72px);line-height:1.1;margin:auto 0 8px 0;position:relative;top:-15%;color:#fff}
 /* Multi-line underline that spans wrapped lines */
 .hero .underline{
+  position:relative;
+  display:inline;
+  isolation:isolate;
+  -webkit-box-decoration-break:clone;
+  box-decoration-break:clone;
   background-image: linear-gradient(0deg, rgba(255,228,77,1), rgba(255,228,77,1));
   background-position: 0 100%;
   background-repeat: no-repeat;
-  background-size: 0% .11em; /* start collapsed so both lines animate */
-  padding-bottom: .08em;
+  background-size: 0% .065em; /* start collapsed so both lines animate */
+  padding-bottom: .14em;
   box-shadow: none; /* override any previous underline box-shadow */
 }
 
-/* Lightning sweep accent overlay */
 .hero .underline::after{
   content:"";
   position:absolute;
   left:0;
-  bottom:0;
-  height:.12em; /* thin sweep */
+  bottom:.005em;
+  height:.08em;
   width:0;
-  background: radial-gradient(40% 100% at 10% 50%, rgba(255,228,77,1) 0%, rgba(255,228,77,.6) 35%, rgba(255,228,77,0) 70%) ,
-              linear-gradient(90deg, rgba(255,228,77,0) 0%, rgba(255,228,77,1) 50%, rgba(255,228,77,0) 100%);
-  mix-blend-mode: screen;
-  box-shadow: 0 0 12px rgba(255,228,77,.55), 0 0 24px rgba(255,228,77,.35);
-  transform-origin: left center;
+  border-radius:999px;
+  background:linear-gradient(90deg, rgba(255,244,163,.9), rgba(255,228,77,.92) 45%, rgba(255,228,77,.78));
+  opacity:.28;
+  box-shadow:0 .5px 0 rgba(255,248,196,.55), 0 0 8px rgba(255,228,77,.08);
+  transform-origin:left center;
 }
-.hero.loaded .underline{animation:underlineBG 540ms cubic-bezier(.18,.62,.22,1) forwards}
-.hero.loaded .underline::after{animation:underlineZap 540ms cubic-bezier(.18,.62,.22,1) forwards, zapJitter 420ms ease-out 0s 1}
 
-/* Electrified sweep */
-@keyframes underlineZap{
-  0%{width:0;opacity:.95;transform:skewX(-12deg)}
-  20%{width:32%;opacity:1;transform:skewX(-6deg)}
-  48%{width:66%;transform:skewX(-2deg)}
-  72%{width:86%;transform:skewX(0deg)}
-  100%{width:100%;opacity:1;transform:skewX(0deg)}
-}
+.hero.loaded .underline{animation:heroUnderlineBG 820ms cubic-bezier(.18,.7,.2,1) forwards}
+.hero.loaded .underline::after{animation:heroUnderlineReveal 820ms cubic-bezier(.18,.7,.2,1) forwards}
+
 /* Animate the base underline across both wrapped lines */
-@keyframes underlineBG{
-  0%{background-size:0% .11em}
-  100%{background-size:100% .11em}
+@keyframes heroUnderlineBG{
+  0%{background-size:0% .065em}
+  100%{background-size:100% .065em}
 }
-/* Micro jitter and flash for an electric feel */
-@keyframes zapJitter{
-  0%{filter:brightness(1) drop-shadow(0 0 10px rgba(255,228,77,.35))}
-  25%{filter:brightness(1.15) drop-shadow(0 0 14px rgba(255,228,77,.55))}
-  40%{filter:brightness(0.95) drop-shadow(0 0 9px rgba(255,228,77,.3))}
-  60%{filter:brightness(1.2) drop-shadow(0 0 16px rgba(255,228,77,.6))}
-  100%{filter:brightness(1) drop-shadow(0 0 12px rgba(255,228,77,.45))}
+@keyframes heroUnderlineReveal{
+  0%{width:0;opacity:0;transform:scaleX(.96) scaleY(.76)}
+  100%{width:100%;opacity:.28;transform:scaleX(1) scaleY(1)}
+}
+@media (prefers-reduced-motion: reduce){
+  .hero .underline,
+  .hero .underline::after{animation:none !important}
+  .hero .underline{background-size:100% .065em;filter:none}
+  .hero .underline::after{width:100%;opacity:.28;transform:none;filter:none}
+}
+
+.hero-specialties{
+  width:min(1120px,100%);
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:12px;
+  margin:22px 0 0;
+}
+
+.hero-specialty{
+  padding:14px 16px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;
+  background:linear-gradient(180deg, rgba(12,14,18,.44), rgba(12,14,18,.22));
+  backdrop-filter:blur(10px);
+  box-shadow:0 14px 30px rgba(0,0,0,.18);
+}
+
+.hero-specialty-label{
+  display:block;
+  margin:0 0 6px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:11px;
+  color:rgba(255,255,255,.62);
+}
+
+.hero-specialty-value{
+  display:block;
+  font-size:14px;
+  line-height:1.45;
+  color:#fff;
+  font-weight:600;
+}
+
+@media (max-width: 1080px){
+  .hero-specialties{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+@media (max-width: 768px){
+  .hero-specialties{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+  .hero-specialty{padding:13px 14px}
+}
+
+@media (max-width: 560px){
+  .hero-specialties{grid-template-columns:1fr}
 }
 
 /* grid */
@@ -559,7 +598,8 @@ html.dark-mode .menu-btn{border-color:rgba(255,255,255,.18)}
 .contact-section .inner{display:block;text-align:center}
 .contact-section h2{font-size:32px;margin:0 0 12px 0;color:var(--text)}
 .contact-subtitle{font-size:18px;color:var(--text);margin:0 0 28px 0;line-height:1.5}
-.contact-cta{display:flex;align-items:center;justify-content:center;gap:16px}
+.contact-note{max-width:760px;margin:0 auto 22px;color:var(--muted);font-size:14px;line-height:1.6}
+.contact-cta{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
 .email-link{background:var(--accent);color:#000;padding:10px 20px;border-radius:10px;font-weight:700;text-decoration:none;transition:transform .2s ease, box-shadow .2s ease}
 .email-link:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1)}
 .linkedin-link-contact{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;color:#000;transition:opacity .2s ease}
@@ -858,9 +898,9 @@ html.dark-mode .site-footer .footer-logo--dark{display:block}
 }
 
 /* Updated dark mode underline */
-/* Dark mode underline keeps same multi-line treatment */
+/* Dark mode underline keeps the same yellow electric treatment without flattening the layered effect */
 .dark-mode .underline{
-  background-image: linear-gradient(0deg, rgba(255,228,77,1), rgba(255,228,77,1));
+  color:inherit;
 }
 
 .dark-mode .card-header {

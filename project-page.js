@@ -70,12 +70,34 @@
           value: 'Beauty branding'
         },
         {
+          label: 'Role',
+          value: 'Identity, packaging + art direction'
+        },
+        {
           label: 'Focus',
           value: 'Luxury restraint + polish'
         },
         {
           label: 'Deliverables',
           value: 'Identity, packaging, campaign mockups'
+        }
+      ],
+      summary: [
+        {
+          label: 'Challenge',
+          value: 'Create a beauty identity that feels luxury-first and ultra-clean without slipping into something cold or generic.'
+        },
+        {
+          label: 'What I owned',
+          value: 'I developed the identity direction, packaging expressions, material language, and campaign-style applications.'
+        },
+        {
+          label: 'Key constraint',
+          value: 'The system had to stay minimal enough for premium positioning while still creating immediate visual distinction.'
+        },
+        {
+          label: 'Outcome',
+          value: 'The result is a tightly art-directed brand world that scales cleanly from product to packaging to launch imagery.'
         }
       ],
       sections: [
@@ -116,12 +138,34 @@
           value: 'Publishing identity'
         },
         {
+          label: 'Role',
+          value: 'Identity system + merch applications'
+        },
+        {
           label: 'Focus',
           value: 'Education + editorial warmth'
         },
         {
           label: 'Deliverables',
           value: 'Logo, stationery, merchandise'
+        }
+      ],
+      summary: [
+        {
+          label: 'Challenge',
+          value: 'Make a publishing identity feel trustworthy for educators and parents while still warm enough for young readers.'
+        },
+        {
+          label: 'What I owned',
+          value: 'I built the logo concept, typographic system, merchandise applications, and the broader editorial visual language.'
+        },
+        {
+          label: 'Key constraint',
+          value: 'The mark needed to stay legible across book spines, stationery, and school merchandise without losing personality.'
+        },
+        {
+          label: 'Outcome',
+          value: 'The system balances educational credibility with optimism, giving the brand a flexible identity for both retail and publishing use.'
         }
       ],
       sections: [
@@ -161,12 +205,34 @@
           value: 'Packaging concept'
         },
         {
+          label: 'Role',
+          value: 'Identity, can system + illustration'
+        },
+        {
           label: 'Focus',
           value: 'Shelf impact + readability'
         },
         {
           label: 'Deliverables',
           value: 'Can system, launch card'
+        }
+      ],
+      summary: [
+        {
+          label: 'Challenge',
+          value: 'Create a beer identity that feels coastal and energetic while still reading instantly at shelf distance.'
+        },
+        {
+          label: 'What I owned',
+          value: 'I built the identity, can graphics, launch card, and the custom underwater illustration system for the label.'
+        },
+        {
+          label: 'Key constraint',
+          value: 'The packaging had to stay bold and readable first, while using illustration to add character instead of visual clutter.'
+        },
+        {
+          label: 'Outcome',
+          value: 'The final concept feels retail-ready, distinctive, and flexible enough to expand into a larger flavor and campaign family.'
         }
       ],
       sections: [
@@ -213,6 +279,10 @@
           value: 'Collectible packaging'
         },
         {
+          label: 'Role',
+          value: 'Packaging direction + collectible system'
+        },
+        {
           label: 'Focus',
           value: 'Nostalgia + modern retail polish'
         },
@@ -221,19 +291,37 @@
           value: 'Packaging concepts, shelf storytelling'
         }
       ],
+      summary: [
+        {
+          label: 'Challenge',
+          value: 'Refresh a nostalgic brand for modern retail without losing the charm longtime fans already recognize.'
+        },
+        {
+          label: 'What I owned',
+          value: 'I developed packaging directions, collectible hierarchy, and a more premium visual system for shelf and launch storytelling.'
+        },
+        {
+          label: 'Key constraint',
+          value: 'The work needed to feel contemporary and collectible while preserving the color, energy, and familiarity people expect from Neopets.'
+        },
+        {
+          label: 'Outcome',
+          value: 'The resulting direction balances nostalgia with cleaner retail structure, making the brand easier to scale across modern product formats.'
+        }
+      ],
       sections: [
         {
-          title: 'Many Directions',
+          title: 'Project Brief',
           kicker: 'Exploration',
-          copy: 'Creating a brand that spans across multiple applications as a solutions-driven operator was made so easy with their brilliant team. We explored many different avenues that the brand could go in before settling on a clear, premium system that could scale from shelf to social.',
+          copy: 'The Neopets direction started with a clear goal: preserve the familiarity and affection of the original brand while organizing it into a sharper, more retail-ready system. Exploration focused on how much nostalgia to retain, how much hierarchy to modernize, and how to make the collectible story read faster across packaging and presentation touchpoints.',
           layout: 'single',
           images: [stock('neopets-explore', 1800, 1000)],
           captions: ['Early exploration focused on balancing nostalgia, collectibility, and a more current retail presentation.']
         },
         {
-          title: 'Elevated Experience',
+          title: 'System in Use',
           kicker: 'Application',
-          copy: 'We designed the packaging architecture to feel premium while still playful. Structural hierarchy, typography rhythm, and color contrast were tuned so every touchpoint feels cohesive and collectible.',
+          copy: 'The final packaging language was built to feel more premium while keeping the brand playful and accessible. Structural hierarchy, collector cues, color contrast, and character placement were tuned to make the assortment easier to scan while still feeling unmistakably Neopets. That balance gives the brand a cleaner retail presence without stripping away its personality.',
           layout: 'two-up-then-single',
           images: [
             stock('neopets-a', 1000, 1200),
@@ -258,6 +346,10 @@
           value: 'Toy-fashion packaging'
         },
         {
+          label: 'Role',
+          value: 'Packaging system + launch direction'
+        },
+        {
           label: 'Focus',
           value: 'Collector clarity + attitude'
         },
@@ -266,19 +358,37 @@
           value: 'Packaging system, launch visuals'
         }
       ],
+      summary: [
+        {
+          label: 'Challenge',
+          value: 'Build packaging that feels fashion-forward and collectible while still landing clearly in a toy aisle environment.'
+        },
+        {
+          label: 'What I owned',
+          value: 'I shaped the packaging system, launch-facing visual direction, and hierarchy needed to scale across multiple collectible formats.'
+        },
+        {
+          label: 'Key constraint',
+          value: 'The line needed to carry a premium tone and strong character attitude without sacrificing readability for younger shoppers and gift buyers.'
+        },
+        {
+          label: 'Outcome',
+          value: 'The system creates a bolder shelf presence while keeping assortment logic, callouts, and collectible depth organized across the line.'
+        }
+      ],
       sections: [
         {
-          title: 'Greyheath-Inspired Editorial Style',
+          title: 'Project Brief',
           kicker: 'Visual Tone',
-          copy: 'A premium visual approach balancing modern elegance with approachable energy. The tone stays fashion-forward while preserving toy-category clarity for younger shoppers and gift-givers.',
+          copy: 'Dress to Impress needed a packaging approach that could borrow cues from editorial fashion while still functioning as clear, high-energy toy packaging. The direction focused on balancing attitude, collectibility, and hierarchy—making sure the line felt aspirational without losing the readability and immediacy required at shelf.',
           layout: 'single',
           images: [stock('dress-grid-1', 1800, 1050)],
           captions: ['Editorial direction study aimed at making the brand feel aspirational while staying toy-shelf friendly.']
         },
         {
-          title: 'System Thinking',
+          title: 'System in Use',
           kicker: 'Architecture',
-          copy: 'Across mystery products, dolls, and deluxe sets, the hierarchy remains consistent: strongest hero area first, read-optimized callouts second, then collectible depth.',
+          copy: 'Across mystery products, dolls, and deluxe sets, the packaging architecture was designed to stay consistent: strongest hero read first, collectible story second, then supporting callouts and depth. That system thinking helps the line scale across formats while keeping the visual attitude intact and the retail read clean.',
           layout: 'two-up-then-single',
           images: [stock('dress-grid-2', 1000, 1200), stock('dress-grid-3', 1000, 1200), stock('dress-grid-4', 1800, 1050)],
           captions: [
@@ -290,7 +400,7 @@
       ]
     },
     aadan: {
-      title: 'EC Working Hard to Upload',
+      title: 'Case Study in Progress',
       subtitle: 'This case study is currently in progress. Final assets and detailed breakdowns are being prepared and will be uploaded soon.',
       hero: 'assets/images/aadan.png?v=20260302',
       facts: [
@@ -346,6 +456,24 @@
         value: 'Reusable case study system'
       }
     ],
+    summary: [
+      {
+        label: 'Challenge',
+        value: 'Final storytelling and visuals are still being organized for this project page.'
+      },
+      {
+        label: 'What I owned',
+        value: 'The page structure is in place so role, process, and application content can be added cleanly once assets are ready.'
+      },
+      {
+        label: 'Key constraint',
+        value: 'This entry is temporarily using placeholder imagery until final approved visuals are available.'
+      },
+      {
+        label: 'Outcome',
+        value: 'The case study system is ready to scale, making future project uploads more consistent and presentation-ready.'
+      }
+    ],
     sections: [
       {
         title: 'Direction',
@@ -375,19 +503,19 @@
     dress: 'Dress to Impress',
     clean: 'Clean Girl',
     rainbow: 'Rainbow Friends',
-    fnaf: 'Five Nights at Freddys',
+    fnaf: "Five Nights at Freddy's",
     pet: 'Pet Simulator',
     fisch: 'Fisch',
-    aadan: 'EC Working Hard to Upload',
+    aadan: 'Case Study in Progress',
     'lowtide-ipa': 'Lowtide IPA',
-    'kof-orochi-saga': 'King of Fighters The Orichi Saga',
+    'kof-orochi-saga': 'King of Fighters The Orochi Saga',
     'moon-coffee': 'Moon Coffee Co.',
     complexity: 'Complexity Surveillance',
     blox: 'Blox Fruits',
     proj1: 'Poppy Playtime',
     proj2: 'Invincible',
     proj3: 'One Piece',
-    bendy: 'More Projects'
+    bendy: 'Additional Work'
   };
 
   const params = new URLSearchParams(window.location.search);
@@ -400,11 +528,15 @@
   document.body.dataset.projectKey = key || 'project';
   if (key === 'complexity') {
     pageData.hero = 'assets/images/cslogoenhanced.png';
-    pageData.subtitle = 'Complexity Surveillance is a security solutions provider specializing in residential and commercial surveillance systems. The company focuses on delivering reliable, technology-driven protection through professionally installed camera systems designed for visibility, safety, and peace of mind. Their services emphasize precision, trust, and modern security infrastructure for everyday environments.';
+    pageData.subtitle = 'Complexity Surveillance is a field-ready identity system built for a security provider serving residential and commercial clients—designed to communicate trust, technical precision, and immediate recognition across vehicles, uniforms, and customer-facing materials.';
     pageData.facts = [
       {
         label: 'Category',
         value: 'Security branding'
+      },
+      {
+        label: 'Role',
+        value: 'Identity, fleet + collateral system'
       },
       {
         label: 'Focus',
@@ -415,17 +547,35 @@
         value: 'Identity, fleet, collateral'
       }
     ];
+    pageData.summary = [
+      {
+        label: 'Challenge',
+        value: 'Build a surveillance identity that communicates trust, technical credibility, and visibility across real field applications.'
+      },
+      {
+        label: 'What I owned',
+        value: 'I developed the logo system, fleet graphics, apparel direction, and client-facing collateral applications.'
+      },
+      {
+        label: 'Key constraint',
+        value: 'The identity needed to remain clean and highly legible on moving vehicles, workwear, and printed service documents.'
+      },
+      {
+        label: 'Outcome',
+        value: 'The system creates a cohesive field-ready brand presence that feels professional, scalable, and easy to recognize.'
+      }
+    ];
     if (Array.isArray(pageData.sections) && pageData.sections[0]) {
       pageData.sections[0].title = 'Project Brief';
       pageData.sections[0].kicker = 'Foundation';
-      pageData.sections[0].copy = 'Complexity Surveillance needed a professional brand identity that communicated reliability, precision, and modern technology. The goal was to create a clean, recognizable visual system that could scale across service vehicles, uniforms, business cards, and marketing materials while reinforcing trust and security in both residential and commercial environments';
+      pageData.sections[0].copy = 'The brief was to create a security identity that felt dependable, modern, and easy to recognize in the field. I focused on building a clean visual system that could scale from service vehicles and uniforms to business cards and printed materials without losing clarity or authority.';
       pageData.sections[0].images = ['assets/images/tshirt.jpg'];
       pageData.sections[0].captions = ['Initial branded apparel study created to establish a practical, recognizable field-ready identity.'];
     }
     if (Array.isArray(pageData.sections) && pageData.sections[1]) {
       const appSection = pageData.sections[1];
       appSection.kicker = 'Application';
-      appSection.copy = 'The identity system was built to scale easily across real-world service touchpoints such as technician apparel, fleet vehicles, work order documents, and business cards. High-contrast colors and simple iconography ensure the brand remains legible and impactful in both digital and physical environments. These applications help create a cohesive and professional presence that reflects the company’s reliability and technical expertise in the field.';
+      appSection.copy = 'The system was designed to work hard across real service touchpoints, including technician apparel, fleet graphics, work-order documents, and business cards. High-contrast color, simple iconography, and disciplined hierarchy keep the brand legible in motion, on-site, and in print—creating a consistent professional presence wherever the company shows up.';
       appSection.sectionClass = 'pp-complexity-left-hero';
       appSection.images = [
         'assets/images/Complexity Van.jpg',
@@ -441,11 +591,15 @@
   }
   if (key === 'moon-coffee') {
     pageData.hero = 'assets/images/Moon Coffee Hero2.jpg';
-    pageData.subtitle = 'Moon Coffee Co. was developed as a premium, modern coffee identity built around a bold lunar-inspired wordmark and a cohesive icon system (moon + stars) that feels confident, minimal, and instantly recognizable. I translated that core mark into a flexible brand world by designing a repeatable pattern language and applying it across key touchpoints—especially packaging—so the identity stays consistent while still feeling dynamic. My process focused on production-realistic execution: clean typography, tight spacing rules, and high-contrast applications that remain legible on dark substrates and under finishes like spot UV. The result is a scalable, retail-ready brand system that feels elevated, distinctive, and easy to extend into new products and campaign imagery.';
+    pageData.subtitle = 'Moon Coffee Co. is a premium coffee identity built around a lunar-inspired wordmark, a repeatable celestial graphic system, and packaging applications designed to feel elevated, recognizable, and production-aware from the start.';
     pageData.facts = [
       {
         label: 'Category',
         value: 'Coffee branding'
+      },
+      {
+        label: 'Role',
+        value: 'Identity, packaging + application system'
       },
       {
         label: 'Focus',
@@ -456,10 +610,28 @@
         value: 'Logo, cups, packaging system'
       }
     ];
+    pageData.summary = [
+      {
+        label: 'Challenge',
+        value: 'Create a coffee identity that feels premium and memorable while still warm, calm, and approachable.'
+      },
+      {
+        label: 'What I owned',
+        value: 'I developed the logo, pattern language, packaging applications, and the typographic rules that hold the system together.'
+      },
+      {
+        label: 'Key constraint',
+        value: 'The brand needed to reproduce clearly on dark surfaces and packaging while keeping the celestial concept elegant instead of gimmicky.'
+      },
+      {
+        label: 'Outcome',
+        value: 'The final system feels retail-ready, distinctive, and flexible enough to extend into future packaging and campaign moments.'
+      }
+    ];
     if (Array.isArray(pageData.sections) && pageData.sections[0]) {
       pageData.sections[0].title = 'Project Brief';
       pageData.sections[0].kicker = 'Foundation';
-      pageData.sections[0].copy = 'Moon Coffee needed a brand identity that felt warm, premium, and memorable while reflecting the calm, ritualistic nature of enjoying coffee. The goal was to create a distinctive logo and visual system that blended celestial inspiration with coffee culture, allowing the brand to stand out across cups, packaging, and storefront applications.';
+      pageData.sections[0].copy = 'The goal for Moon Coffee was to create a brand identity that felt calm, premium, and memorable without leaning gimmicky. I built the system around a distinctive lunar mark and a restrained visual language that could carry across cups, packaging, and storefront moments with the same sense of polish.';
       pageData.sections[0].images = ['assets/images/Moon Coffee Hero3.jpg'];
       pageData.sections[0].captions = ['Primary identity presentation introducing the lunar mark, typography, and premium mood of the brand.'];
     }
@@ -467,7 +639,7 @@
       const moonNextSection = pageData.sections[1];
       moonNextSection.title = 'Direction + Application';
       moonNextSection.kicker = 'System in Use';
-      moonNextSection.copy = 'The Moon Coffee brand identity was designed to feel calm, premium, and approachable while subtly referencing the ritual of coffee. The moon and coffee bean motif creates a distinctive visual mark that blends celestial inspiration with the product itself, giving the brand a memorable and symbolic identity. The deep, dark color palette paired with the Canela type family reinforces a refined, modern aesthetic that feels both cozy and sophisticated. When applied across cups and packaging, the branding remains highly legible and consistent, allowing the pattern, logo, and typography to work together to create a cohesive and recognizable coffee experience.';
+      moonNextSection.copy = 'The application system turns that core identity into a retail-ready brand world. The moon-and-bean motif, dark palette, and Canela typography work together to create something that feels refined and recognizable, while the pattern language helps the packaging and cup applications stay consistent without becoming repetitive. Every touchpoint was designed to feel polished, legible, and easy to extend.';
       const moonNextImages = [
         'assets/images/moon_2.jpg',
         'assets/images/moon_3.jpg',
@@ -484,12 +656,16 @@
   }
   if (key === 'kof-orochi-saga') {
     pageData.hero = 'assets/images/KoFHero.png?v=20260309';
-    pageData.title = 'King of Fighters The Orichi Saga';
-    pageData.subtitle = 'The King of Fighters: The Orochi Saga is a trading card game inspired by the iconic storyline from the King of Fighters series. The game brings together legendary fighters from the saga, allowing players to build decks, battle opponents, and relive the conflict between rival teams and the mysterious Orochi power. Through collectible cards featuring characters, abilities, and special moves, the game translates the energy and strategy of the classic fighting series into a competitive tabletop experience.';
+    pageData.title = 'King of Fighters The Orochi Saga';
+    pageData.subtitle = 'The King of Fighters: The Orochi Saga is a launch-ready trading card game identity that translates the energy of the franchise into bold logo work, collectible packaging, and gameplay-supporting card graphics built to scale across future releases.';
     pageData.facts = [
       {
         label: 'Category',
         value: 'TCG branding'
+      },
+      {
+        label: 'Role',
+        value: 'Logo, packaging + card system'
       },
       {
         label: 'Focus',
@@ -500,17 +676,35 @@
         value: 'Logo, box system, card back'
       }
     ];
+    pageData.summary = [
+      {
+        label: 'Challenge',
+        value: 'Launch a collectible card game identity that channels KOF energy while staying clear enough for packaging and gameplay assets.'
+      },
+      {
+        label: 'What I owned',
+        value: 'I developed the logo direction, packaging graphics, and card-back system for a scalable launch-ready brand foundation.'
+      },
+      {
+        label: 'Key constraint',
+        value: 'The system had to feel dramatic and collectible without overpowering the hierarchy needed for product clarity.'
+      },
+      {
+        label: 'Outcome',
+        value: 'The result is a bold launch system that can expand into future packs, editions, and supporting marketing assets.'
+      }
+    ];
     if (Array.isArray(pageData.sections) && pageData.sections[0]) {
       pageData.sections[0].title = 'Project Brief';
       pageData.sections[0].kicker = 'Launch Direction';
-      pageData.sections[0].copy = 'The King of Fighters: The Orochi Saga expandable trading card game required a new logo and packaging system to launch the brand with a bold, collectible presence. The identity leans into KOF’s signature energy—pairing aggressive flame motion with darker, supernatural tones that reflect the Orochi storyline. Packaging was designed for strong hierarchy and instant shelf impact, ensuring clear readability across boxes, card backs, and future expansions. The system was built to feel premium and scalable, establishing a consistent visual foundation for upcoming releases and special edition packs.';
+      pageData.sections[0].copy = 'This project needed a logo and packaging system that could launch with immediate energy while still feeling organized enough for a collectible card game. I leaned into flame-driven motion, darker supernatural tones, and strong hierarchy so the identity could deliver shelf presence, clear read distance, and a scalable foundation for future expansions.';
       pageData.sections[0].images = ['assets/images/KOF_brand-02.jpg'];
       pageData.sections[0].captions = ['Brand identity exploration focused on a fully vectorized logo system built for print, sharp reproduction, and a bold collectible presence.'];
     }
     if (Array.isArray(pageData.sections) && pageData.sections[1]) {
       const kofNextSection = pageData.sections[1];
       kofNextSection.kicker = 'Application';
-      kofNextSection.copy = 'The identity was applied across key touchpoints to create a cohesive, launch-ready system for The King of Fighters: The Orochi Saga trading card game. Packaging visuals were developed as premium hero mockups to highlight shelf impact, readability, and character-driven storytelling while keeping the logo as the central focal point. The trading card back direction extends the same energy into gameplay components, using a simplified frame and atmospheric texture to support the brand without overpowering it. Together, these applications demonstrate a scalable design language built to carry across future expansions, special packs, and additional marketing assets.';
+      kofNextSection.copy = 'From hero packaging to the card-back system, each touchpoint was designed to feel cohesive, premium, and expansion-ready. The packaging keeps the logo front and center for shelf impact, while the card graphics carry the same atmosphere with a cleaner frame that supports gameplay readability. Together, the system shows how the brand can extend into future packs, special editions, and launch marketing without losing its core energy.';
       kofNextSection.sectionClass = 'pp-kof-next-hero';
       kofNextSection.images = [
         'assets/images/KoFHero3.jpg',
@@ -556,6 +750,24 @@
             <span class="pp-fact-label">${escapeHtml(fact.label || '')}</span>
             <strong class="pp-fact-value">${escapeHtml(fact.value || '')}</strong>
           </div>
+        `).join('')}
+      </section>
+    `;
+  };
+
+  const renderSummary = (summary) => {
+    const items = Array.isArray(summary)
+      ? summary.filter((item) => item && (item.label || item.value))
+      : [];
+    if (!items.length) return '';
+
+    return `
+      <section class="pp-summary" aria-label="Case study highlights">
+        ${items.map((item) => `
+          <article class="pp-summary-item">
+            <span class="pp-summary-label">${escapeHtml(item.label || '')}</span>
+            <p class="pp-summary-value">${escapeHtml(item.value || '')}</p>
+          </article>
         `).join('')}
       </section>
     `;
@@ -631,6 +843,7 @@
     <h1 class="pp-headline">${escapeHtml(pageData.title || 'Project')}</h1>
     <p class="pp-sub">${escapeHtml(pageData.subtitle || '')}</p>
     ${renderFacts(pageData.facts)}
+    ${renderSummary(pageData.summary)}
     <section class="pp-hero">
       <img class="pp-img" src="${pageData.hero || ''}" alt="${escapeHtml((pageData.title || 'Project') + ' hero image')}" />
     </section>

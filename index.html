@@ -88,8 +88,8 @@
       pointer-events:none;
     }
     .card{
-      width:min(680px, 100%);
-      max-width:680px;
+      width:min(780px, 100%);
+      max-width:780px;
       border:1px solid rgba(255,255,255,.14);
       background:rgba(10,12,16,.58);
       backdrop-filter:blur(8px) saturate(1.1);
@@ -116,25 +116,33 @@
       text-transform:uppercase;
       color:rgba(255,255,255,.74);
     }
+    .positioning{margin:0 auto 10px;max-width:52ch;font-size:15px;color:rgba(255,255,255,.92)}
+    .selector-copy{margin:0 auto 22px;max-width:60ch}
     h1{ margin:0 0 8px; font-size:clamp(30px,5vw,44px); letter-spacing:-.02em; }
     p{ margin:0 0 22px; color:var(--muted); line-height:1.6; }
     .actions{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
     .btn{
       display:inline-flex;
+      flex-direction:column;
       justify-content:center;
-      align-items:center;
+      align-items:flex-start;
       text-decoration:none;
       border-radius:12px;
-      padding:12px 14px;
+      padding:14px 16px;
       font-weight:800;
       border:1px solid rgba(255,255,255,.25);
       color:#fff;
       background:rgba(255,255,255,.04);
       transition:transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      min-height:118px;
+      text-align:left;
     }
     .btn:hover{ transform:translateY(-2px); background:rgba(255,255,255,.11); border-color:rgba(255,255,255,.42); box-shadow:0 12px 24px rgba(0,0,0,.24); }
     .btn.primary{ background:var(--accent); color:#000; border-color:var(--accent); box-shadow:0 10px 28px rgba(255,228,77,.22); }
     .btn.primary:hover{ box-shadow:0 14px 30px rgba(255,228,77,.30); }
+    .btn-kicker{display:block;margin:0 0 6px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.72}
+    .btn-title{display:block;font-size:20px;line-height:1.1;letter-spacing:-.015em}
+    .btn-copy{display:block;margin-top:8px;font-size:13px;line-height:1.4;font-weight:600;opacity:.86}
     .meta{ margin-top:16px; font-size:13px; color:rgba(255,255,255,.76); }
     .meta a{ color:#fff; }
 
@@ -206,12 +214,21 @@
     <main class="card" aria-label="Portfolio selector">
       <img src="assets/images/ecmonogramwhite2.png" alt="EC logo" class="logo" />
       <p class="kicker">Eduardo Chavez</p>
-      <h1>Choose a portfolio</h1>
-      <p>Welcome to my work. Choose where you want to start.</p>
+      <p class="positioning">Packaging systems, brand identity, and visual design for toys, collectibles, and consumer products.</p>
+      <h1>Choose your best starting point</h1>
+      <p class="selector-copy">Each path is curated to show how I lead the work—from retail-ready packaging systems and approvals to brand, campaign, and digital design that launches cleanly.</p>
 
       <div class="actions">
-        <a class="btn primary" href="packaging.html">Packaging Design</a>
-        <a class="btn" href="graphic.html">Graphic Design</a>
+        <a class="btn primary" href="packaging.html">
+          <span class="btn-kicker">Best for</span>
+          <span class="btn-title">Packaging Design</span>
+          <span class="btn-copy">Dielines, licensor approvals, render direction, factory handoff, and retail systems built for big-box execution.</span>
+        </a>
+        <a class="btn" href="graphic.html">
+          <span class="btn-kicker">Best for</span>
+          <span class="btn-title">Graphic Design</span>
+          <span class="btn-copy">Brand identity, typography, campaign visuals, digital assets, and polished presentation systems that stay consistent in use.</span>
+        </a>
       </div>
 
       <p class="meta">

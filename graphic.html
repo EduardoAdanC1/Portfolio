@@ -14,13 +14,18 @@
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
 
-  <link rel="stylesheet" href="styles.css?v=20260105" />
+  <link rel="stylesheet" href="styles.css?v=20260313-site-polish" />
 
   <style>
+    /* Slightly tighter header spacing on the graphic page now that the PDF link is gone */
+    .header .nav{gap:10px}
+    .header .nav-links{gap:14px}
+    .header .nav .cta{padding:8px 12px}
+
     /* Hero layout: ensure consistent positioning across browsers (esp. Firefox) */
     .gd-hero{
       position:relative;
-      min-height: min(660px, 78vh);
+      min-height:100vh;
       overflow:hidden;
       background:#000;
       display:flex;
@@ -61,7 +66,7 @@
     /* Top intro copy (sits near the top of the hero, independent from headline/buttons) */
     .gd-hero-topcopy{
       position:absolute;
-      top:clamp(12px, 2.6vh, 28px);
+      top:clamp(18px, 3.6vh, 40px);
       left:0;
       right:0;
       z-index:2;
@@ -73,7 +78,7 @@
       padding:0 20px;
     }
     /* Align with header logo gutter (.header .inner uses max-width:1200px and padding: 0 20px) */
-    .gd-hero-content{position:relative;z-index:2;padding:22px 20px 28px;max-width:1200px;margin:0 auto;width:100%}
+    .gd-hero-content{position:relative;z-index:2;padding:40px 20px 40px;max-width:1200px;margin:0 auto;width:100%}
     .gd-hero h1{margin:0 0 10px 0;font-size:clamp(34px,5vw,56px);letter-spacing:-.02em;color:#fff;position:relative;display:inline-block}
     .gd-hero p{margin:0;color:rgba(255,255,255,.84);max-width:68ch;line-height:1.65;font-size:16px}
     .gd-hero .gd-hero-lead{font-size:clamp(18px,2.15vw,24px);line-height:1.5;color:rgba(255,255,255,.94);max-width:80ch;margin:0}
@@ -81,40 +86,58 @@
     /* Packaging-style yellow underline */
     .gd-hero .underline{
       position:relative;
+      isolation:isolate;
       background-image: linear-gradient(0deg, rgba(255,228,77,1), rgba(255,228,77,1));
       background-position: 0 100%;
       background-repeat: no-repeat;
-      background-size: 0% .11em;
-      padding-bottom: .08em;
+      background-size: 0% .065em;
+      padding-bottom: .14em;
     }
     .gd-hero .underline::after{
       content:"";
       position:absolute;
       left:0;
-      bottom:0;
-      height:.12em;
+      bottom:.005em;
+      height:.08em;
       width:0;
-      background:
-        radial-gradient(40% 100% at 10% 50%, rgba(255,228,77,1) 0%, rgba(255,228,77,.6) 35%, rgba(255,228,77,0) 70%),
-        linear-gradient(90deg, rgba(255,228,77,0) 0%, rgba(255,228,77,1) 50%, rgba(255,228,77,0) 100%);
-      mix-blend-mode: screen;
-      box-shadow: 0 0 12px rgba(255,228,77,.55), 0 0 24px rgba(255,228,77,.35);
+      border-radius:999px;
+      background:linear-gradient(90deg, rgba(255,244,163,.9), rgba(255,228,77,.92) 45%, rgba(255,228,77,.78));
+      opacity:.28;
+      box-shadow:0 .5px 0 rgba(255,248,196,.55), 0 0 8px rgba(255,228,77,.08);
       transform-origin: left center;
     }
-    .gd-hero.loaded .underline{animation:underlineBG 540ms cubic-bezier(.18,.62,.22,1) forwards}
-    .gd-hero.loaded .underline::after{animation:underlineZap 540ms cubic-bezier(.18,.62,.22,1) forwards, zapJitter 420ms ease-out 0s 1}
+    .gd-hero.loaded .underline{animation:gdUnderlineBG 820ms cubic-bezier(.18,.7,.2,1) forwards}
+    .gd-hero.loaded .underline::after{animation:gdUnderlineReveal 820ms cubic-bezier(.18,.7,.2,1) forwards}
+
+    @keyframes gdUnderlineBG{
+      0%{background-size:0% .065em}
+      100%{background-size:100% .065em}
+    }
+    @keyframes gdUnderlineReveal{
+      0%{width:0;opacity:0;transform:scaleX(.96) scaleY(.76)}
+      100%{width:100%;opacity:.28;transform:scaleX(1) scaleY(1)}
+    }
 
     .gd-hero .gd-actions a.ghost{border-color:rgba(255,255,255,.35);color:#fff}
     html.dark-mode .gd-hero .gd-actions a.ghost{border-color:rgba(255,255,255,.35)}
 
     @media (max-width: 720px){
-      .gd-hero{min-height:min(560px, 68vh)}
-      .gd-hero-content{padding:18px 20px 22px}
-      .gd-hero-topcopy{top:12px}
+      .gd-hero{
+        min-height:80vh;
+        width:100vw;
+        margin-left:calc(50% - 50vw);
+        margin-right:calc(50% - 50vw);
+      }
+      .gd-hero-content{padding:30px 20px 30px}
+      .gd-hero-topcopy{top:14px}
     }
 
     @media (prefers-reduced-motion: reduce){
       .gd-hero-media{transform:none}
+      .gd-hero .underline,
+      .gd-hero .underline::after{animation:none !important}
+      .gd-hero .underline{background-size:100% .065em;filter:none}
+      .gd-hero .underline::after{width:100%;opacity:.28;transform:none;filter:none}
     }
 
     /* Break marquee between hero and work */
@@ -641,7 +664,6 @@
       <nav class="nav" aria-label="Primary">
         <div class="nav-links" id="navLinks">
           <a href="index.html">Home</a>
-          <a href="https://www.dropbox.com/scl/fi/yoq5v4vw58mto6mhoipm0/pdf-portfolio-ec-lo.pdf?rlkey=ayc18qh89vhoaal84tukv37ky&st=0loh7lkv&dl=0" target="_blank" rel="noopener">PDF Portfolio</a>
           <a href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener" class="linkedin-link" aria-label="LinkedIn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.002 1.413-.103.249-.129.597-.129.946v5.446h-3.554s.05-8.836 0-9.754h3.554v1.391c.43-.666 1.204-1.614 2.928-1.614 2.136 0 3.743 1.395 3.743 4.393v5.584zM5.337 9.433c-1.144 0-1.915-.758-1.915-1.709 0-.968.771-1.71 1.958-1.71 1.187 0 1.914.742 1.938 1.71 0 .951-.751 1.709-1.981 1.709zm1.946 11.019H3.39V9.698h3.893v10.754zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
@@ -681,15 +703,87 @@
 
         <div class="gd-hero-topcopy" aria-hidden="false">
           <div class="gd-hero-topcopy-inner">
-            <p class="gd-hero-lead">I’m Eduardo Chavez, a Los Angeles–based graphic designer specializing in packaging, brand systems, and digital experiences. I design with a product-first mindset—balancing creativity, clarity, and real-world execution.</p>
+            <p class="gd-hero-lead">I’m Eduardo Chavez, a Los Angeles–based graphic designer focused on brand systems, campaign visuals, and digital touchpoints. I build identity-led assets that stay clear, premium, and usable across presentations, social, merch, and launch storytelling.</p>
           </div>
         </div>
 
         <div class="gd-hero-content">
           <h1><span class="underline">Graphic Design Portfolio</span></h1>
           <div class="gd-actions">
-            <a class="primary" href="#work">View work</a>
+            <a class="primary" href="#work">View selected work</a>
             <a class="ghost" href="packaging.html">Packaging portfolio</a>
+          </div>
+          <div class="hero-specialties" aria-label="Graphic design focus areas">
+            <article class="hero-specialty">
+              <span class="hero-specialty-label">Identity</span>
+              <strong class="hero-specialty-value">Brand systems built to stay sharp across every touchpoint.</strong>
+            </article>
+            <article class="hero-specialty">
+              <span class="hero-specialty-label">Typography</span>
+              <strong class="hero-specialty-value">Type-driven hierarchy that feels editorial, clear, and premium.</strong>
+            </article>
+            <article class="hero-specialty">
+              <span class="hero-specialty-label">Campaign visuals</span>
+              <strong class="hero-specialty-value">Launch-ready art direction for decks, marketing, and rollout moments.</strong>
+            </article>
+            <article class="hero-specialty">
+              <span class="hero-specialty-label">Digital assets</span>
+              <strong class="hero-specialty-value">Presentation, social, and UI-adjacent design that stays consistent in use.</strong>
+            </article>
+            <article class="hero-specialty">
+              <span class="hero-specialty-label">Systems thinking</span>
+              <strong class="hero-specialty-value">Visual rules built for repeatability, clarity, and polished execution.</strong>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="graphic-process" class="parallax-section visible" aria-label="Graphic design process">
+        <div class="inner">
+          <div class="step">
+            <h1>01</h1>
+            <div class="step-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M8 12h8M12 8v8"/>
+              </svg>
+            </div>
+            <h2>Ideation · Concept</h2>
+            <p>Explore visual directions, define the communication goal, and build a concept that aligns the brand, audience, and rollout need.</p>
+          </div>
+          <div class="step">
+            <h1>02</h1>
+            <div class="step-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 17l6-6 4 4 7-7"/>
+                <path d="M3 7h4v4H3z"/>
+              </svg>
+            </div>
+            <h2>Refinement</h2>
+            <p>Refine typography, composition, color, and supporting graphics until the system feels cohesive, clear, and ready to hold up across real use.</p>
+          </div>
+          <div class="step">
+            <h1>03</h1>
+            <div class="step-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 7h10v10H7z"/>
+                <path d="M7 11h10"/>
+                <path d="M11 7v10"/>
+              </svg>
+            </div>
+            <h2>Direction Approval</h2>
+            <p>Present polished directions, incorporate feedback, and align on a final visual approach that can scale confidently into launch assets.</p>
+          </div>
+          <div class="step">
+            <h1>04</h1>
+            <div class="step-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 4h16v12H4z"/>
+                <path d="M4 16l4 4h8l4-4"/>
+              </svg>
+            </div>
+            <h2>Production · Final Delivery</h2>
+            <p>Prepare final artwork, export print and digital assets, and organize deliverables so every file is clean, consistent, and ready to launch.</p>
           </div>
         </div>
       </section>
@@ -737,7 +831,7 @@
               <div class="resume-item">
                 <h4>PhatMojo, LLC. — Packaging Design Manager</h4>
                 <p class="date">07.10.2018 - Present</p>
-                <p>Led end-to-end packaging development for high-volume toy and consumer product lines. Managed mechanicals, dielines, and production-ready artwork across multiple SKUs. Coordinated with global vendors and factories on design approvals, production reviews, and quality control. Mentored junior designers and delivered packaging for brands including Blox Fruits, Dress to Impress, Poppy Playtime, and multiple Roblox IPs.</p>
+                <p>Lead end-to-end packaging development for high-volume toy and consumer product lines while also contributing brand, presentation, and launch-facing graphic assets that support retail storytelling. Manage mechanicals, dielines, approvals, and production-ready artwork across multiple SKUs, while mentoring junior designers and partnering with global vendors and factories through handoff.</p>
               </div>
               <div class="resume-item">
                 <h4>Kellogg and Huntley Galleries — Graphic Designer</h4>
@@ -763,8 +857,9 @@
 
       <section id="contact" class="section contact-section" aria-label="Contact">
         <div class="inner">
-          <h2>Let's work together</h2>
-          <p class="contact-subtitle">Design that sells the story – and the product.</p>
+          <h2>Let’s work together</h2>
+          <p class="contact-subtitle">Available for freelance, contract, and full-time brand, graphic, and presentation design work.</p>
+          <p class="contact-note">Reach out for identity systems, campaign visuals, typography-driven layouts, and launch assets that need to feel clear, premium, and presentation-ready from day one.</p>
           <div class="contact-cta">
             <a href="mailto:designer@eduardoachavez.com" class="email-link">designer@eduardoachavez.com</a>
             <a href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener" class="linkedin-link-contact">
@@ -791,7 +886,7 @@
           </div>
 
           <p class="footer-blurb">
-            I create brand identity, graphic systems, and UI/UX assets that keep your visuals consistent, clear, and polished across every touchpoint.
+            I create brand identity, graphic systems, and launch-ready assets that keep visuals consistent, clear, and polished across every touchpoint.
           </p>
 
           <div class="footer-right">
@@ -907,8 +1002,16 @@
         try { video.muted = true; } catch (e) {}
         try { video.defaultMuted = true; } catch (e) {}
         try { video.playsInline = true; } catch (e) {}
+        try { video.defaultPlaybackRate = 0.869565; } catch (e) {}
+        try { video.playbackRate = 0.869565; } catch (e) {}
+
+        const applyPlaybackRate = () => {
+          try { video.playbackRate = 0.869565; } catch (e) {}
+        };
 
         video.addEventListener('error', markNoVideo);
+        video.addEventListener('loadedmetadata', applyPlaybackRate);
+        video.addEventListener('canplay', applyPlaybackRate);
         video.addEventListener('stalled', () => {
           try {
             if (video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) markNoVideo();
@@ -917,6 +1020,7 @@
 
         const tryPlay = () => {
           let p;
+          applyPlaybackRate();
           try { p = video.play?.(); } catch (e) { markNoVideo(); return; }
           if (p && typeof p.catch === 'function') {
             p.catch(() => {
@@ -1309,7 +1413,7 @@
           {
             id: 'lowtide-ipa',
             title: 'Lowtide IPA',
-            tag: 'Packaging Design',
+            tag: 'Packaging Concept',
             thumb: 'assets/images/Lowtide Card.jpg?v=20260311',
             alt: 'Lowtide IPA packaging concept',
             images: [
@@ -1331,10 +1435,10 @@
           },
           {
             id: 'aadan',
-            title: 'EC Working hard to upload',
+            title: 'Case Study in Progress',
             tag: '',
             thumb: 'assets/images/aadan.png?v=20260302',
-            alt: 'EC Working hard to upload',
+            alt: 'Case study in progress',
             images: [
               'assets/images/comingsoon.jpg'
             ]

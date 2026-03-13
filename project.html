@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" href="assets/images/whitelogo.png">
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
-  <link rel="stylesheet" href="styles.css?v=20260105" />
+  <link rel="stylesheet" href="styles.css?v=20260313-site-polish" />
   <style>
       body{
         --pp-bg:#07090c;
@@ -110,7 +110,7 @@
     }
     .pp-facts{
       display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
       gap:16px;
       margin:0 0 34px;
     }
@@ -136,6 +136,31 @@
       margin-top:8px;
       font-size:1.02rem;
       line-height:1.45;
+    }
+    .pp-summary{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+      margin:0 0 34px;
+    }
+    .pp-summary-item{
+      padding:18px 18px 20px;
+      border:1px solid var(--pp-card-border);
+      background:var(--pp-card-bg);
+    }
+    .pp-summary-label{
+      display:block;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:.72rem;
+      color:var(--pp-label);
+      margin-bottom:10px;
+    }
+    .pp-summary-value{
+      margin:0;
+      color:var(--pp-soft-text);
+      line-height:1.62;
+      font-size:.98rem;
     }
     .pp-hero{margin:0 0 40px}
     .pp-img{
@@ -322,6 +347,7 @@
 
     @media (max-width: 860px){
       .pp-facts{grid-template-columns:1fr}
+      .pp-summary{grid-template-columns:1fr}
       .pp-grid-2{grid-template-columns:1fr}
       .pp-section.pp-application-focus .pp-grid-2{
         grid-template-columns:1fr;
@@ -364,7 +390,6 @@
     <nav class="nav" aria-label="Primary">
       <div class="nav-links" id="navLinks">
         <a href="graphic.html#home">Home</a>
-        <a href="https://www.dropbox.com/scl/fi/yoq5v4vw58mto6mhoipm0/pdf-portfolio-ec-lo.pdf?rlkey=ayc18qh89vhoaal84tukv37ky&st=0loh7lkv&dl=0" target="_blank" rel="noopener">PDF Portfolio</a>
         <a href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener" class="linkedin-link" aria-label="LinkedIn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.002 1.413-.103.249-.129.597-.129.946v5.446h-3.554s.05-8.836 0-9.754h3.554v1.391c.43-.666 1.204-1.614 2.928-1.614 2.136 0 3.743 1.395 3.743 4.393v5.584zM5.337 9.433c-1.144 0-1.915-.758-1.915-1.709 0-.968.771-1.71 1.958-1.71 1.187 0 1.914.742 1.938 1.71 0 .951-.751 1.709-1.981 1.709zm1.946 11.019H3.39V9.698h3.893v10.754zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
@@ -395,7 +420,7 @@
 <main class="pp-page">
   <div class="pp-wrap">
     <div id="projectPageRoot" aria-live="polite"></div>
-    <a class="pp-back" href="graphic.html#work">← Back to Graphic Project Cards</a>
+    <a class="pp-back" href="graphic.html#work">← Back to graphic work</a>
   </div>
 </main>
 
@@ -412,7 +437,7 @@
       </div>
 
       <p class="footer-blurb">
-        I create brand identity, graphic systems, and UI/UX assets that keep your visuals consistent,
+        I create brand identity, graphic systems, and launch-ready assets that keep your visuals consistent,
         clear, and polished across every touchpoint.
       </p>
 
@@ -429,6 +454,6 @@
   </div>
 </footer>
 
-<script src="project-page.js?v=20260312-08"></script>
+<script src="project-page.js?v=20260313-site-polish"></script>
 </body>
 </html>

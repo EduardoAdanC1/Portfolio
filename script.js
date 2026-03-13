@@ -109,18 +109,18 @@ if (darkModeToggle) {
 
 // Projects (cards) and their associated galleries
 const projects = [
-  { key: 'neopets', title: 'Neopets', cat: 'Branding + Packaging Design', thumb: 'assets/images/Neopets.jpg' },
-  { key: 'dress', title: 'Dress to Impress', cat: 'Branding + Packaging Design', thumb: 'assets/images/dress.jpg' },
-  { key: 'clean', title: 'Clean Girl', cat: 'Branding + Packaging Design', thumb: 'assets/images/clean.jpg' },
-  { key: 'rainbow', title: 'Rainbow Friends', cat: 'Branding + Packaging Design', thumb: 'assets/images/rainbow.jpg' },
-  { key: 'fnaf', title: 'Five Nights at Freddys', cat: 'Branding + Packaging Design', thumb: 'assets/images/fnaf.jpg' },
-  { key: 'pet', title: 'Pet Simulator', cat: 'Branding + Packaging Design', thumb: 'assets/images/pet.jpg' },
-  { key: 'fisch', title: 'Fisch', cat: 'Branding + Packaging Design', thumb: 'assets/images/fisch.jpg' },
-  { key: 'blox', title: 'Blox Fruits', cat: 'Branding + Packaging Design', thumb: 'assets/images/blox_hero.jpg' },
-  { key: 'proj1', title: 'Poppy Playtime', cat: 'Branding + Packaging Design', thumb: 'assets/images/Poppy Banner.jpg' },
-  { key: 'proj2', title: 'Invincible', cat: 'Branding + Packaging Design', thumb: 'assets/images/invincible.jpg' },
-  { key: 'proj3', title: 'One Piece', cat: 'Branding + Packaging Design', thumb: 'assets/images/OnePiece.jpg' },
-  { key: 'bendy', title: 'More Projects!', cat: 'Design', thumb: 'assets/images/whitelogo.png' },
+  { key: 'neopets', title: 'Neopets', cat: 'Branding + Packaging', thumb: 'assets/images/Neopets.jpg' },
+  { key: 'dress', title: 'Dress to Impress', cat: 'Branding + Packaging', thumb: 'assets/images/dress.jpg' },
+  { key: 'clean', title: 'Clean Girl', cat: 'Branding + Packaging', thumb: 'assets/images/clean.jpg' },
+  { key: 'rainbow', title: 'Rainbow Friends', cat: 'Branding + Packaging', thumb: 'assets/images/rainbow.jpg' },
+  { key: 'fnaf', title: "Five Nights at Freddy's", cat: 'Branding + Packaging', thumb: 'assets/images/fnaf.jpg' },
+  { key: 'pet', title: 'Pet Simulator', cat: 'Branding + Packaging', thumb: 'assets/images/pet.jpg' },
+  { key: 'fisch', title: 'Fisch', cat: 'Branding + Packaging', thumb: 'assets/images/fisch.jpg' },
+  { key: 'blox', title: 'Blox Fruits', cat: 'Branding + Packaging', thumb: 'assets/images/blox_hero.jpg' },
+  { key: 'proj1', title: 'Poppy Playtime', cat: 'Branding + Packaging', thumb: 'assets/images/Poppy Banner.jpg' },
+  { key: 'proj2', title: 'Invincible', cat: 'Branding + Packaging', thumb: 'assets/images/invincible.jpg' },
+  { key: 'proj3', title: 'One Piece', cat: 'Branding + Packaging', thumb: 'assets/images/OnePiece.jpg' },
+  { key: 'bendy', title: 'More Projects', cat: 'Additional Work', thumb: 'assets/images/whitelogo.png' },
 ];
 
 const galleries = {
@@ -128,17 +128,17 @@ const galleries = {
     {
       src: 'assets/images/blox_action.jpg',
       title: 'Series 3 – Action Figure Packaging (Tiger)',
-      desc: 'Directed a Jr. Designer on front/back panel layouts and defined hero shot needs. Curated/approved KeyShot renders using painted ZBrush models from product design. Managed approvals and handoff to the factory via Basecamp.'
+      desc: 'Led the packaging direction for this Series 3 action figure SKU, guiding junior design support on panel layout, defining hero-shot needs, approving KeyShot renders, and managing approvals through final factory handoff.'
     },
     {
       src: 'assets/images/blox_minis.jpg',
       title: 'Series 3 – Minifigures',
-      desc: 'Designed gravity feeder + foil bag. Placed character icons thoughtfully and developed a complex DLC system callout with a clear cross-sell grid for collectibility.'
+      desc: 'Designed the gravity feeder and foil bag system, organizing character icon placement, DLC callouts, and the cross-sell grid so the assortment stayed collectible, readable, and retail-ready.'
     },
     {
       src: 'assets/images/blox_bundle.jpg',
       title: 'Series 3 – Collector Head Bundle',
-      desc: 'Led shrink-wrap graphic strategy and vendor collaboration to ensure form-fitting alignment. Created the poster artwork and illustration system to extend the brand on-pack.'
+      desc: 'Led the shrink-wrap graphic strategy and vendor coordination needed to make the wrap register cleanly on a complex form, while also creating the poster artwork and illustration system that extended the brand on-pack.'
     }
   ],
   // Dress to Impress — full carousel
@@ -146,22 +146,22 @@ const galleries = {
     {
       src: 'assets/images/dti_mm1.jpg',
       title: 'Series 1 Mystery Models',
-      desc: 'For Dress to Impress Mystery Models, I developed the star capsule packaging from the ground up, designing the structure, dielines, and all printable components using Illustrator and KeyShot. I established a new visual direction for the brand, which launched successfully at Target and Walmart. I also created the tray dielines, DLC card, collector insert, and overall packaging system, directing and executing the complete look and feel across retail.'
+      desc: 'For Dress to Impress Mystery Models, I built the star capsule program from the ground up—owning structure, dielines, printable components, and the full retail-facing visual direction. I also created the tray dielines, DLC card, collector insert, and supporting packaging system that launched successfully at Target and Walmart.'
     },
     {
       src: 'assets/images/dti_mm2.jpg',
       title: 'Series 2 Mystery Models',
-      desc: 'I elevated and evolved the entire packaging system, introducing a refreshed palette of pink tones and a more premium visual direction. I refined the star capsule design, updated all icons and graphic elements, and pushed the overall look to feel more modern, collectible, and on-brand for our audience. This series builds on the foundation I created in Series 1 while enhancing the shelf presence and visual storytelling across every packaging component.'
+      desc: 'For Series 2, I evolved the full packaging system with a more premium color palette, updated iconography, and a cleaner collectible hierarchy—building on the original foundation while improving shelf impact and brand consistency across every component.'
     },
     {
       src: 'assets/images/dti_fashiondoll.jpg',
       title: 'Series 1 Fashion Doll Line',
-      desc: 'For the Dress to Impress Fashion Dolls, I developed a full packaging system that ensured every SKU stayed visually consistent—from character artwork and window placement to branding, icons, and call-outs. I also created all supporting components, including the DLC elements, collector cards, and back-of-box layouts. This entire line was executed under a tight timeline, requiring fast, precise decision-making to keep the collection cohesive and retail-ready.'
+      desc: 'For the Fashion Doll line, I built a packaging system that kept every SKU aligned—from window placement and character art to callouts, branding, and supporting collector components. The line moved on a tight schedule, so the work demanded fast decisions without sacrificing cohesion or retail readiness.'
     },
     {
       src: 'assets/images/dti_lanadeluxe.jpg',
       title: 'Series 1 Fashion Doll Playset',
-      desc: 'For the Dress to Impress Deluxe Lana Salon, I developed the full packaging and packout system—designing the structure, layout, and all visual components to clearly showcase the 20+ accessories and salon play features. I also created the custom Red Reveal mechanic, building both the artwork and the functional hidden-message interaction from the ground up. Every element, from branding to internal placement, was thoughtfully crafted to make this deluxe set feel immersive, collectible, and true to the DTI world.'
+      desc: 'For the Deluxe Lana Salon, I developed the complete packaging and packout system—owning structure, layout, and visual communication for 20+ accessories and play features. I also created the custom Red Reveal mechanic, turning the package into a stronger interactive and collectible experience while keeping the line on-brand.'
     }
   ],
   clean: [ {
@@ -198,7 +198,7 @@ const galleries = {
   fnaf: [ 
     { 
       src: 'assets/images/fnaf_construction.jpg', 
-      title: 'Five Nights at Freddys Security Breach Construction Set', 
+      title: "Five Nights at Freddy's Security Breach Construction Set", 
       desc: "For the Five Nights at Freddy’s – Security Breach Construction Set, I developed the complete packaging look and visual direction, ensuring the PhatStacks branding, titles, and graphic system remained consistent across the full construction line. I created all product renders in KeyShot, building a vibrant hero shot that showcased the playset’s scale and details. Every packaging element—layout, branding, iconography, and print-ready files—was designed and executed by me to deliver a cohesive, collectible-driven presence on shelf." 
     },
     {
@@ -208,7 +208,7 @@ const galleries = {
     },
     {
       src: 'assets/images/fnaf_headbundle1.jpg',
-      title: "Five Night's at Freddys Freddy Head Bundle",
+      title: "Five Nights at Freddy's Freddy Head Bundle",
       desc: "For the Five Nights at Freddy’s Head Bundle, I developed all packaging components, including the shrink-wrap design, product stickers, and the full back panel layout. I also created the collectible cards and poster using provided character art, ensuring everything felt cohesive and true to the franchise. Every graphic element—from branding to layout to on-product labeling—was designed and executed by me to deliver a premium unboxing experience."
     }
   ],
@@ -221,11 +221,11 @@ const galleries = {
     {
       src: 'assets/images/poppy_mf.jpg',
       title: 'Poppy Playtime Nightmare Critters Minifigures',
-      desc: 'For Poppy Playtime: Nightmare Critters Minifigures, I designed the complete packaging system from the ground up, establishing the visual look across the CDU, box panels, and foil bags. Using character art provided by the product design team, I built a bold, cohesive graphic language that emphasized contrast, collectibility, and shelf impact. The final direction was reviewed and approved by the licensor, ensuring the presentation stayed true to the IP while introducing a distinct retail presence.'
+      desc: 'For Poppy Playtime: Nightmare Critters Minifigures, I developed the full packaging system across the CDU, box panels, and foil bags—building a bolder collectible language around supplied character art and carrying it through licensor approval into a stronger shelf presence.'
     },
     {
       src: 'assets/images/poppy_10pk.jpg',
-      title: 'Poppy Playtime Nightare Critters 10-Pack',
+      title: 'Poppy Playtime Nightmare Critters 10-Pack',
       desc: 'For the Poppy Playtime: Nightmare Critters 10-Pack, I designed the full packaging layout and visual system, creating a bold, character-forward presentation that clearly showcased the assortment while maintaining strong shelf presence. Using product designer–supplied character art, I developed the composition, callouts, and back-of-box collector guide to balance clarity and collectibility. The final packaging direction was reviewed and approved by the licensor, ensuring brand accuracy while introducing a distinct premium look for a larger pack format.'
     },
     {
@@ -238,7 +238,7 @@ const galleries = {
     {
       src: 'assets/images/invincible_mf.jpg',
       title: 'Invincible Minifigures',
-      desc: 'For the Invincible Minifigures (Series 1), I developed the complete packaging look and visual system, translating the Amazon Original style guide into a bold, collectible-focused retail presentation. I collaborated closely with product designers to obtain CAD files and produced all final product renders in KeyShot, ensuring accurate scale, materials, and lighting. The final packaging balanced strong character presence with clear assortment communication for both the CDU and foil bag formats.'
+      desc: 'For Invincible Minifigures Series 1, I translated the Amazon Original style guide into a retail-ready packaging system, then produced the final KeyShot renders from product-design CAD to ensure the CDU and foil bag formats balanced character presence with clear assortment communication.'
     }
   ],
   proj3: [
@@ -262,17 +262,17 @@ const galleries = {
     {
       src: 'assets/images/neopets_series1.jpg',
       title: 'Neopets Mystery Plush Series 1',
-      desc: 'I developed the complete packaging look that helped reintroduce the beloved brand to consumers at Walmart and Target. I created all box graphics, DLC code artwork, and poly-bag designs, ensuring everything felt true to classic Neopets while appealing to a modern audience. I also engineered a custom dieline for the carry-style box, building a cohesive, collectible-forward presentation across the entire SKU.'
+      desc: 'I developed the full packaging look that helped reintroduce Neopets to Walmart and Target, creating the box graphics, DLC artwork, poly-bag designs, and a custom carry-box dieline that made the SKU feel nostalgic, current, and collectible at shelf.'
     },
     {
       src: 'assets/images/neopets_series2mf.jpg',
       title: 'Neopets Minifigures Series 2',
-      desc: 'For Neopets Minifigures Series 2, I led all packaging direction—from concept through final mechanicals. I coordinated directly with the licensor to source character assets, then configured the full visual composition for both the CDU and blind bags. I designed all graphics, layout systems, and the custom dieline, ensuring the line felt vibrant, collectible, and authentically Neopets across every touchpoint.'
+      desc: 'For Neopets Minifigures Series 2, I led the packaging from concept through final mechanicals—coordinating with the licensor for assets, designing the CDU and blind-bag compositions, and building a custom dieline that kept the line vibrant, collectible, and unmistakably Neopets.'
     },
     {
       src: 'assets/images/neopets_series2cp.jpg',
-      title: 'neopets_series2cp',
-      desc: 'For Neopets Mystery Plush Series 2, I refreshed the packaging direction with a brighter, boutique-inspired look that expanded the visual world of the line. I designed all graphics and layout compositions, integrating licensor-provided assets into a cohesive storybook scene across the box and carry panel. I also built the full dieline myself, ensuring the structure supported both display and unboxing while maintaining the playful charm of the Neopets brand.'
+      title: 'Neopets Mystery Plush Series 2',
+      desc: 'For Neopets Mystery Plush Series 2, I refreshed the line with a brighter boutique-inspired direction, designing the graphics, layouts, and full dieline so the box and carry panel supported both display and unboxing while still feeling playful and brand-authentic.'
     }
   ],
   fisch: [
@@ -626,12 +626,6 @@ if(dotNav){
 window.addEventListener('load', ()=>{
   const hero = document.querySelector('.hero');
   if(hero) hero.classList.add('loaded');
-  // Ensure underline element has positioning context for ::after
-  const underline = hero?.querySelector('.underline');
-  if(underline){
-    underline.style.position = 'relative';
-    underline.style.display = 'inline';
-  }
 });
 
 // Re-trigger hero underline animation whenever hero section becomes visible
@@ -643,8 +637,9 @@ window.addEventListener('load', ()=>{
     // Remove loaded to reset animations
     hero.classList.remove('loaded');
     if(underline){
-      // Reset base underline background-size to 0 to ensure re-animation
-      underline.style.backgroundSize = '0% .11em';
+      // Clear any inline overrides so the CSS base state can replay cleanly.
+      underline.style.removeProperty('background-size');
+      underline.style.removeProperty('filter');
     }
     // Force reflow to restart CSS animations reliably
     void hero.offsetWidth;
