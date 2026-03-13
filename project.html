@@ -96,6 +96,31 @@
       background:color-mix(in srgb, var(--pp-bg) 72%, transparent);
       backdrop-filter:blur(8px);
     }
+    .pp-nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-top:28px;
+      flex-wrap:wrap;
+    }
+    .pp-nav-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      text-decoration:none;
+      color:var(--pp-text);
+      border:1px solid var(--pp-back-border);
+      border-radius:999px;
+      padding:8px 14px;
+      font-weight:600;
+      background:color-mix(in srgb, var(--pp-bg) 72%, transparent);
+      backdrop-filter:blur(8px);
+    }
+    .pp-nav-link--next{
+      margin-left:auto;
+    }
+    .pp-nav-link[hidden]{display:none !important}
     .pp-headline{
       margin:0 0 10px;
       font-size:clamp(36px,5vw,62px);
@@ -377,6 +402,16 @@
         min-height:unset;
       }
       .pp-page{padding-top:18px}
+      .pp-nav{
+        flex-direction:column;
+        align-items:stretch;
+      }
+      .pp-nav-link,
+      .pp-nav-link--next{
+        width:100%;
+        justify-content:center;
+        margin-left:0;
+      }
     }
   </style>
 </head>
@@ -422,7 +457,10 @@
 <main class="pp-page">
   <div class="pp-wrap">
     <div id="projectPageRoot" aria-live="polite"></div>
-    <a class="pp-back" href="graphic.html#work">← Back to graphic work</a>
+    <nav class="pp-nav" aria-label="Project navigation">
+      <a class="pp-nav-link pp-back" href="graphic.html#work">← Back to graphic work</a>
+      <a class="pp-nav-link pp-nav-link--next" id="nextProjectLink" href="graphic.html#work" hidden>Next Project →</a>
+    </nav>
   </div>
 </main>
 

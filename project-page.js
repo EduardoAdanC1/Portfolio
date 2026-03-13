@@ -518,6 +518,16 @@
     bendy: 'Additional Work'
   };
 
+  const projectSequence = [
+    'clean-by-pallet',
+    'sun-books',
+    'moon-coffee',
+    'kof-orochi-saga',
+    'lowtide-ipa',
+    'complexity',
+    'aadan'
+  ];
+
   const params = new URLSearchParams(window.location.search);
   const rawKey = (params.get('key') || '').trim().toLowerCase();
   const keyAliases = {
@@ -726,6 +736,19 @@
   document.body.classList.toggle('pp-theme-lowtide-ipa', key === 'lowtide-ipa');
 
   document.title = `${pageData.title} – Case Study`;
+
+  const nextProjectLink = document.getElementById('nextProjectLink');
+  if (nextProjectLink) {
+    const currentIndex = projectSequence.indexOf(key);
+    if (currentIndex >= 0 && projectSequence.length > 1) {
+      const nextKey = projectSequence[(currentIndex + 1) % projectSequence.length];
+      const nextProject = projectPages[nextKey] || fallbackTemplate(projectNames[nextKey] || 'Project');
+      nextProjectLink.href = `project.html?key=${encodeURIComponent(nextKey)}`;
+      nextProjectLink.hidden = false;
+      nextProjectLink.setAttribute('aria-label', `Next project: ${nextProject.title || 'Project'}`);
+      nextProjectLink.title = `Next project: ${nextProject.title || 'Project'}`;
+    }
+  }
 
   const root = document.getElementById('projectPageRoot');
   if (!root) return;
