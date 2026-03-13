@@ -755,7 +755,7 @@ html.dark-mode .site-footer .footer-logo--dark{display:block}
   z-index:0;
 }
 .parallax-section .work-label{color:var(--text);font-weight:600;letter-spacing:.2px;margin:0}
-.parallax-section .work-arrow{color:var(--text);opacity:.9;display:block;margin:0 auto;animation:arrowBounce 2s ease-in-out infinite}
+.parallax-section .work-arrow{color:var(--text);opacity:.78;display:block;margin:0 auto}
 
 /* Dark mode overrides to keep the section seamless on dark backgrounds */
 .dark-mode .parallax-section{background:linear-gradient(180deg,#1a1a1a,#333);color:#fff}
@@ -765,7 +765,6 @@ html.dark-mode .site-footer .footer-logo--dark{display:block}
 .dark-mode .parallax-section .work-arrow{color:#fff}
 .dark-mode .parallax-section .step .step-icon{color:#fff;opacity:.9}
 /* Removed bottom fade overlay on parallax section in dark mode per request */
-@keyframes arrowBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 @media (max-width:768px){.parallax-section .work-pointer{bottom:10px;gap:3px}}
 
 /* Mobile layout refinements for the concept-to-production section */
