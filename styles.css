@@ -134,6 +134,94 @@ html.cursor-enabled .custom-cursor{display:block}
   .custom-cursor.is-image .cursor-star{animation:none}
 }
 
+/* Featured work marquee band */
+.featured-break{
+  margin:44px 0 0;
+  padding:18px 0;
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
+  overflow:hidden;
+  position:relative;
+  border-top:1px solid rgba(255,255,255,.10);
+  border-bottom:1px solid rgba(255,255,255,.10);
+  background:#0b0d10;
+  box-shadow:
+    0 -22px 42px rgba(0,0,0,.72),
+    inset 0 1px 0 rgba(255,228,77,.42);
+}
+html:not(.dark-mode) .featured-break{
+  border-top:1px solid rgba(0,0,0,.10);
+  border-bottom:1px solid rgba(0,0,0,.10);
+  background:#f1f1f1;
+  box-shadow:
+    0 -18px 30px rgba(0,0,0,.16),
+    inset 0 1px 0 rgba(0,0,0,.08);
+}
+
+.featured-break::before,
+.featured-break::after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:80px;
+  z-index:2;
+  pointer-events:none;
+}
+.featured-break::before{
+  left:0;
+  background:linear-gradient(to right, rgba(11,13,16,1), rgba(11,13,16,0));
+}
+.featured-break::after{
+  right:0;
+  background:linear-gradient(to left, rgba(11,13,16,1), rgba(11,13,16,0));
+}
+html:not(.dark-mode) .featured-break::before{
+  background:linear-gradient(to right, rgba(241,241,241,1), rgba(241,241,241,0));
+}
+html:not(.dark-mode) .featured-break::after{
+  background:linear-gradient(to left, rgba(241,241,241,1), rgba(241,241,241,0));
+}
+
+.featured-break-marquee{
+  display:flex;
+  width:max-content;
+  will-change:transform;
+  animation:featuredBreakMarquee var(--featured-break-duration, 28s) linear infinite;
+}
+.featured-break-row{
+  display:flex;
+  align-items:center;
+  white-space:nowrap;
+  flex:0 0 auto;
+}
+.featured-break-item{
+  font-size:clamp(28px, 6.2vw, 74px);
+  letter-spacing:.08em;
+  font-weight:300;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.88);
+}
+.featured-break-sep{
+  font-size:clamp(24px, 5.6vw, 62px);
+  letter-spacing:.06em;
+  font-weight:300;
+  color:rgba(255,255,255,.34);
+  margin:0 32px;
+}
+html:not(.dark-mode) .featured-break-item{color:rgba(0,0,0,.70)}
+html:not(.dark-mode) .featured-break-sep{color:rgba(0,0,0,.22)}
+
+@keyframes featuredBreakMarquee{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .featured-break-marquee{animation:none}
+}
+
 /* Hide the native cursor site-wide when custom cursor is enabled */
 html.cursor-enabled,
 html.cursor-enabled body,
@@ -695,6 +783,39 @@ html.dark-mode .site-footer .footer-logo--dark{display:block}
 .parallax-section{opacity:0;transform:translateY(30px);transition:opacity .6s ease, transform .6s ease}
 .parallax-section.visible{opacity:1;transform:translateY(0)}
 .parallax-section .inner{max-width:1400px;margin:0 auto;position:static;display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:clamp(80px,6vw,200px);justify-items:center;align-items:start;text-align:center}
+.parallax-section .process-heading{
+  width:min(100%, 1400px);
+  margin:0 auto 42px;
+  padding:0 20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  text-align:center;
+  font-size:clamp(28px, 3.2vw, 42px);
+  line-height:1.05;
+  font-weight:800;
+  letter-spacing:-.02em;
+}
+.parallax-section .process-heading::before,
+.parallax-section .process-heading::after{
+  content:"";
+  flex:0 1 124px;
+  max-width:124px;
+  height:1px;
+  background:linear-gradient(90deg, rgba(255,228,77,0), rgba(255,228,77,.68));
+  opacity:.9;
+}
+.parallax-section .process-heading::after{
+  background:linear-gradient(90deg, rgba(255,228,77,.68), rgba(255,228,77,0));
+}
+html:not(.dark-mode) .parallax-section .process-heading::before,
+html:not(.dark-mode) .parallax-section .process-heading::after{
+  background:linear-gradient(90deg, rgba(14,16,18,0), rgba(14,16,18,.18));
+}
+html:not(.dark-mode) .parallax-section .process-heading::after{
+  background:linear-gradient(90deg, rgba(14,16,18,.18), rgba(14,16,18,0));
+}
 
 @media (min-width: 1280px){
   .parallax-section .inner{
@@ -781,6 +902,17 @@ html.dark-mode .site-footer .footer-logo--dark{display:block}
 @media (max-width: 768px){
   .parallax-section{
     padding:96px 24px 120px;
+  }
+  .parallax-section .process-heading{
+    margin-bottom:28px;
+    padding:0 12px;
+    gap:12px;
+    font-size:clamp(26px, 8vw, 34px);
+  }
+  .parallax-section .process-heading::before,
+  .parallax-section .process-heading::after{
+    flex-basis:52px;
+    max-width:52px;
   }
   /* Stack workflow steps so the copy has room to breathe on phones */
   .parallax-section .inner{
