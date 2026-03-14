@@ -23,7 +23,8 @@
       color:var(--text);
       background:linear-gradient(180deg,#161a1f,#0f1114 45%, #1e232a 100%);
       display:block;
-      overflow:hidden;
+      overflow-x:hidden;
+      overflow-y:auto;
       min-height:100vh;
       min-height:100dvh;
       position:relative;
@@ -88,6 +89,8 @@
       pointer-events:none;
     }
     .card{
+      position:relative;
+      overflow:hidden;
       width:min(780px, 100%);
       max-width:780px;
       border:1px solid rgba(255,255,255,.14);
@@ -98,6 +101,26 @@
       text-align:center;
       box-shadow:0 28px 80px rgba(0,0,0,.45);
       animation:cardIn .58s ease both;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto;
+      height:1px;
+      background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,228,77,.72), rgba(255,255,255,0));
+      opacity:.9;
+      pointer-events:none;
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:-18% auto auto 50%;
+      width:58%;
+      height:180px;
+      transform:translateX(-50%);
+      background:radial-gradient(circle, rgba(255,228,77,.18) 0%, rgba(255,228,77,.06) 38%, rgba(255,228,77,0) 72%);
+      opacity:.7;
+      pointer-events:none;
     }
     .logo{
       width:84px;
@@ -120,7 +143,7 @@
     .selector-copy{margin:0 auto 22px;max-width:60ch}
     h1{ margin:0 0 8px; font-size:clamp(30px,5vw,44px); letter-spacing:-.02em; }
     p{ margin:0 0 22px; color:var(--muted); line-height:1.6; }
-    .actions{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .actions{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:4px; }
     .btn{
       display:inline-flex;
       flex-direction:column;
@@ -136,14 +159,18 @@
       transition:transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
       min-height:118px;
       text-align:left;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
     }
     .btn:hover{ transform:translateY(-2px); background:rgba(255,255,255,.11); border-color:rgba(255,255,255,.42); box-shadow:0 12px 24px rgba(0,0,0,.24); }
+    .btn:active{ transform:translateY(0); }
     .btn.primary{ background:var(--accent); color:#000; border-color:var(--accent); box-shadow:0 10px 28px rgba(255,228,77,.22); }
     .btn.primary:hover{ box-shadow:0 14px 30px rgba(255,228,77,.30); }
     .btn-kicker{display:block;margin:0 0 6px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.72}
     .btn-title{display:block;font-size:20px;line-height:1.1;letter-spacing:-.015em}
     .btn-copy{display:block;margin-top:8px;font-size:13px;line-height:1.4;font-weight:600;opacity:.86}
     .meta{ margin-top:16px; font-size:13px; color:rgba(255,255,255,.76); }
+    .meta-line{display:inline}
+    .meta-sep{display:inline;margin:0 .3em;color:rgba(255,255,255,.42)}
     .meta a{ color:#fff; }
 
     /* Custom cursor (landing page) */
@@ -185,20 +212,117 @@
     }
     @media (max-width: 680px){
       .center-wrap{
+        position:relative;
+        min-height:100vh;
+        min-height:100dvh;
+        align-items:flex-start;
         padding:
-          max(18px, env(safe-area-inset-top))
+          max(18px, calc(env(safe-area-inset-top) + 18px))
           max(18px, env(safe-area-inset-right))
-          max(18px, env(safe-area-inset-bottom))
+          max(30px, calc(env(safe-area-inset-bottom) + 30px))
           max(18px, env(safe-area-inset-left));
       }
       .bg-video{
         object-position:center center;
         transform:scale(1.08);
       }
-      .actions{ grid-template-columns:1fr; }
       .card{
-        padding:26px 18px;
+        padding:24px 18px 20px;
         width:min(680px, 100%);
+        border-radius:20px;
+        background:linear-gradient(180deg, rgba(14,17,22,.82), rgba(9,11,15,.72));
+        border-color:rgba(255,255,255,.16);
+        box-shadow:0 22px 54px rgba(0,0,0,.38);
+      }
+      .logo{
+        width:72px;
+        height:72px;
+        margin-bottom:12px;
+      }
+      .positioning,
+      .selector-copy,
+      h1,
+      .btn-title,
+      .btn-copy,
+      .meta{
+        text-wrap:balance;
+      }
+      .positioning{
+        margin-bottom:14px;
+        max-width:30ch;
+        font-size:14px;
+        line-height:1.55;
+      }
+      h1{
+        font-size:clamp(24px, 9vw, 36px);
+        line-height:1.08;
+      }
+      .selector-copy{
+        margin-bottom:18px;
+        font-size:14px;
+        line-height:1.55;
+      }
+      .actions{
+        grid-template-columns:1fr;
+        gap:14px;
+      }
+      .btn{
+        min-height:118px;
+        padding:17px 16px;
+        border-radius:16px;
+        background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+        border-color:rgba(255,255,255,.18);
+        box-shadow:0 14px 32px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.06);
+      }
+      .btn.primary{box-shadow:0 16px 36px rgba(255,228,77,.22)}
+      .btn-kicker{
+        margin-bottom:8px;
+      }
+      .btn-title{
+        font-size:clamp(18px, 6.4vw, 28px);
+      }
+      .btn-copy{
+        margin-top:6px;
+        font-size:12.5px;
+        line-height:1.45;
+      }
+      .meta{
+        margin-top:14px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:6px;
+        font-size:12.5px;
+        line-height:1.6;
+      }
+      .meta-line{display:block}
+      .meta-sep{display:none}
+    }
+
+    @media (max-width: 420px){
+      .card{
+        padding:22px 16px 18px;
+      }
+      .logo{
+        width:64px;
+        height:64px;
+      }
+      .kicker,
+      .btn-kicker{
+        letter-spacing:.11em;
+      }
+      .positioning,
+      .selector-copy{
+        max-width:26ch;
+      }
+      .btn-copy{
+        font-size:12px;
+      }
+      .meta{
+        font-size:12px;
+      }
+      .meta-line{
+        max-width:24ch;
       }
     }
   </style>
@@ -232,8 +356,8 @@
       </div>
 
       <p class="meta">
-        Eduardo Chavez · Visual + Packaging Designer ·
-        <a href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener">LinkedIn</a>
+        <span class="meta-line">Eduardo Chavez<span class="meta-sep">·</span> Visual + Packaging Designer</span>
+        <a class="meta-line" href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener">LinkedIn</a>
       </p>
     </main>
   </div>
