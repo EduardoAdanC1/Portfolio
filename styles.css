@@ -188,7 +188,7 @@ html:not(.dark-mode) .featured-break::after{
   display:flex;
   width:max-content;
   will-change:transform;
-  animation:featuredBreakMarquee var(--featured-break-duration, 28s) linear infinite;
+  animation:featuredBreakMarquee var(--featured-break-duration, 52s) linear infinite;
 }
 .featured-break-row{
   display:flex;

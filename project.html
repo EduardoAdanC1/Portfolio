@@ -223,6 +223,16 @@
     .pp-figure{
       margin:0;
     }
+    .pp-reveal{
+      opacity:0;
+      transform:translateY(22px);
+      transition:opacity .62s ease, transform .62s cubic-bezier(.22,.65,.2,1);
+      will-change:opacity, transform;
+    }
+    .pp-reveal.is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
     .pp-caption{
       margin-top:10px;
       color:var(--pp-caption-color);
@@ -413,6 +423,15 @@
         margin-left:0;
       }
     }
+    @media (prefers-reduced-motion: reduce){
+      .pp-reveal,
+      .pp-reveal.is-visible{
+        opacity:1;
+        transform:none;
+        transition:none;
+        will-change:auto;
+      }
+    }
   </style>
 </head>
 <body>
@@ -494,6 +513,6 @@
   </div>
 </footer>
 
-<script src="project-page.js?v=20260313-site-polish"></script>
+<script src="project-page.js?v=20260316-project-fade"></script>
 </body>
 </html>

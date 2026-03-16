@@ -799,7 +799,7 @@
   const renderImage = (src, alt, caption = '') => {
     if (!src) return '';
     const safeCaption = String(caption || '').trim();
-    const figureClass = safeCaption ? 'pp-figure pp-figure--captioned' : 'pp-figure';
+    const figureClass = safeCaption ? 'pp-figure pp-figure--captioned pp-reveal' : 'pp-figure pp-reveal';
     return `
       <figure class="${figureClass}">
         <img class="pp-img" src="${src}" alt="${escapeHtml(alt || 'project image')}" loading="lazy" />
@@ -862,14 +862,41 @@
     `;
   };
 
+  const initProjectImageReveals = () => {
+    const revealTargets = Array.from(root.querySelectorAll('.pp-hero, .pp-figure'));
+    if (!revealTargets.length) return;
+
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+
+    if (prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
+      revealTargets.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('is-visible', entry.isIntersecting);
+      });
+    }, {
+      threshold: 0.16,
+      rootMargin: '0px 0px -8% 0px'
+    });
+
+    window.requestAnimationFrame(() => {
+      revealTargets.forEach((el) => observer.observe(el));
+    });
+  };
+
   root.innerHTML = `
     <h1 class="pp-headline">${escapeHtml(pageData.title || 'Project')}</h1>
     <p class="pp-sub">${escapeHtml(pageData.subtitle || '')}</p>
     ${renderFacts(pageData.facts)}
     ${renderSummary(pageData.summary)}
-    <section class="pp-hero">
+    <section class="pp-hero pp-reveal">
       <img class="pp-img" src="${pageData.hero || ''}" alt="${escapeHtml((pageData.title || 'Project') + ' hero image')}" />
     </section>
     ${(Array.isArray(pageData.sections) ? pageData.sections : []).map(renderSection).join('')}
   `;
+
+  initProjectImageReveals();
 })();
