@@ -328,10 +328,10 @@ html.cursor-enabled *{cursor:none !important}
   gap:10px;
   padding:10px 16px;
   border-radius:999px;
-  background:transparent;
-  border:1px solid rgba(255,255,255,.48);
+  background:rgba(255,255,255,.5);
+  border:1px solid rgba(255,255,255,.72);
   box-shadow:0 12px 34px rgba(0,0,0,.09);
-  backdrop-filter:none;
+  backdrop-filter:blur(14px) saturate(1.08);
 }
 .brand img{height:32px;width:auto;display:block}
 .brand .mark{font-weight:800;letter-spacing:.5px}
@@ -340,40 +340,31 @@ html.cursor-enabled *{cursor:none !important}
 .brand .brand-logo--dark{display:none}
 html.dark-mode .brand .brand-logo--light{display:none}
 html.dark-mode .brand .brand-logo--dark{display:block}
-.header .brand .brand-logo--dark{
-  filter:var(--accent-logo-filter);
-}
-
 html:not(.dark-mode) .header .brand.header-contrast--dark,
 html:not(.dark-mode) body.site-menu-open .header .brand,
 html:not(.dark-mode) .header .nav-actions.header-contrast--dark,
 html:not(.dark-mode) body.site-menu-open .header .nav-actions{
-  color:#fff;
-  border-color:rgba(255,255,255,.42);
+  background:rgba(255,255,255,.5);
+  color:#0e1012;
+  border-color:rgba(255,255,255,.78);
   box-shadow:0 16px 38px rgba(0,0,0,.18);
-}
-
-html:not(.dark-mode) .header .brand.header-contrast--dark .brand-logo--light,
-html:not(.dark-mode) body.site-menu-open .header .brand .brand-logo--light{
-  display:none;
 }
 
 html:not(.dark-mode) .header .brand.header-contrast--dark .brand-logo--dark,
 html:not(.dark-mode) body.site-menu-open .header .brand .brand-logo--dark{
-  display:block;
-  filter:none;
+  display:none;
 }
 
 html:not(.dark-mode) .header .nav-actions.header-contrast--dark .dark-mode-btn,
 html:not(.dark-mode) body.site-menu-open .header .dark-mode-btn,
 html:not(.dark-mode) .header .nav-actions.header-contrast--dark .menu-btn,
 html:not(.dark-mode) body.site-menu-open .header .menu-btn{
-  color:#fff;
+  color:#0e1012;
 }
 
 html:not(.dark-mode) .header .nav-actions.header-contrast--dark .menu-btn,
 html:not(.dark-mode) body.site-menu-open .header .menu-btn{
-  border-color:rgba(255,255,255,.28);
+  border-color:rgba(14,16,18,.16);
 }
 
 /* --- NAV LAYOUT FIX --- */
@@ -386,10 +377,10 @@ html:not(.dark-mode) body.site-menu-open .header .menu-btn{
   flex-wrap:nowrap;
   padding:8px 10px;
   border-radius:999px;
-  background:transparent;
-  border:1px solid rgba(255,255,255,.48);
+  background:rgba(255,255,255,.5);
+  border:1px solid rgba(255,255,255,.72);
   box-shadow:0 12px 34px rgba(0,0,0,.09);
-  backdrop-filter:none;
+  backdrop-filter:blur(14px) saturate(1.08);
 }
 .nav a{display:inline-flex;align-items:center;text-decoration:none;color:var(--text);font-weight:500}
 .nav .cta{background:var(--accent);color:#000;padding:8px 14px;border-radius:10px;font-weight:700}
@@ -463,9 +454,9 @@ body.site-menu-open{overflow:hidden}
 body.site-menu-open .header{background:transparent;border-bottom-color:transparent;backdrop-filter:none}
 body.site-menu-open .header .inner{background:transparent;border-color:transparent;box-shadow:none}
 body.site-menu-open .header .brand,
-body.site-menu-open .header .nav-actions{background:transparent;border-color:rgba(255,255,255,.16);box-shadow:none}
+body.site-menu-open .header .nav-actions{background:rgba(255,255,255,.5);border-color:rgba(255,255,255,.78);box-shadow:0 16px 38px rgba(0,0,0,.18)}
 html.dark-mode body.site-menu-open .header .brand,
-html.dark-mode body.site-menu-open .header .nav-actions{background:transparent;border-color:rgba(255,255,255,.12)}
+html.dark-mode body.site-menu-open .header .nav-actions{background:rgba(255,255,255,.5);border-color:rgba(255,255,255,.78)}
 
 @media (hover: hover) and (pointer: fine){
   body.header-idle .header{
@@ -1615,9 +1606,24 @@ html:not(.dark-mode) .parallax-section .process-heading::after{
 
 .dark-mode .brand,
 .dark-mode .nav-actions{
-  background:transparent;
-  border-color:rgba(255,255,255,.10);
+  background:rgba(255,255,255,.5);
+  border-color:rgba(255,255,255,.72);
   box-shadow:0 16px 38px rgba(0,0,0,.24);
+}
+
+html.dark-mode .header .brand .brand-logo--light{display:block}
+html.dark-mode .header .brand .brand-logo--dark{display:none}
+
+.nav-actions .dark-mode-btn,
+.nav-actions .menu-btn,
+html.dark-mode .nav-actions .dark-mode-btn,
+html.dark-mode .nav-actions .menu-btn{
+  color:#0e1012;
+}
+
+.nav-actions .menu-btn,
+html.dark-mode .nav-actions .menu-btn{
+  border-color:rgba(14,16,18,.16);
 }
 
 .dark-mode .nav a, .dark-mode .cta, .dark-mode .dark-mode-btn {
