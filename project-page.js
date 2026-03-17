@@ -269,6 +269,65 @@
         }
       ]
     },
+    kinetic: {
+      title: 'Kinetic',
+      subtitle: 'Kinetic is a monochrome beverage concept that pairs a stark wordmark with tactile grain and a minimal can presentation designed to feel sharp, industrial, and premium at first glance.',
+      hero: 'assets/images/Empty Can Mockup.jpg',
+      facts: [
+        {
+          label: 'Category',
+          value: 'Beverage concept'
+        },
+        {
+          label: 'Role',
+          value: 'Identity + packaging direction'
+        },
+        {
+          label: 'Focus',
+          value: 'Texture, contrast + shelf attitude'
+        },
+        {
+          label: 'Deliverables',
+          value: 'Logo, can mockup, motion-led card concept'
+        }
+      ],
+      summary: [
+        {
+          label: 'Challenge',
+          value: 'Build a beverage concept that feels bold and tactile without relying on loud color or cluttered graphics.'
+        },
+        {
+          label: 'What I owned',
+          value: 'I created the visual direction, the monochrome logo treatment, and the packaging mockup that anchors the concept.'
+        },
+        {
+          label: 'Key constraint',
+          value: 'The system needed to stay minimal and premium while still having enough energy to feel memorable on a can.'
+        },
+        {
+          label: 'Outcome',
+          value: 'The result is a moody, industrial identity direction that uses texture and contrast to create a more visceral brand presence.'
+        }
+      ],
+      sections: [
+        {
+          title: 'Identity Direction',
+          kicker: 'Foundation',
+          copy: 'Kinetic begins with a stripped-back black-and-grey palette and a logo treatment designed to feel direct, fast, and industrial. Instead of relying on bright cues, the concept uses contrast, texture, and restraint to create energy. The mark is meant to read clearly at a distance while the grain and material language add personality up close.',
+          layout: 'single',
+          images: ['assets/images/kinetic.png'],
+          captions: ['Primary Kinetic logo used as the anchor for the concept and the interactive card presentation.']
+        },
+        {
+          title: 'Packaging Application',
+          kicker: 'Mockup',
+          copy: 'The can mockup translates that same mood into a packaging expression that feels premium and tactile. The dark base, restrained contrast, and minimal label language leave space for the mark to carry the identity while the material finish and grain treatment give the concept its edge.',
+          layout: 'single',
+          images: ['assets/images/Empty Can Mockup.jpg'],
+          captions: ['Can mockup showing how the Kinetic identity holds up in a minimal, monochrome packaging application.']
+        }
+      ]
+    },
     neopets: {
       title: 'Neopets',
       subtitle: 'A nostalgic brand refresh translated into modern collectible packaging systems, in-store storytelling, and launch-ready assets.',
@@ -508,6 +567,7 @@
     fisch: 'Fisch',
     aadan: 'Case Study in Progress',
     'lowtide-ipa': 'Lowtide IPA',
+    kinetic: 'Kinetic',
     'kof-orochi-saga': 'King of Fighters The Orochi Saga',
     'moon-coffee': 'Moon Coffee Co.',
     complexity: 'Complexity Surveillance',
@@ -524,6 +584,7 @@
     'moon-coffee',
     'kof-orochi-saga',
     'lowtide-ipa',
+    'kinetic',
     'complexity',
     'aadan'
   ];
