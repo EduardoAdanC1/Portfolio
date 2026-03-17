@@ -9,6 +9,7 @@
     darkModeToggle.addEventListener('click', () => {
       htmlElement.classList.toggle('dark-mode');
       localStorage.setItem('darkMode', htmlElement.classList.contains('dark-mode'));
+      window.dispatchEvent(new Event('headercontrastrefresh'));
     });
   }
 
@@ -53,6 +54,7 @@
       overlay.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('site-menu-open');
       setExpanded(false);
+      window.dispatchEvent(new Event('headercontrastrefresh'));
     };
 
     const openOverlay = ({ pinned = false } = {}) => {
@@ -63,6 +65,7 @@
       overlay.setAttribute('aria-hidden', 'false');
       document.body.classList.add('site-menu-open');
       setExpanded(true);
+      window.dispatchEvent(new Event('headercontrastrefresh'));
     };
 
     const scheduleOverlayClose = (delay = 120) => {
@@ -159,6 +162,7 @@
     window.addEventListener('resize', () => {
       if (window.innerWidth > 768) closeMenu();
       else closeOverlay();
+      window.dispatchEvent(new Event('headercontrastrefresh'));
     }, { passive: true });
   })();
 

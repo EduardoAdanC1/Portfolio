@@ -28,6 +28,7 @@ if (darkModeToggle) {
   darkModeToggle.addEventListener('click', () => {
     htmlElement.classList.toggle('dark-mode');
     localStorage.setItem('darkMode', htmlElement.classList.contains('dark-mode'));
+    window.dispatchEvent(new Event('headercontrastrefresh'));
   });
 }
 
@@ -86,6 +87,7 @@ if (darkModeToggle) {
     overlay.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('site-menu-open');
     setExpanded(false);
+    window.dispatchEvent(new Event('headercontrastrefresh'));
   };
 
   const openOverlay = ({ pinned = false } = {}) => {
@@ -96,6 +98,7 @@ if (darkModeToggle) {
     overlay.setAttribute('aria-hidden', 'false');
     document.body.classList.add('site-menu-open');
     setExpanded(true);
+    window.dispatchEvent(new Event('headercontrastrefresh'));
   };
 
   const scheduleOverlayClose = (delay = 120) => {
@@ -209,6 +212,7 @@ if (darkModeToggle) {
   window.addEventListener('resize', () => {
     if (window.innerWidth > 768) closeMenu();
     else closeOverlay();
+    window.dispatchEvent(new Event('headercontrastrefresh'));
   }, { passive: true });
 })();
 
@@ -806,10 +810,7 @@ window.addEventListener('load', ()=>{
       resumeSection.classList.toggle('visible', on);
       resumeSection.classList.toggle('is-inview', on);
     });
-  }, {
-    threshold: 0.28,
-    rootMargin: '-8% 0px -8% 0px'
-  });
+  }, { threshold: 0 });
 
   ioResume.observe(resumeSection);
 })();

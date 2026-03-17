@@ -14,7 +14,7 @@
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
 
-  <link rel="stylesheet" href="styles.css?v=20260316-resume-reveal" />
+  <link rel="stylesheet" href="styles.css?v=20260316-sitewide-adaptive-contrast" />
 
   <style>
     /* Slightly tighter header spacing on the graphic page now that the PDF link is gone */
@@ -1021,7 +1021,7 @@
     <div class="gd-inner">
       <section class="gd-hero" id="home" aria-label="Graphic Design">
         <div class="gd-hero-media" aria-hidden="true">
-          <video class="gd-hero-video" autoplay muted loop playsinline preload="metadata">
+          <video class="gd-hero-video" autoplay muted loop playsinline preload="none">
             <source src="assets/images/graphicsvideo.mp4?v=20260302-1724" type="video/mp4" />
             <source src="assets/images/herovideo.mp4?v=20260302-1724" type="video/mp4" />
           </video>
@@ -1234,18 +1234,25 @@
 
       <section id="contact" class="section contact-section" aria-label="Contact">
         <div class="inner">
-          <h2>Let’s work together</h2>
-          <p class="contact-subtitle">Available for freelance, contract, and full-time brand, graphic, and presentation design work.</p>
-          <p class="contact-note">Reach out for identity systems, campaign visuals, typography-driven layouts, and launch assets that need to feel clear, premium, and presentation-ready from day one.</p>
-          <div class="contact-cta">
-            <a href="mailto:designer@eduardoachavez.com" class="email-link">designer@eduardoachavez.com</a>
-            <a href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener" class="linkedin-link-contact">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="5.7" cy="4.5" r="1.7" />
-                <path d="M4.1 8.1h3.2V20H4.1z" />
-                <path d="M10.3 8.1h3.1v1.55c.84-1.15 2.13-1.78 3.88-1.78 3.14 0 5.08 2.04 5.08 5.67V20h-3.37v-5.58c0-1.89-.82-3.02-2.45-3.02-1.72 0-2.81 1.21-2.81 3.29V20h-3.42z" />
-              </svg>
-            </a>
+          <div class="contact-layout">
+            <div class="contact-photo-wrap">
+              <img class="contact-photo" src="assets/images/ECHeadshot.jpg" alt="Eduardo Chavez headshot" />
+            </div>
+            <div class="contact-content">
+              <h2>Let’s work together</h2>
+              <p class="contact-subtitle">Available for freelance, contract, and full-time brand, graphic, and presentation design work.</p>
+              <p class="contact-note">Reach out for identity systems, campaign visuals, typography-driven layouts, and launch assets that need to feel clear, premium, and presentation-ready from day one.</p>
+              <div class="contact-cta">
+                <a href="mailto:designer@eduardoachavez.com" class="email-link">designer@eduardoachavez.com</a>
+                <a href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener" class="linkedin-link-contact">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="5.7" cy="4.5" r="1.7" />
+                    <path d="M4.1 8.1h3.2V20H4.1z" />
+                    <path d="M10.3 8.1h3.1v1.55c.84-1.15 2.13-1.78 3.88-1.78 3.14 0 5.08 2.04 5.08 5.67V20h-3.37v-5.58c0-1.89-.82-3.02-2.45-3.02-1.72 0-2.81 1.21-2.81 3.29V20h-3.42z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1333,6 +1340,7 @@
         darkModeToggle.addEventListener('click', () => {
           htmlElement.classList.toggle('dark-mode');
           localStorage.setItem('darkMode', htmlElement.classList.contains('dark-mode'));
+          window.dispatchEvent(new Event('headercontrastrefresh'));
         });
       }
 
@@ -1393,10 +1401,7 @@
           entries.forEach((entry) => {
             resumeSection.classList.toggle('is-inview', entry.isIntersecting);
           });
-        }, {
-          threshold: 0.28,
-          rootMargin: '-8% 0px -8% 0px'
-        });
+        }, { threshold: 0 });
 
         observer.observe(resumeSection);
       })();
@@ -1407,9 +1412,15 @@
         const video = hero?.querySelector?.('.gd-hero-video');
         if (!hero || !video) return;
 
+        const START_DELAY_MS = 900;
+        let playScheduled = false;
+        let startedPlayback = false;
+        let visibilityObserver = null;
+
         const markNoVideo = () => {
           if (hero.classList.contains('gd-hero--no-video')) return;
           hero.classList.add('gd-hero--no-video');
+          if (visibilityObserver) visibilityObserver.disconnect();
           try { video.pause?.(); } catch (e) {}
         };
 
@@ -1434,8 +1445,11 @@
         });
 
         const tryPlay = () => {
+          if (startedPlayback || hero.classList.contains('gd-hero--no-video')) return;
+          startedPlayback = true;
           let p;
           applyPlaybackRate();
+          try { video.load?.(); } catch (e) {}
           try { p = video.play?.(); } catch (e) { markNoVideo(); return; }
           if (p && typeof p.catch === 'function') {
             p.catch(() => {
@@ -1445,8 +1459,43 @@
           }
         };
 
-        // Try to play once the page is ready.
-        window.addEventListener('load', tryPlay, { once: true, passive: true });
+        const scheduleDeferredPlay = () => {
+          if (playScheduled || startedPlayback || hero.classList.contains('gd-hero--no-video')) return;
+          playScheduled = true;
+
+          const startWhenIdle = () => {
+            window.setTimeout(() => {
+              playScheduled = false;
+              tryPlay();
+            }, START_DELAY_MS);
+          };
+
+          if (typeof window.requestIdleCallback === 'function') {
+            window.requestIdleCallback(startWhenIdle, { timeout: 1400 });
+            return;
+          }
+
+          startWhenIdle();
+        };
+
+        // Wait until the page settles and the hero is actually near the viewport.
+        if (typeof IntersectionObserver === 'function') {
+          visibilityObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              visibilityObserver?.disconnect();
+              scheduleDeferredPlay();
+            });
+          }, { threshold: 0.1 });
+          visibilityObserver.observe(hero);
+        } else {
+          window.addEventListener('load', scheduleDeferredPlay, { once: true, passive: true });
+        }
+
+        window.addEventListener('pageshow', scheduleDeferredPlay, { passive: true });
+        document.addEventListener('visibilitychange', () => {
+          if (!document.hidden) scheduleDeferredPlay();
+        });
 
         // Quick watchdog: if the browser reports no usable source, fall back.
         window.setTimeout(() => {
@@ -1459,12 +1508,59 @@
 
       // Shared helpers/state for Featured Work (rail + modal)
       let gdFeaturedProjects = null;
+      const gdWarmedImagePromises = new Map();
       const toAbs = (path) => {
         try {
           return new URL(path, window.location.href).href;
         } catch {
           return path;
         }
+      };
+
+      const warmImageAsset = (url, { highPriority = false } = {}) => {
+        if (!url) return Promise.resolve('');
+        if (gdWarmedImagePromises.has(url)) return gdWarmedImagePromises.get(url);
+
+        const promise = new Promise((resolve) => {
+          const img = new Image();
+          let settled = false;
+
+          const finish = () => {
+            if (settled) return;
+            settled = true;
+            resolve(url);
+          };
+
+          try { img.decoding = 'async'; } catch (e) {}
+          try {
+            if (highPriority && 'fetchPriority' in img) img.fetchPriority = 'high';
+          } catch (e) {}
+
+          img.onload = () => {
+            if (typeof img.decode === 'function') {
+              img.decode().catch(() => {}).finally(finish);
+              return;
+            }
+            finish();
+          };
+          img.onerror = finish;
+          img.src = url;
+
+          if (img.complete) finish();
+        });
+
+        gdWarmedImagePromises.set(url, promise);
+        return promise;
+      };
+
+      const warmFeaturedRevealImages = (list = []) => {
+        const revealUrls = list
+          .map((project) => project?.cardStyle?.variant === 'reveal' ? project.cardStyle.revealImage : '')
+          .filter(Boolean);
+
+        revealUrls.forEach((url, index) => {
+          warmImageAsset(url, { highPriority: index < 3 });
+        });
       };
 
       // Mobile nav (hamburger)
@@ -1518,6 +1614,7 @@
           overlay.setAttribute('aria-hidden', 'true');
           document.body.classList.remove('site-menu-open');
           setExpanded(false);
+          window.dispatchEvent(new Event('headercontrastrefresh'));
         };
         const openOverlay = ({ pinned = false } = {}) => {
           if (!overlay) return;
@@ -1527,6 +1624,7 @@
           overlay.setAttribute('aria-hidden', 'false');
           document.body.classList.add('site-menu-open');
           setExpanded(true);
+          window.dispatchEvent(new Event('headercontrastrefresh'));
         };
         const scheduleOverlayClose = (delay = 120) => {
           if (overlayPinned) return;
@@ -1890,6 +1988,7 @@
         window.addEventListener('resize', () => {
           if (window.innerWidth > 768) closeMenu();
           else closeOverlay();
+          window.dispatchEvent(new Event('headercontrastrefresh'));
         }, { passive: true });
       })();
 
@@ -2009,7 +2108,7 @@
         };
 
         const loadFeaturedProjects = async () => {
-          const res = await fetch(FEATURED_PROJECTS_URL, { cache: 'no-store' });
+          const res = await fetch(FEATURED_PROJECTS_URL);
           if (!res.ok) throw new Error('HTTP ' + res.status);
           const data = await res.json();
           const list = Array.isArray(data?.projects) ? data.projects : [];
@@ -2056,6 +2155,11 @@
                 img.src = fallback;
               }, { once: true });
             }
+            if (isRevealCard && p.cardStyle?.revealImage) {
+              warmImageAsset(p.cardStyle.revealImage, { highPriority: i < 3 }).then(() => {
+                article.classList.add('is-reveal-ready');
+              });
+            }
             track.appendChild(article);
           });
         };
@@ -2064,6 +2168,7 @@
         loadFeaturedProjects()
           .then((list) => {
             gdFeaturedProjects = list;
+            warmFeaturedRevealImages(list);
             logFeaturedProjectsStatus('loaded', { projectCount: list.length });
             renderFeaturedProjects(list);
             if (typeof window.__gdRailKickInit === 'function') window.__gdRailKickInit();
@@ -2615,5 +2720,7 @@
       })();
     })();
   </script>
+  <script src="header-contrast.js?v=20260316-bright-area-fix"></script>
+  <script src="header-idle.js?v=20260316-menu-jank-fix"></script>
 </body>
 </html>
