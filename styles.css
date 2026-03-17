@@ -2,22 +2,28 @@
   --text: #0e1012;
   --muted:#5a606a;
   --accent:#ffe44d;
+  --accent-rgb:255,228,77;
+  --menu-accent:#ffe44d;
+  --menu-accent-rgb:255,228,77;
   --accent-logo-filter: brightness(0) saturate(100%) invert(90%) sepia(34%) saturate(3207%) hue-rotate(337deg) brightness(104%) contrast(104%);
   --bg: #f9f9f9;
   --surface: #fff;
   --star-icon: url('assets/images/Star.png');
-  --cursor-accent: rgba(255,228,77,.95);
+  --cursor-accent: rgba(var(--accent-rgb),.95);
 }
 
 html.dark-mode {
   --text: #eef1f5;
   --muted: #a0a8b0;
-  --accent: #ffe44d;
+  --accent: #7688ff;
+  --accent-rgb:118,136,255;
+  --menu-accent:#ffe44d;
+  --menu-accent-rgb:255,228,77;
   --accent-logo-filter: brightness(0) saturate(100%) invert(90%) sepia(34%) saturate(3207%) hue-rotate(337deg) brightness(104%) contrast(104%);
   --bg: #0e1114;
   --surface: #1a1f26;
   --star-icon: url('assets/images/Star.png');
-  --cursor-accent: rgba(255,228,77,.95);
+  --cursor-accent: rgba(var(--accent-rgb),.95);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Inter,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg);transition:background .3s ease, color .3s ease}
@@ -68,7 +74,7 @@ html.cursor-enabled .custom-cursor{display:block}
   border-radius:999px;
   background:var(--cursor-accent);
   color:#111;
-  box-shadow:0 10px 28px rgba(255,228,77,.28);
+  box-shadow:0 10px 28px rgba(var(--accent-rgb),.28);
   backdrop-filter:none;
 }
 
@@ -389,7 +395,7 @@ html:not(.dark-mode) body.site-menu-open .header .menu-btn{
   background:var(--accent);
   color:#000;
   border-color:var(--accent);
-  box-shadow:0 8px 22px rgba(255,228,77,.22);
+  box-shadow:0 8px 22px rgba(var(--accent-rgb),.22);
 }
 html.dark-mode .nav .cta.secondary{border-color:rgba(255,255,255,.18)}
 html.dark-mode .nav .cta.secondary[aria-current="page"]{
@@ -532,7 +538,7 @@ html.dark-mode body.site-menu-open .header .nav-actions{background:rgba(255,255,
 .site-menu-copy{margin:0;font-size:15px;line-height:1.75;color:rgba(255,255,255,.68);max-width:38ch}
 .site-menu-support{display:grid;gap:16px}
 .site-menu-availability{display:inline-flex;align-items:center;gap:10px;width:max-content;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:rgba(255,255,255,.76);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.site-menu-availability::before{content:"";width:8px;height:8px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 6px rgba(255,228,77,.12)}
+.site-menu-availability::before{content:"";width:8px;height:8px;border-radius:999px;background:var(--menu-accent);box-shadow:0 0 0 6px rgba(var(--menu-accent-rgb),.12)}
 .site-menu-mini-links{display:flex;flex-wrap:wrap;gap:12px 16px}
 .site-menu-mini-links a{color:rgba(255,255,255,.88);text-decoration:none;font-size:14px}
 .site-menu-mini-links a:hover{text-decoration:underline;text-underline-offset:4px}
@@ -548,7 +554,7 @@ html.dark-mode body.site-menu-open .header .nav-actions{background:rgba(255,255,
 .site-menu-link-item[aria-current="page"]{transform:translateX(-6px)}
 .site-menu-link-item:hover,
 .site-menu-link-item:focus-visible{color:#fff}
-.site-menu-link-item[aria-current="page"]{color:var(--accent)}
+.site-menu-link-item[aria-current="page"]{color:var(--menu-accent)}
 .site-menu-link-item[aria-current="page"] .site-menu-link-label{padding-inline-start:1.2em}
 .site-menu-link-item[aria-current="page"] .site-menu-link-label::before{
   content:"→";
@@ -556,15 +562,15 @@ html.dark-mode body.site-menu-open .header .nav-actions{background:rgba(255,255,
   inset-inline-start:0;
   top:50%;
   transform:translateY(-50%);
-  color:var(--accent);
+  color:var(--menu-accent);
   opacity:.34;
-  text-shadow:0 0 18px rgba(255,228,77,.18);
+  text-shadow:0 0 18px rgba(var(--menu-accent-rgb),.18);
   animation:siteMenuSelectionArrowFade 2.8s ease-in-out infinite;
 }
 .site-menu-link-item:hover .site-menu-link-copy,
 .site-menu-link-item:focus-visible .site-menu-link-copy,
-.site-menu-link-item[aria-current="page"] .site-menu-link-copy{color:rgba(255,228,77,.76)}
-.site-menu-link-item[aria-current="page"] .site-menu-link-label{text-shadow:0 0 26px rgba(255,228,77,.16)}
+.site-menu-link-item[aria-current="page"] .site-menu-link-copy{color:rgba(var(--menu-accent-rgb),.76)}
+.site-menu-link-item[aria-current="page"] .site-menu-link-label{text-shadow:0 0 26px rgba(var(--menu-accent-rgb),.16)}
 
 @keyframes siteMenuSelectionArrowFade{
   0%,100%{opacity:.28}
@@ -683,6 +689,37 @@ html.dark-mode .site-menu-backdrop{
   html.dark-mode .nav-links a:hover{background:rgba(255,255,255,.06)}
   .nav-links .cta{justify-content:center}
   .nav-links .linkedin-link{width:100%;height:auto;justify-content:flex-start}
+
+  html.dark-mode .nav-links{
+    border-color:rgba(var(--menu-accent-rgb),.22);
+  }
+
+  html.dark-mode .nav-links a,
+  html.dark-mode .nav-links .cta,
+  html.dark-mode .nav-links .cta.secondary,
+  html.dark-mode .nav-links .cta.secondary[aria-current="page"]{
+    color:#111;
+    background:rgba(var(--menu-accent-rgb),1);
+    border:1px solid rgba(var(--menu-accent-rgb),1);
+    box-shadow:0 10px 24px rgba(var(--menu-accent-rgb),.18);
+    font-weight:800;
+  }
+
+  html.dark-mode .nav-links a:hover,
+  html.dark-mode .nav-links a:focus-visible,
+  html.dark-mode .nav-links .cta:hover,
+  html.dark-mode .nav-links .cta:focus-visible,
+  html.dark-mode .nav-links .cta.secondary:hover,
+  html.dark-mode .nav-links .cta.secondary:focus-visible,
+  html.dark-mode .nav-links .cta.secondary[aria-current="page"]:hover,
+  html.dark-mode .nav-links .cta.secondary[aria-current="page"]:focus-visible{
+    background:rgb(255, 236, 102);
+    border-color:rgb(255, 236, 102);
+  }
+
+  html.dark-mode .nav-links .linkedin-link{
+    justify-content:center;
+  }
 }
 
 @media (max-width: 1100px){
@@ -1286,6 +1323,41 @@ html.dark-mode .resume-note::before{
   font-weight:700;
   letter-spacing:-.02em;
 }
+.resume-scrollfill{
+  --resume-scrollfill-rgb:14,16,18;
+}
+html.dark-mode .resume-scrollfill{
+  --resume-scrollfill-rgb:238,241,245;
+}
+.resume-copy.resume-scrollfill{
+  --resume-scrollfill-rgb:90,96,106;
+}
+html.dark-mode .resume-copy.resume-scrollfill{
+  --resume-scrollfill-rgb:160,168,176;
+}
+.resume-scrollfill.is-sentence-fill-ready{
+  color:transparent;
+}
+.resume-scrollfill.is-sentence-fill-ready .scrollfill-sentence{
+  --sentence-fill:0%;
+  background-image:linear-gradient(
+    90deg,
+    rgba(var(--resume-scrollfill-rgb),1) 0%,
+    rgba(var(--resume-scrollfill-rgb),1) var(--sentence-fill),
+    rgba(var(--resume-scrollfill-rgb),.92) calc(var(--sentence-fill) + 6%),
+    rgba(var(--resume-scrollfill-rgb),.48) calc(var(--sentence-fill) + 14%),
+    rgba(var(--resume-scrollfill-rgb),.3) calc(var(--sentence-fill) + 24%),
+    rgba(var(--resume-scrollfill-rgb),.3) 100%
+  );
+  color:transparent;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-box-decoration-break:clone;
+  box-decoration-break:clone;
+}
+.resume-scrollfill.is-sentence-fill-ready.is-fill-complete .scrollfill-sentence{
+  background-image:linear-gradient(90deg, rgba(var(--resume-scrollfill-rgb),1), rgba(var(--resume-scrollfill-rgb),1));
+}
 .resume-copy{
   margin:0;
   max-width:64ch;
@@ -1366,7 +1438,7 @@ html.dark-mode .resume-pill{
 }
 
 .btn-download{display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#000;padding:13px 24px;border-radius:12px;font-weight:800;text-decoration:none;transition:transform .2s ease, box-shadow .2s ease;width:max-content}
-.btn-download:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(255,228,77,.3)}
+.btn-download:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(var(--accent-rgb),.3)}
 
 @media (max-width: 920px){
   .resume-spotlight,
@@ -1424,11 +1496,11 @@ html.dark-mode .resume-pill{
   flex:0 1 124px;
   max-width:124px;
   height:1px;
-  background:linear-gradient(90deg, rgba(255,228,77,0), rgba(255,228,77,.68));
+  background:linear-gradient(90deg, rgba(var(--accent-rgb),0), rgba(var(--accent-rgb),.68));
   opacity:.9;
 }
 .parallax-section .process-heading::after{
-  background:linear-gradient(90deg, rgba(255,228,77,.68), rgba(255,228,77,0));
+  background:linear-gradient(90deg, rgba(var(--accent-rgb),.68), rgba(var(--accent-rgb),0));
 }
 html:not(.dark-mode) .parallax-section .process-heading::before,
 html:not(.dark-mode) .parallax-section .process-heading::after{
@@ -1456,13 +1528,13 @@ html:not(.dark-mode) .parallax-section .process-heading::after{
   line-height:1;
   letter-spacing:-.03em;
   margin:0;
-  color:rgba(255,228,77,.4); /* adjusted opacity to ~40% for big numbers in light mode */
+  color:rgba(var(--accent-rgb),.4); /* adjusted opacity to ~40% for big numbers in light mode */
   font-weight:900;
   z-index:0;
   pointer-events:none;
   will-change:transform;
 }
-.dark-mode .parallax-section .step h1{color:rgba(255,228,77,.08)}
+.dark-mode .parallax-section .step h1{color:rgba(var(--accent-rgb),.12)}
 
 /* Horizontal crop/soft edges to match reference via masking */
 /* Cropping removed on request */
@@ -1511,11 +1583,38 @@ html:not(.dark-mode) .parallax-section .process-heading::after{
 
 /* Dark mode overrides to keep the section seamless on dark backgrounds */
 .dark-mode .parallax-section{background:linear-gradient(180deg,#1a1a1a,#333);color:#fff}
-.dark-mode .parallax-section .step h1{color:rgba(255,255,255,.07)}
+.dark-mode .parallax-section .step h1{color:rgba(var(--accent-rgb),.12)}
 .dark-mode .parallax-section .step p{color:#a0a8b0}
 .dark-mode .parallax-section .work-label,
 .dark-mode .parallax-section .work-arrow{color:#fff}
 .dark-mode .parallax-section .step .step-icon{color:#fff;opacity:.9}
+
+/* Packaging page: keep My Process accents warm yellow in both modes */
+#concept-to-production .process-heading::before,
+#concept-to-production .process-heading::after{
+  background:linear-gradient(90deg, rgba(255,228,77,0), rgba(255,228,77,.68));
+}
+
+#concept-to-production .process-heading::after{
+  background:linear-gradient(90deg, rgba(255,228,77,.68), rgba(255,228,77,0));
+}
+
+#concept-to-production .step h1{
+  color:rgba(255,228,77,.28);
+}
+
+html.dark-mode #concept-to-production .process-heading::before,
+html.dark-mode #concept-to-production .process-heading::after{
+  background:linear-gradient(90deg, rgba(255,228,77,0), rgba(255,228,77,.68));
+}
+
+html.dark-mode #concept-to-production .process-heading::after{
+  background:linear-gradient(90deg, rgba(255,228,77,.68), rgba(255,228,77,0));
+}
+
+html.dark-mode #concept-to-production .step h1{
+  color:rgba(255,228,77,.16);
+}
 /* Removed bottom fade overlay on parallax section in dark mode per request */
 @media (max-width:768px){.parallax-section .work-pointer{bottom:10px;gap:3px}}
 
@@ -1676,7 +1775,7 @@ html:not(.dark-mode) .parallax-section .process-heading::after{
 .pwd-error{display:none;color:#ff7b7b;font-size:13px;margin-top:-4px}
 .pwd-actions{display:flex;justify-content:flex-end;gap:10px}
 .pwd-btn{padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:#12161b;color:#fff;cursor:pointer}
-.pwd-btn.primary{background:#ffe44d;color:#000;border-color:#ffe44d;font-weight:700}
+.pwd-btn.primary{background:var(--accent);color:#000;border-color:var(--accent);font-weight:700}
 .pwd-btn:hover{filter:brightness(1.1)}
 
 .dark-mode .header {
@@ -1712,15 +1811,60 @@ html.dark-mode .nav-actions .menu-btn{
   border-color:rgba(14,16,18,.16);
 }
 
-.dark-mode .nav a, .dark-mode .cta, .dark-mode .dark-mode-btn {
+.dark-mode .nav a, .dark-mode .dark-mode-btn {
   color: var(--text); /* Adjust link and button colors for dark mode */
 }
 
 /* (Header logo now swaps assets instead of using a filter) */
 
-.dark-mode .cta {
-  background: #000; /* Change button background to black */
-  color: #fff; /* Ensure text is visible */
+.dark-mode .cta:not(.secondary),
+.dark-mode .btn-download,
+.dark-mode .btn-contact,
+.dark-mode .email-link,
+.dark-mode .gd-actions a.primary,
+.dark-mode .pwd-btn.primary {
+  background: var(--accent);
+  color: #f5f7ff;
+  border-color: var(--accent);
+  box-shadow: 0 10px 24px rgba(var(--accent-rgb), 0.32);
+}
+
+.dark-mode .cta:not(.secondary):hover,
+.dark-mode .btn-download:hover,
+.dark-mode .btn-contact:hover,
+.dark-mode .email-link:hover,
+.dark-mode .gd-actions a.primary:hover,
+.dark-mode .pwd-btn.primary:hover {
+  box-shadow: 0 14px 30px rgba(var(--accent-rgb), 0.4);
+}
+
+.dark-mode .nav .cta.secondary[aria-current="page"] {
+  color: #f5f7ff;
+  box-shadow: 0 8px 22px rgba(var(--accent-rgb), 0.28);
+}
+
+html.dark-mode body.packaging-page .cta:not(.secondary),
+html.dark-mode body.packaging-page .btn-download,
+html.dark-mode body.packaging-page .btn-contact,
+html.dark-mode body.packaging-page .email-link {
+  background: #ffe44d;
+  color: #111;
+  border-color: #ffe44d;
+  box-shadow: 0 10px 24px rgba(255,228,77,0.32);
+}
+
+html.dark-mode body.packaging-page .cta:not(.secondary):hover,
+html.dark-mode body.packaging-page .btn-download:hover,
+html.dark-mode body.packaging-page .btn-contact:hover,
+html.dark-mode body.packaging-page .email-link:hover {
+  box-shadow: 0 14px 30px rgba(255,228,77,0.4);
+}
+
+html.dark-mode body.packaging-page .nav .cta.secondary[aria-current="page"] {
+  background: #ffe44d;
+  color: #111;
+  border-color: #ffe44d;
+  box-shadow: 0 8px 22px rgba(255,228,77,0.28);
 }
 
 /* dark mode hero section */
@@ -1755,22 +1899,11 @@ html.dark-mode .nav-actions .menu-btn{
   display: block; /* Ensure logo is visible */
 }
 
-.dark-mode .btn-download {
-  background: #000; /* Match dark mode button background */
-  color: #fff; /* Ensure text is readable */
-  border-radius: 8px; /* Keep rounded edges consistent */
-}
-
 .dark-mode .btn-contact {
-  background: #000; /* Match dark mode button background */
-  color: #fff; /* Ensure text is readable */
   border-radius: 8px; /* Keep rounded edges consistent */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add subtle shadow for depth */
+  box-shadow: 0 10px 24px rgba(var(--accent-rgb), 0.32); /* Keep CTA prominent in dark mode */
 }
 
 .dark-mode .email-link {
-  background: #000; /* Match dark mode button background */
-  color: #fff; /* Ensure text is readable */
-  border-radius: 8px; /* Keep rounded edges consistent */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add subtle shadow for depth */
+  box-shadow: 0 10px 24px rgba(var(--accent-rgb), 0.32); /* Keep CTA prominent in dark mode */
 }
