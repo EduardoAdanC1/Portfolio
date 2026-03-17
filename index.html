@@ -10,6 +10,7 @@
   <link rel="apple-touch-icon" href="assets/images/whitelogo.png">
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
+  <link rel="stylesheet" href="styles.css?v=20260317-footer-logo-white" />
   <style>
     :root{
       --accent:#ffe44d;
@@ -21,7 +22,7 @@
     body{
       font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Inter,Helvetica,Arial,sans-serif;
       color:var(--text);
-      background:linear-gradient(180deg,#161a1f,#0f1114 45%, #1e232a 100%);
+      background:radial-gradient(circle at 50% 18%, #121520 0%, #08090c 48%, #040507 100%);
       display:block;
       overflow-x:hidden;
       overflow-y:auto;
@@ -30,6 +31,8 @@
       position:relative;
       isolation:isolate;
     }
+    body.landing-page{background:#050608}
+    body.landing-page .header{z-index:20}
     .center-wrap{
       position:fixed;
       inset:0;
@@ -38,9 +41,9 @@
       justify-content:center;
       width:100%;
       padding:
-        max(40px, env(safe-area-inset-top))
+        max(108px, calc(env(safe-area-inset-top) + 52px))
         max(24px, env(safe-area-inset-right))
-        max(42px, calc(env(safe-area-inset-bottom) + 18px))
+        max(34px, calc(env(safe-area-inset-bottom) + 18px))
         max(24px, env(safe-area-inset-left));
       z-index:3;
     }
@@ -49,13 +52,15 @@
       inset:0;
       width:100%;
       height:100%;
-      object-fit:cover;
-      object-position:right center;
-      filter:grayscale(1) brightness(.42);
-      transform:scale(1.04);
+      object-fit:contain;
+      object-position:center center;
+      filter:grayscale(1) brightness(.44) contrast(1.02);
+      transform:none;
       z-index:0;
       background:#0f1114;
       pointer-events:none;
+      opacity:1;
+      transition:opacity .28s ease;
     }
     .video-mask{
       position:fixed;
@@ -63,19 +68,16 @@
       z-index:1;
       pointer-events:none;
       background:
-        /* soften left edge where video crops */
-        linear-gradient(to right, rgba(0,0,0,.82) 0%, rgba(0,0,0,.46) 28%, rgba(0,0,0,.12) 50%, rgba(0,0,0,0) 70%),
-        /* subtle top/bottom edge cleanup */
-        linear-gradient(to bottom, rgba(0,0,0,.34), rgba(0,0,0,.08) 28%, rgba(0,0,0,.08) 72%, rgba(0,0,0,.42)),
-        /* targeted dark patch for any corner logo/watermark */
+        radial-gradient(940px 520px at 50% 44%, rgba(0,0,0,0) 18%, rgba(0,0,0,.28) 72%, rgba(0,0,0,.64) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,.28), rgba(0,0,0,.12) 24%, rgba(0,0,0,.16) 76%, rgba(0,0,0,.48)),
         radial-gradient(320px 240px at 92% 90%, rgba(0,0,0,.90) 0%, rgba(0,0,0,.68) 38%, rgba(0,0,0,0) 76%);
     }
     .overlay{
       position:fixed;
       inset:0;
       background:
-        radial-gradient(1200px 600px at 50% 18%, rgba(0,0,0,.16), rgba(0,0,0,.78)),
-        linear-gradient(180deg, rgba(0,0,0,.46), rgba(0,0,0,.72));
+        radial-gradient(1200px 600px at 50% 18%, rgba(0,0,0,.12), rgba(0,0,0,.62)),
+        linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.58));
       z-index:2;
       pointer-events:none;
     }
@@ -88,66 +90,47 @@
         radial-gradient(900px 520px at 18% 24%, rgba(141,108,255,.10), rgba(141,108,255,0) 62%),
         radial-gradient(760px 480px at 82% 78%, rgba(78,223,255,.08), rgba(78,223,255,0) 64%);
       mix-blend-mode:screen;
-      opacity:.46;
+      opacity:.36;
       pointer-events:none;
     }
-    .card{
+    .landing-panel{
       position:relative;
       overflow:hidden;
-      width:min(1080px, 100%);
-      max-width:1080px;
+      width:min(720px, 100%);
+      max-width:720px;
       border:1px solid rgba(255,255,255,.14);
-      background:rgba(10,12,16,.58);
-      backdrop-filter:blur(8px) saturate(1.1);
-      border-radius:24px;
-      padding:24px clamp(22px, 3.4vw, 38px);
+      background:rgba(8,10,14,.42);
+      backdrop-filter:blur(14px) saturate(1.04);
+      border-radius:22px;
+      padding:20px clamp(18px, 3vw, 28px);
       text-align:center;
-      box-shadow:0 28px 80px rgba(0,0,0,.45);
+      box-shadow:0 22px 64px rgba(0,0,0,.34);
       animation:cardIn .58s ease both;
     }
-    .card::before{
+    .landing-panel::before{
       content:"";
       position:absolute;
       inset:0 0 auto;
       height:1px;
-      background:linear-gradient(90deg, rgba(255,255,255,0), rgba(118,136,255,.78), rgba(255,255,255,0));
-      opacity:.9;
+      background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,228,77,.56), rgba(255,255,255,0));
+      opacity:.72;
       pointer-events:none;
     }
-    .card::after{
+    .landing-panel::after{
       content:"";
       position:absolute;
-      inset:-18% auto auto 50%;
-      width:58%;
-      height:180px;
+      inset:-28% auto auto 50%;
+      width:48%;
+      height:140px;
       transform:translateX(-50%);
-      background:radial-gradient(circle, rgba(118,136,255,.18) 0%, rgba(118,136,255,.07) 38%, rgba(118,136,255,0) 72%);
-      opacity:.7;
+      background:radial-gradient(circle, rgba(255,228,77,.14) 0%, rgba(255,228,77,.05) 38%, rgba(255,228,77,0) 72%);
+      opacity:.5;
       pointer-events:none;
     }
-    .logo{
-      width:72px;
-      height:72px;
-      object-fit:contain;
-      margin:0 auto 10px;
-      display:block;
-      filter:drop-shadow(0 10px 24px rgba(0,0,0,.38));
-      animation:logoPulse 2.8s ease-in-out infinite alternate;
-    }
-    .kicker{
-      margin:0 0 6px;
-      font-size:11px;
-      font-weight:800;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.74);
-    }
-    .positioning{margin:0 auto 8px;max-width:68ch;font-size:15px;color:rgba(255,255,255,.92)}
-    .selector-copy{margin:0 auto 18px;max-width:72ch}
-    h1{ margin:0 0 10px; font-size:clamp(30px,5vw,46px); letter-spacing:-.02em; }
-    p{ margin:0 0 18px; color:var(--muted); line-height:1.6; }
-    .actions{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:0 auto; max-width:900px; }
-    .btn{
+    .landing-positioning{margin:0 auto 10px;max-width:44ch;font-size:13px;color:rgba(255,255,255,.84);line-height:1.55}
+    .landing-panel h1{ margin:0 0 8px; font-size:clamp(28px,4.8vw,42px); letter-spacing:-.025em; line-height:1.04; }
+    .landing-actions{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:0 auto; max-width:660px; }
+    .landing-path{
       position:relative;
       overflow:hidden;
       isolation:isolate;
@@ -157,40 +140,39 @@
       align-items:flex-start;
       text-decoration:none;
       border-radius:12px;
-      padding:14px 16px;
+      padding:14px 15px;
       font-weight:800;
       border:1px solid rgba(255,255,255,.25);
       color:#fff;
       background:rgba(255,255,255,.04);
       transition:transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
-      min-height:118px;
+      min-height:96px;
       text-align:left;
       box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
     }
-    .btn > *{position:relative;z-index:1}
-    .btn::before{
+    .landing-path > *{position:relative;z-index:1}
+    .landing-path::before{
       content:"";
       position:absolute;
       inset:-22%;
       background:
-        radial-gradient(circle at 18% 22%, rgba(118,136,255,.14) 0%, rgba(118,136,255,0) 30%),
-        radial-gradient(circle at 82% 76%, rgba(88,214,255,.10) 0%, rgba(88,214,255,0) 28%),
-        linear-gradient(120deg, rgba(255,255,255,.02), rgba(255,255,255,0) 46%, rgba(118,136,255,.045) 100%);
-      opacity:.78;
+        radial-gradient(circle at 18% 22%, rgba(255,228,77,.12) 0%, rgba(255,228,77,0) 30%),
+        radial-gradient(circle at 82% 76%, rgba(255,255,255,.08) 0%, rgba(255,255,255,0) 28%),
+        linear-gradient(120deg, rgba(255,255,255,.02), rgba(255,255,255,0) 46%, rgba(255,228,77,.035) 100%);
+      opacity:.62;
       pointer-events:none;
     }
-    .btn:hover{ transform:translateY(-2px); background:rgba(255,255,255,.11); border-color:rgba(255,255,255,.42); box-shadow:0 12px 24px rgba(0,0,0,.24); }
-    .btn:active{ transform:translateY(0); }
-    .btn.primary{ background:var(--accent); color:#000; border-color:var(--accent); box-shadow:0 10px 28px rgba(255,228,77,.22); }
-    .btn.primary:hover{ box-shadow:0 14px 30px rgba(255,228,77,.30); }
-    .btn.primary::before{opacity:.24;mix-blend-mode:soft-light}
-    .btn-kicker{display:block;margin:0 0 6px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.72}
-    .btn-title{display:block;font-size:20px;line-height:1.1;letter-spacing:-.015em}
-    .btn-copy{display:block;margin-top:8px;font-size:13px;line-height:1.4;font-weight:600;opacity:.86}
-    .meta{ margin-top:14px; font-size:13px; color:rgba(255,255,255,.76); }
-    .meta-line{display:inline}
-    .meta-sep{display:inline;margin:0 .3em;color:rgba(255,255,255,.42)}
-    .meta a{ color:#fff; }
+    .landing-path:hover{ transform:translateY(-2px); background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.34); box-shadow:0 12px 24px rgba(0,0,0,.22); }
+    .landing-path:active{ transform:translateY(0); }
+    .landing-path.primary{ background:var(--accent); color:#000; border-color:var(--accent); box-shadow:0 10px 28px rgba(255,228,77,.22); }
+    .landing-path.primary:hover{ box-shadow:0 14px 30px rgba(255,228,77,.30); }
+    .landing-path.primary::before{opacity:.24;mix-blend-mode:soft-light}
+    .landing-path-title{display:block;font-size:20px;line-height:1.06;letter-spacing:-.015em}
+    .landing-path-copy{display:block;margin-top:6px;font-size:12px;line-height:1.4;font-weight:600;opacity:.82}
+    .landing-meta{ margin-top:12px; font-size:12px; color:rgba(255,255,255,.68); }
+    .landing-meta-line{display:inline}
+    .landing-meta-sep{display:inline;margin:0 .3em;color:rgba(255,255,255,.42)}
+    .landing-meta a{ color:#fff; }
 
     /* Custom cursor (landing page) */
     .custom-cursor{
@@ -221,14 +203,11 @@
       from{ opacity:0; transform:translateY(12px) scale(.985); }
       to{ opacity:1; transform:translateY(0) scale(1); }
     }
-    @keyframes logoPulse{
-      from{ transform:translateY(0) scale(1); opacity:.92; }
-      to{ transform:translateY(-1px) scale(1.02); opacity:1; }
-    }
     @media (prefers-reduced-motion: reduce){
-      .logo,.card{ animation:none; }
+      .landing-panel{ animation:none; }
       .custom-cursor{ transition:none; }
     }
+    .landing-page .site-menu-overlay{z-index:90}
     @media (max-width: 680px){
       .center-wrap{
         position:relative;
@@ -236,147 +215,205 @@
         min-height:100dvh;
         align-items:flex-start;
         padding:
-          max(18px, calc(env(safe-area-inset-top) + 18px))
+          max(92px, calc(env(safe-area-inset-top) + 58px))
           max(18px, env(safe-area-inset-right))
           max(30px, calc(env(safe-area-inset-bottom) + 30px))
           max(18px, env(safe-area-inset-left));
       }
       .bg-video{
-        object-position:center center;
-        transform:scale(1.08);
+        object-fit:contain;
+        object-position:center 44%;
+        transform:none;
       }
-      .card{
-        padding:24px 18px 20px;
+      .landing-panel{
+        padding:18px 16px 16px;
         width:min(680px, 100%);
         border-radius:20px;
-        background:linear-gradient(180deg, rgba(14,17,22,.82), rgba(9,11,15,.72));
+        background:linear-gradient(180deg, rgba(10,13,18,.64), rgba(9,11,15,.54));
         border-color:rgba(255,255,255,.16);
-        box-shadow:0 22px 54px rgba(0,0,0,.38);
+        box-shadow:0 18px 42px rgba(0,0,0,.3);
       }
-      .logo{
-        width:72px;
-        height:72px;
-        margin-bottom:12px;
-      }
-      .positioning,
-      .selector-copy,
-      h1,
-      .btn-title,
-      .btn-copy,
-      .meta{
+      .landing-positioning,
+      .landing-panel h1,
+      .landing-path-title,
+      .landing-path-copy,
+      .landing-meta{
         text-wrap:balance;
       }
-      .positioning{
-        margin-bottom:14px;
-        max-width:30ch;
-        font-size:14px;
+      .landing-positioning{
+        margin-bottom:10px;
+        max-width:29ch;
+        font-size:12.5px;
         line-height:1.55;
       }
-      h1{
-        font-size:clamp(24px, 9vw, 36px);
+      .landing-panel h1{
+        font-size:clamp(23px, 8vw, 34px);
         line-height:1.08;
       }
-      .selector-copy{
-        margin-bottom:18px;
-        font-size:14px;
-        line-height:1.55;
-      }
-      .actions{
+      .landing-actions{
         grid-template-columns:1fr;
-        gap:14px;
+        gap:10px;
       }
-      .btn{
-        min-height:118px;
-        padding:17px 16px;
+      .landing-path{
+        min-height:88px;
+        padding:14px 14px;
         border-radius:16px;
         background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
         border-color:rgba(255,255,255,.18);
         box-shadow:0 14px 32px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.06);
       }
-      .btn.primary{box-shadow:0 16px 36px rgba(255,228,77,.22)}
-      .btn-kicker{
-        margin-bottom:8px;
+      .landing-path.primary{box-shadow:0 16px 36px rgba(255,228,77,.22)}
+      .landing-path-title{
+        font-size:clamp(18px, 6vw, 24px);
       }
-      .btn-title{
-        font-size:clamp(18px, 6.4vw, 28px);
-      }
-      .btn-copy{
-        margin-top:6px;
-        font-size:12.5px;
+      .landing-path-copy{
+        margin-top:4px;
+        font-size:11.5px;
         line-height:1.45;
       }
-      .meta{
-        margin-top:14px;
+      .landing-meta{
+        margin-top:12px;
         display:flex;
         flex-direction:column;
         align-items:center;
-        gap:6px;
-        font-size:12.5px;
+        gap:4px;
+        font-size:12px;
         line-height:1.6;
       }
-      .meta-line{display:block}
-      .meta-sep{display:none}
+      .landing-meta-line{display:block}
+      .landing-meta-sep{display:none}
     }
 
     @media (max-width: 420px){
-      .card{
-        padding:22px 16px 18px;
+      .landing-panel{
+        padding:16px 14px 14px;
       }
-      .logo{
-        width:64px;
-        height:64px;
+      .landing-positioning{
+        max-width:24ch;
       }
-      .kicker,
-      .btn-kicker{
-        letter-spacing:.11em;
+      .landing-path-copy{
+        font-size:11px;
       }
-      .positioning,
-      .selector-copy{
-        max-width:26ch;
+      .landing-meta{
+        font-size:11.5px;
       }
-      .btn-copy{
-        font-size:12px;
-      }
-      .meta{
-        font-size:12px;
-      }
-      .meta-line{
+      .landing-meta-line{
         max-width:24ch;
       }
     }
   </style>
 </head>
-<body>
+<body class="landing-page">
+  <header class="header">
+    <div class="inner">
+      <div class="brand">
+        <img class="brand-logo brand-logo--light" src="assets/images/ecmonogram.png" alt="EC monogram" />
+        <img class="brand-logo brand-logo--dark" src="assets/images/ecmonogramwhite.png" alt="EC monogram" />
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <div class="nav-links" id="navLinks">
+          <a href="index.html" aria-current="page">Home</a>
+          <a class="cta secondary" href="packaging.html">Packaging Design</a>
+          <a class="cta secondary" href="graphic.html">Graphic Design</a>
+          <a href="assets/resume.pdf" download>Resume</a>
+          <a href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener" class="linkedin-link" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <circle cx="5.7" cy="4.5" r="1.7" />
+              <path d="M4.1 8.1h3.2V20H4.1z" />
+              <path d="M10.3 8.1h3.1v1.55c.84-1.15 2.13-1.78 3.88-1.78 3.14 0 5.08 2.04 5.08 5.67V20h-3.37v-5.58c0-1.89-.82-3.02-2.45-3.02-1.72 0-2.81 1.21-2.81 3.29V20h-3.42z" />
+            </svg>
+          </a>
+        </div>
+        <div class="nav-actions">
+          <button id="darkModeToggle" class="dark-mode-btn" type="button" aria-label="Toggle dark mode">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+          <button id="menuToggle" class="menu-btn" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false">
+            <span class="menu-btn-label">Menu</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+              <line x1="4" y1="7" x2="20" y2="7"></line>
+              <line x1="4" y1="12" x2="20" y2="12"></line>
+              <line x1="4" y1="17" x2="20" y2="17"></line>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div id="siteMenuOverlay" class="site-menu-overlay" aria-hidden="true">
+    <div class="site-menu-backdrop"></div>
+    <div class="site-menu-shell">
+      <div class="site-menu-panel">
+        <div class="site-menu-meta">
+          <div>
+            <p class="site-menu-kicker">Eduardo Chavez</p>
+            <h2 class="site-menu-title">Choose a clean starting point, then dive into packaging systems or graphic design work.</h2>
+          </div>
+          <div class="site-menu-support">
+            <p class="site-menu-copy">A simpler landing flow: the video stays visible, while the menu gives people a quick path into the work.</p>
+            <span class="site-menu-availability">Open to new opportunities</span>
+            <div class="site-menu-mini-links">
+              <a href="mailto:designer@eduardoachavez.com">designer@eduardoachavez.com</a>
+              <a href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="assets/resume.pdf" download>Resume PDF</a>
+            </div>
+          </div>
+        </div>
+
+        <nav class="site-menu-nav" aria-label="Expanded site navigation">
+          <a class="site-menu-link-item" href="index.html" aria-current="page">
+            <span class="site-menu-link-label">Home</span>
+            <span class="site-menu-link-copy">Start here, let the intro breathe, and choose the direction that best matches the work you want to see.</span>
+          </a>
+          <a class="site-menu-link-item" href="packaging.html">
+            <span class="site-menu-link-label">Packaging Design</span>
+            <span class="site-menu-link-copy">Retail-ready packaging systems, approvals, production, and factory handoff.</span>
+          </a>
+          <a class="site-menu-link-item" href="graphic.html">
+            <span class="site-menu-link-label">Graphic Design</span>
+            <span class="site-menu-link-copy">Identity systems, campaign visuals, typography, and polished digital assets.</span>
+          </a>
+          <a class="site-menu-link-item" href="assets/resume.pdf" download>
+            <span class="site-menu-link-label">Resume</span>
+            <span class="site-menu-link-copy">Download a concise overview of experience, strengths, and current availability.</span>
+          </a>
+          <a class="site-menu-link-item" href="mailto:designer@eduardoachavez.com">
+            <span class="site-menu-link-label">Contact</span>
+            <span class="site-menu-link-copy">Reach out for freelance, contract, and full-time opportunities.</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
   <video id="landingVideo" class="bg-video" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture aria-hidden="true">
-    <source src="assets/images/moviewater.mp4" type="video/mp4" />
+    <source src="assets/images/moviewater.mp4?v=20260317-1634" type="video/mp4" />
   </video>
   <div class="video-mask" aria-hidden="true"></div>
   <div class="overlay" aria-hidden="true"></div>
 
   <div class="center-wrap">
-    <main class="card" aria-label="Portfolio selector">
-      <img src="assets/images/ecmonogramwhite2.png" alt="EC logo" class="logo" />
-      <p class="kicker">Eduardo Chavez</p>
-      <p class="positioning">Packaging systems, brand identity, and visual design for toys, collectibles, and consumer products.</p>
-      <h1>Choose your best starting point</h1>
-      <p class="selector-copy">Each path is curated to show how I lead the work—from retail-ready packaging systems and approvals to brand, campaign, and digital design that launches cleanly.</p>
+    <main class="landing-panel" aria-label="Portfolio selector">
+      <h1>Choose your path</h1>
+      <p class="landing-positioning">Packaging systems, brand identity, and visual design for toys, collectibles, and consumer products.</p>
 
-      <div class="actions">
-        <a class="btn primary" href="packaging.html">
-          <span class="btn-kicker">Best for</span>
-          <span class="btn-title">Packaging Design</span>
-          <span class="btn-copy">Dielines, licensor approvals, render direction, factory handoff, and retail systems built for big-box execution.</span>
+      <div class="landing-actions">
+        <a class="landing-path primary" href="packaging.html">
+          <span class="landing-path-title">Packaging Design</span>
+          <span class="landing-path-copy">Retail systems, approvals, renders, and factory handoff.</span>
         </a>
-        <a class="btn" href="graphic.html">
-          <span class="btn-kicker">Best for</span>
-          <span class="btn-title">Graphic Design</span>
-          <span class="btn-copy">Brand identity, typography, campaign visuals, digital assets, and polished presentation systems that stay consistent in use.</span>
+        <a class="landing-path" href="graphic.html">
+          <span class="landing-path-title">Graphic Design</span>
+          <span class="landing-path-copy">Identity, typography, campaign visuals, and digital systems.</span>
         </a>
       </div>
 
-      <p class="meta">
-        <span class="meta-line">Eduardo Chavez<span class="meta-sep">·</span> Visual + Packaging Designer</span>
-        <a class="meta-line" href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener">LinkedIn</a>
+      <p class="landing-meta">
+        <span class="landing-meta-line">Los Angeles<span class="landing-meta-sep">·</span> Visual + Packaging Design</span>
+        <a class="landing-meta-line" href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener">LinkedIn</a>
       </p>
     </main>
   </div>
@@ -385,6 +422,85 @@
 
   <script>
     (() => {
+      const htmlElement = document.documentElement;
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      const savedDarkMode = localStorage.getItem('darkMode');
+      if (savedDarkMode === 'true') htmlElement.classList.add('dark-mode');
+      else htmlElement.classList.remove('dark-mode');
+
+      if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', () => {
+          htmlElement.classList.toggle('dark-mode');
+          localStorage.setItem('darkMode', htmlElement.classList.contains('dark-mode'));
+        });
+      }
+
+      (() => {
+        const nav = document.querySelector('.header .nav');
+        const toggle = document.getElementById('menuToggle');
+        const links = nav?.querySelector?.('.nav-links');
+        const overlay = document.getElementById('siteMenuOverlay');
+        const overlayPanel = overlay?.querySelector?.('.site-menu-panel');
+        if (!nav || !toggle || !links) return;
+
+        const isDesktopOverlay = () => window.innerWidth > 768 && !!overlay;
+
+        const setExpanded = (expanded) => {
+          toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+          toggle.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
+        };
+
+        const closeMenu = () => {
+          nav.classList.remove('is-open');
+          overlay?.classList.remove('is-open');
+          overlay?.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('site-menu-open');
+          setExpanded(false);
+        };
+
+        const openMenu = () => {
+          if (isDesktopOverlay()) {
+            overlay?.classList.add('is-open');
+            overlay?.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('site-menu-open');
+          } else {
+            nav.classList.add('is-open');
+          }
+          setExpanded(true);
+        };
+
+        toggle.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          const expanded = toggle.getAttribute('aria-expanded') === 'true';
+          if (expanded) closeMenu();
+          else openMenu();
+          toggle.blur();
+        });
+
+        document.addEventListener('click', (event) => {
+          if (nav.contains(event.target) || toggle.contains(event.target) || overlayPanel?.contains(event.target)) return;
+          closeMenu();
+        });
+
+        overlay?.addEventListener('click', (event) => {
+          if (overlayPanel?.contains(event.target) && !event.target.closest('a')) return;
+          closeMenu();
+        });
+
+        links.addEventListener('click', (event) => {
+          if (event.target.closest('a')) closeMenu();
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') closeMenu();
+        });
+
+        window.addEventListener('resize', () => {
+          closeMenu();
+        }, { passive: true });
+      })();
+
       const landingVideo = document.getElementById('landingVideo');
       if (landingVideo) {
         let hasPlayed = false;
