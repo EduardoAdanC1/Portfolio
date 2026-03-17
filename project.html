@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" href="assets/images/whitelogo.png">
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
-  <link rel="stylesheet" href="styles.css?v=20260313-site-polish" />
+  <link rel="stylesheet" href="styles.css?v=20260316-resume-reveal" />
   <style>
       body{
         --pp-bg:#07090c;
@@ -75,7 +75,7 @@
           var(--pp-bg);
         color:var(--pp-text);
       min-height:100vh;
-      padding:28px 0 80px;
+      padding:112px 0 80px;
     }
     .pp-wrap{
       max-width:1220px;
@@ -411,7 +411,7 @@
       .pp-section.pp-lowtide-split .pp-grid-2 .pp-figure:first-child .pp-img{
         min-height:unset;
       }
-      .pp-page{padding-top:18px}
+      .pp-page{padding-top:96px}
       .pp-nav{
         flex-direction:column;
         align-items:stretch;
@@ -462,6 +462,7 @@
           </svg>
         </button>
         <button id="menuToggle" class="menu-btn" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false">
+          <span class="menu-btn-label">Menu</span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
             <line x1="4" y1="7" x2="20" y2="7"></line>
             <line x1="4" y1="12" x2="20" y2="12"></line>
@@ -472,6 +473,52 @@
     </nav>
   </div>
 </header>
+
+<div id="siteMenuOverlay" class="site-menu-overlay" aria-hidden="true">
+  <div class="site-menu-backdrop"></div>
+  <div class="site-menu-shell">
+    <div class="site-menu-panel">
+      <div class="site-menu-meta">
+        <div>
+          <p class="site-menu-kicker">Eduardo Chavez</p>
+          <h2 class="site-menu-title">Explore the portfolio through a cleaner, moodier navigation moment.</h2>
+        </div>
+        <div class="site-menu-support">
+          <p class="site-menu-copy">Project pages can use the same elevated overlay so the experience stays consistent even when someone dives deeper into an individual case study.</p>
+          <span class="site-menu-availability">Open to new opportunities</span>
+          <div class="site-menu-mini-links">
+            <a href="mailto:designer@eduardoachavez.com">designer@eduardoachavez.com</a>
+            <a href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="assets/resume.pdf" download>Resume PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <nav class="site-menu-nav" aria-label="Expanded site navigation">
+        <a class="site-menu-link-item" href="index.html">
+          <span class="site-menu-link-label">Home</span>
+          <span class="site-menu-link-copy">Return to the portfolio selector and choose your best entry point.</span>
+        </a>
+        <a class="site-menu-link-item" href="graphic.html" aria-current="page">
+          <span class="site-menu-link-label">Graphic Design</span>
+          <span class="site-menu-link-copy">Identity systems, campaign visuals, typography, and polished digital assets.</span>
+        </a>
+        <a class="site-menu-link-item" href="packaging.html">
+          <span class="site-menu-link-label">Packaging Design</span>
+          <span class="site-menu-link-copy">Retail-ready packaging systems, approvals, render direction, and factory handoff.</span>
+        </a>
+        <a class="site-menu-link-item" href="graphic.html#resume">
+          <span class="site-menu-link-label">About / Resume</span>
+          <span class="site-menu-link-copy">Learn more about my background, strengths, and current availability.</span>
+        </a>
+        <a class="site-menu-link-item" href="graphic.html#contact">
+          <span class="site-menu-link-label">Contact</span>
+          <span class="site-menu-link-copy">Reach out for freelance, contract, and full-time opportunities.</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+</div>
 
 <main class="pp-page">
   <div class="pp-wrap">
@@ -513,6 +560,6 @@
   </div>
 </footer>
 
-<script src="project-page.js?v=20260316-project-fade"></script>
+<script src="project-page.js?v=20260316-overlay-menu"></script>
 </body>
 </html>

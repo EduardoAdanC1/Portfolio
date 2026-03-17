@@ -36,12 +36,24 @@ if (darkModeToggle) {
   const nav = document.querySelector('.header .nav');
   const toggle = document.getElementById('menuToggle');
   const links = nav?.querySelector?.('.nav-links');
+  const overlay = document.getElementById('siteMenuOverlay');
+  const overlayBackdrop = overlay?.querySelector?.('.site-menu-backdrop');
+  const overlayPanel = overlay?.querySelector?.('.site-menu-panel');
   if (!nav || !toggle || !links) return;
 
   const isTouchLike =
     window.matchMedia?.('(hover: none)').matches ||
     window.matchMedia?.('(pointer: coarse)').matches;
+  const isDesktopOverlay = () =>
+    window.innerWidth > 768 &&
+    window.matchMedia?.('(hover: hover)')?.matches &&
+    window.matchMedia?.('(pointer: fine)')?.matches &&
+    !!overlay;
+
   let starTimer = 0;
+  let overlayPinned = false;
+  let overlayCloseTimer = 0;
+
   const flashStar = () => {
     if (!isTouchLike) return;
     toggle.classList.add('is-star');
@@ -55,6 +67,44 @@ if (darkModeToggle) {
   const setExpanded = (expanded) => {
     toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     toggle.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
+  };
+
+  const cancelOverlayClose = () => {
+    if (!overlayCloseTimer) return;
+    window.clearTimeout(overlayCloseTimer);
+    overlayCloseTimer = 0;
+  };
+
+  const closeOverlay = () => {
+    if (!overlay?.classList.contains('is-open')) {
+      overlayPinned = false;
+      return;
+    }
+    cancelOverlayClose();
+    overlayPinned = false;
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('site-menu-open');
+    setExpanded(false);
+  };
+
+  const openOverlay = ({ pinned = false } = {}) => {
+    if (!overlay) return;
+    cancelOverlayClose();
+    overlayPinned = pinned;
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('site-menu-open');
+    setExpanded(true);
+  };
+
+  const scheduleOverlayClose = (delay = 120) => {
+    if (overlayPinned) return;
+    cancelOverlayClose();
+    overlayCloseTimer = window.setTimeout(() => {
+      overlayCloseTimer = 0;
+      closeOverlay();
+    }, delay);
   };
 
   const closeMenu = () => {
@@ -72,6 +122,15 @@ if (darkModeToggle) {
   toggle.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (isDesktopOverlay()) {
+      const willOpenPinned = !overlay?.classList.contains('is-open') || !overlayPinned;
+      if (willOpenPinned) openOverlay({ pinned: true });
+      else closeOverlay();
+      toggle.blur();
+      return;
+    }
+
     const willOpen = !nav.classList.contains('is-open');
     if (willOpen) openMenu();
     else closeMenu();
@@ -82,8 +141,51 @@ if (darkModeToggle) {
     toggle.blur();
   });
 
+  if (overlay) {
+    toggle.addEventListener('mouseenter', () => {
+      if (!isDesktopOverlay()) return;
+      openOverlay({ pinned: false });
+    });
+
+    toggle.addEventListener('mouseleave', () => {
+      if (!isDesktopOverlay()) return;
+      scheduleOverlayClose();
+    });
+
+    overlay.addEventListener('mouseenter', () => {
+      if (!isDesktopOverlay()) return;
+      cancelOverlayClose();
+    });
+
+    overlay.addEventListener('mouseleave', () => {
+      if (!isDesktopOverlay()) return;
+      scheduleOverlayClose();
+    });
+
+    overlay.addEventListener('click', (e) => {
+      const link = e.target?.closest?.('a');
+      if (link) {
+        closeOverlay();
+        return;
+      }
+      if (overlayPanel && !overlayPanel.contains(e.target)) {
+        closeOverlay();
+      }
+    });
+
+    overlayBackdrop?.addEventListener('click', () => {
+      closeOverlay();
+    });
+  }
+
   // Close when clicking outside
   document.addEventListener('click', (e) => {
+    if (isDesktopOverlay()) {
+      if (!overlay?.classList.contains('is-open')) return;
+      if (overlay.contains(e.target) || toggle.contains(e.target)) return;
+      closeOverlay();
+      return;
+    }
     if (!nav.classList.contains('is-open')) return;
     if (nav.contains(e.target)) return;
     closeMenu();
@@ -91,7 +193,9 @@ if (darkModeToggle) {
 
   // Close on ESC
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMenu();
+    if (e.key !== 'Escape') return;
+    closeMenu();
+    closeOverlay();
   });
 
   // Close after choosing a link
@@ -104,6 +208,7 @@ if (darkModeToggle) {
   // If the viewport grows to desktop, ensure menu is closed
   window.addEventListener('resize', () => {
     if (window.innerWidth > 768) closeMenu();
+    else closeOverlay();
   }, { passive: true });
 })();
 
@@ -676,15 +781,36 @@ window.addEventListener('load', ()=>{
 (() => {
   const resumeSection = document.querySelector('.resume-section');
   if (!resumeSection) return;
+
+  const inner = resumeSection.querySelector('.inner');
+  const revealTargets = inner
+    ? Array.from(inner.children).flatMap((child) => {
+        if (child.matches('.resume-spotlight, .resume-grid')) return Array.from(child.children);
+        return [child];
+      })
+    : [];
+
+  revealTargets.forEach((el, index) => {
+    el.classList.add('resume-reveal');
+    el.style.setProperty('--resume-delay', String(index));
+  });
+
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches || typeof IntersectionObserver === 'undefined') {
+    resumeSection.classList.add('visible', 'is-inview');
+    return;
+  }
+
   const ioResume = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        resumeSection.classList.add('visible');
-      } else {
-        resumeSection.classList.remove('visible');
-      }
+      const on = entry.isIntersecting;
+      resumeSection.classList.toggle('visible', on);
+      resumeSection.classList.toggle('is-inview', on);
     });
-  }, { threshold: 0.2 });
+  }, {
+    threshold: 0.28,
+    rootMargin: '-8% 0px -8% 0px'
+  });
+
   ioResume.observe(resumeSection);
 })();
 

@@ -14,7 +14,7 @@
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
 
-  <link rel="stylesheet" href="styles.css?v=20260316-deploy-sync" />
+  <link rel="stylesheet" href="styles.css?v=20260316-resume-reveal" />
 
   <style>
     /* Slightly tighter header spacing on the graphic page now that the PDF link is gone */
@@ -66,7 +66,7 @@
     /* Top intro copy (sits near the top of the hero, independent from headline/buttons) */
     .gd-hero-topcopy{
       position:absolute;
-      top:clamp(18px, 3.6vh, 40px);
+      top:clamp(92px, 11vh, 136px);
       left:0;
       right:0;
       z-index:2;
@@ -159,7 +159,7 @@
         max-width:1200px;
         margin:0 auto;
         width:100%;
-        padding:30px 16px 0;
+        padding:88px 16px 0;
       }
       .gd-hero-content{
         max-width:1200px;
@@ -959,6 +959,7 @@
             </svg>
           </button>
           <button id="menuToggle" class="menu-btn" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false">
+            <span class="menu-btn-label">Menu</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
               <line x1="4" y1="7" x2="20" y2="7"></line>
               <line x1="4" y1="12" x2="20" y2="12"></line>
@@ -969,6 +970,52 @@
       </nav>
     </div>
   </header>
+
+  <div id="siteMenuOverlay" class="site-menu-overlay" aria-hidden="true">
+    <div class="site-menu-backdrop"></div>
+    <div class="site-menu-shell">
+      <div class="site-menu-panel">
+        <div class="site-menu-meta">
+          <div>
+            <p class="site-menu-kicker">Eduardo Chavez</p>
+            <h2 class="site-menu-title">Brand systems, campaign visuals, and presentation-ready design with a premium point of view.</h2>
+          </div>
+          <div class="site-menu-support">
+            <p class="site-menu-copy">This menu direction borrows the moody editorial feel of your reference while still fitting your portfolio’s clearer structure and content.</p>
+            <span class="site-menu-availability">Open to new opportunities</span>
+            <div class="site-menu-mini-links">
+              <a href="mailto:designer@eduardoachavez.com">designer@eduardoachavez.com</a>
+              <a href="https://www.linkedin.com/in/eduardoadanc/" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="assets/resume.pdf" download>Resume PDF</a>
+            </div>
+          </div>
+        </div>
+
+        <nav class="site-menu-nav" aria-label="Expanded site navigation">
+          <a class="site-menu-link-item" href="index.html">
+            <span class="site-menu-link-label">Home</span>
+            <span class="site-menu-link-copy">Return to the portfolio selector and choose your starting point.</span>
+          </a>
+          <a class="site-menu-link-item" href="graphic.html" aria-current="page">
+            <span class="site-menu-link-label">Graphic Design</span>
+            <span class="site-menu-link-copy">Identity systems, campaign visuals, typography, and polished digital assets.</span>
+          </a>
+          <a class="site-menu-link-item" href="packaging.html">
+            <span class="site-menu-link-label">Packaging Design</span>
+            <span class="site-menu-link-copy">Retail-ready packaging systems, approvals, render direction, and factory handoff.</span>
+          </a>
+          <a class="site-menu-link-item" href="#resume">
+            <span class="site-menu-link-label">About / Resume</span>
+            <span class="site-menu-link-copy">Learn more about my background, strengths, and current availability.</span>
+          </a>
+          <a class="site-menu-link-item" href="#contact">
+            <span class="site-menu-link-label">Contact</span>
+            <span class="site-menu-link-copy">Reach out for freelance, contract, and full-time opportunities.</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
 
   <main class="gd-page">
     <div class="gd-inner">
@@ -1110,9 +1157,44 @@
 
       <section id="resume" class="resume-section visible" aria-label="Resume">
         <div class="inner">
-          <h2>Resume</h2>
+          <div class="resume-header">
+            <span class="resume-eyebrow">About + Resume</span>
+            <h2>Designer, system-builder, and visual storyteller.</h2>
+          </div>
+
+          <div class="resume-spotlight">
+            <article class="resume-intro-card">
+              <p class="resume-kicker">Los Angeles-based graphic and packaging designer</p>
+              <p class="resume-lead">I create identity-led visuals that feel clear, polished, and presentation-ready — from brand systems and campaign graphics to packaging that has to sell the idea before anyone reads the copy.</p>
+              <p class="resume-copy">My work sits at the intersection of brand thinking and production reality. I care about typography, storytelling, rollout consistency, and the little details that make a concept feel premium in the real world, not just in a mockup.</p>
+              <div class="resume-pill-row" aria-label="Core strengths">
+                <span class="resume-pill">Brand identity</span>
+                <span class="resume-pill">Packaging systems</span>
+                <span class="resume-pill">Typography</span>
+                <span class="resume-pill">Presentation design</span>
+                <span class="resume-pill">Production-ready execution</span>
+              </div>
+            </article>
+
+            <aside class="resume-profile-card" aria-label="Profile summary">
+              <div class="resume-profile-block">
+                <span class="resume-profile-label">Currently</span>
+                <p>Actively looking for a new opportunity where I can bring brand thinking, polished execution, and systems-minded design to the next team I join.</p>
+              </div>
+              <div class="resume-profile-block">
+                <span class="resume-profile-label">Focus</span>
+                <p>Identity, packaging, campaign visuals, and polished digital assets that scale across teams and touchpoints.</p>
+              </div>
+              <div class="resume-profile-block">
+                <span class="resume-profile-label">Approach</span>
+                <p>Concept first, systems always, and execution that holds up from pitch deck to production file.</p>
+              </div>
+              <a href="assets/resume.pdf" download class="btn-download">Download PDF Resume</a>
+            </aside>
+          </div>
+
           <div class="resume-grid">
-            <div class="resume-column">
+            <article class="resume-panel resume-panel--experience">
               <h3>Experience</h3>
               <div class="resume-item">
                 <h4>PhatMojo, LLC. — Packaging Design Manager</h4>
@@ -1124,19 +1206,28 @@
                 <p class="date">04.01.2015 - 04.05.2018</p>
                 <p>Designed marketing collateral for university art gallery exhibitions. Created digital and print materials promoting events. Provided on-site support for gallery operations, visitor engagement, and artwork installation.</p>
               </div>
-            </div>
-            <div class="resume-column">
+            </article>
+
+            <article class="resume-panel">
               <h3>Education</h3>
               <div class="resume-item">
                 <p><strong>Cal Poly Pomona — BFA Graphic Design · Minor Art History</strong></p>
               </div>
-              <h3>Skills</h3>
+
+              <h3>Strengths</h3>
               <div class="resume-item">
                 <p>Brand Identity, Packaging, Typography, Creative Direction, 3D Renders, Prototyping, Production, Vendor Management</p>
               </div>
-              <h3>Download</h3>
-              <a href="assets/resume.pdf" download class="btn-download">Download PDF Resume</a>
-            </div>
+
+              <h3>What I bring</h3>
+              <div class="resume-item">
+                <p>A calm, systems-minded design process that helps brands stay visually sharp from concept development through final rollout.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="resume-note">
+            <p>Available for freelance, contract, and full-time opportunities across brand identity, packaging, campaign visuals, and presentation design.</p>
           </div>
         </div>
       </section>
@@ -1275,6 +1366,41 @@
         window.requestAnimationFrame(() => hero.classList.add('loaded'));
       })();
 
+      // Repeatable left-to-right reveal for the About / Resume section
+      (() => {
+        const resumeSection = document.querySelector('.resume-section');
+        if (!resumeSection) return;
+
+        const inner = resumeSection.querySelector('.inner');
+        const revealTargets = inner
+          ? Array.from(inner.children).flatMap((child) => {
+              if (child.matches('.resume-spotlight, .resume-grid')) return Array.from(child.children);
+              return [child];
+            })
+          : [];
+
+        revealTargets.forEach((el, index) => {
+          el.classList.add('resume-reveal');
+          el.style.setProperty('--resume-delay', String(index));
+        });
+
+        if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches || typeof IntersectionObserver === 'undefined') {
+          resumeSection.classList.add('is-inview');
+          return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            resumeSection.classList.toggle('is-inview', entry.isIntersecting);
+          });
+        }, {
+          threshold: 0.28,
+          rootMargin: '-8% 0px -8% 0px'
+        });
+
+        observer.observe(resumeSection);
+      })();
+
       // Hero video: Firefox-safe fallback (hide video if it can't load/play)
       (() => {
         const hero = document.querySelector('.gd-hero');
@@ -1346,12 +1472,22 @@
         const nav = document.querySelector('.header .nav');
         const toggle = document.getElementById('menuToggle');
         const links = nav?.querySelector?.('.nav-links');
+        const overlay = document.getElementById('siteMenuOverlay');
+        const overlayBackdrop = overlay?.querySelector?.('.site-menu-backdrop');
+        const overlayPanel = overlay?.querySelector?.('.site-menu-panel');
         if (!nav || !toggle || !links) return;
 
         const isTouchLike =
           window.matchMedia?.('(hover: none)').matches ||
           window.matchMedia?.('(pointer: coarse)').matches;
+        const isDesktopOverlay = () =>
+          window.innerWidth > 768 &&
+          window.matchMedia?.('(hover: hover)')?.matches &&
+          window.matchMedia?.('(pointer: fine)')?.matches &&
+          !!overlay;
         let starTimer = 0;
+        let overlayPinned = false;
+        let overlayCloseTimer = 0;
         const flashStar = () => {
           if (!isTouchLike) return;
           toggle.classList.add('is-star');
@@ -1365,6 +1501,40 @@
         const setExpanded = (expanded) => {
           toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
           toggle.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
+        };
+        const cancelOverlayClose = () => {
+          if (!overlayCloseTimer) return;
+          window.clearTimeout(overlayCloseTimer);
+          overlayCloseTimer = 0;
+        };
+        const closeOverlay = () => {
+          if (!overlay?.classList.contains('is-open')) {
+            overlayPinned = false;
+            return;
+          }
+          cancelOverlayClose();
+          overlayPinned = false;
+          overlay.classList.remove('is-open');
+          overlay.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('site-menu-open');
+          setExpanded(false);
+        };
+        const openOverlay = ({ pinned = false } = {}) => {
+          if (!overlay) return;
+          cancelOverlayClose();
+          overlayPinned = pinned;
+          overlay.classList.add('is-open');
+          overlay.setAttribute('aria-hidden', 'false');
+          document.body.classList.add('site-menu-open');
+          setExpanded(true);
+        };
+        const scheduleOverlayClose = (delay = 120) => {
+          if (overlayPinned) return;
+          cancelOverlayClose();
+          overlayCloseTimer = window.setTimeout(() => {
+            overlayCloseTimer = 0;
+            closeOverlay();
+          }, delay);
         };
         const closeMenu = () => {
           if (!nav.classList.contains('is-open')) return;
@@ -1380,6 +1550,15 @@
         toggle.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
+
+          if (isDesktopOverlay()) {
+            const willOpenPinned = !overlay?.classList.contains('is-open') || !overlayPinned;
+            if (willOpenPinned) openOverlay({ pinned: true });
+            else closeOverlay();
+            toggle.blur();
+            return;
+          }
+
           const willOpen = !nav.classList.contains('is-open');
           if (willOpen) openMenu();
           else closeMenu();
@@ -1389,6 +1568,43 @@
           // Prevent lingering focus styles (mobile browsers can keep focus/hover “stuck”)
           toggle.blur();
         });
+
+        if (overlay) {
+          toggle.addEventListener('mouseenter', () => {
+            if (!isDesktopOverlay()) return;
+            openOverlay({ pinned: false });
+          });
+
+          toggle.addEventListener('mouseleave', () => {
+            if (!isDesktopOverlay()) return;
+            scheduleOverlayClose();
+          });
+
+          overlay.addEventListener('mouseenter', () => {
+            if (!isDesktopOverlay()) return;
+            cancelOverlayClose();
+          });
+
+          overlay.addEventListener('mouseleave', () => {
+            if (!isDesktopOverlay()) return;
+            scheduleOverlayClose();
+          });
+
+          overlay.addEventListener('click', (e) => {
+            const link = e.target?.closest?.('a');
+            if (link) {
+              closeOverlay();
+              return;
+            }
+            if (overlayPanel && !overlayPanel.contains(e.target)) {
+              closeOverlay();
+            }
+          });
+
+          overlayBackdrop?.addEventListener('click', () => {
+            closeOverlay();
+          });
+        }
 
         // Custom cursor (same behavior as packaging; enabled on fine pointers only)
         (() => {
@@ -1651,12 +1867,20 @@
           window.addEventListener('load', request, { once: true, passive: true });
         })();
         document.addEventListener('click', (e) => {
+          if (isDesktopOverlay()) {
+            if (!overlay?.classList.contains('is-open')) return;
+            if (overlay.contains(e.target) || toggle.contains(e.target)) return;
+            closeOverlay();
+            return;
+          }
           if (!nav.classList.contains('is-open')) return;
           if (nav.contains(e.target)) return;
           closeMenu();
         });
         document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') closeMenu();
+          if (e.key !== 'Escape') return;
+          closeMenu();
+          closeOverlay();
         });
         links.addEventListener('click', (e) => {
           const a = e.target?.closest?.('a');
@@ -1665,6 +1889,7 @@
         });
         window.addEventListener('resize', () => {
           if (window.innerWidth > 768) closeMenu();
+          else closeOverlay();
         }, { passive: true });
       })();
 
@@ -2162,6 +2387,11 @@
           return delta;
         };
 
+        const isCardInteractionTarget = (target) => {
+          if (!(target instanceof Element)) return false;
+          return !!target.closest('.gd-project');
+        };
+
         const setPlayState = (state) => {
           track.style.animationPlayState = state;
         };
@@ -2239,6 +2469,8 @@
 
         // Mouse wheel / trackpad = manual side control without changing layout.
         rail.addEventListener('wheel', (e) => {
+          if (!isCardInteractionTarget(e.target)) return;
+
           const absX = Math.abs(e.deltaX || 0);
           const absY = Math.abs(e.deltaY || 0);
           const hasWheelInput = absX > 0 || absY > 0;
@@ -2263,6 +2495,7 @@
         // Drag-to-scrub side-to-side while preserving autoplay after release.
         rail.addEventListener('pointerdown', (e) => {
           if (e.pointerType === 'mouse' && e.button !== 0) return;
+          if (!isCardInteractionTarget(e.target)) return;
           dragState = {
             id: e.pointerId,
             startX: e.clientX,

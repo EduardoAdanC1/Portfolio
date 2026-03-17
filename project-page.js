@@ -17,11 +17,61 @@
     const nav = document.querySelector('.header .nav');
     const toggle = document.getElementById('menuToggle');
     const links = nav?.querySelector?.('.nav-links');
+    const overlay = document.getElementById('siteMenuOverlay');
+    const overlayBackdrop = overlay?.querySelector?.('.site-menu-backdrop');
+    const overlayPanel = overlay?.querySelector?.('.site-menu-panel');
     if (!nav || !toggle || !links) return;
+
+    const isDesktopOverlay = () =>
+      window.innerWidth > 768 &&
+      window.matchMedia?.('(hover: hover)')?.matches &&
+      window.matchMedia?.('(pointer: fine)')?.matches &&
+      !!overlay;
+
+    let overlayPinned = false;
+    let overlayCloseTimer = 0;
 
     const setExpanded = (expanded) => {
       toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
       toggle.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
+    };
+
+    const cancelOverlayClose = () => {
+      if (!overlayCloseTimer) return;
+      window.clearTimeout(overlayCloseTimer);
+      overlayCloseTimer = 0;
+    };
+
+    const closeOverlay = () => {
+      if (!overlay?.classList.contains('is-open')) {
+        overlayPinned = false;
+        return;
+      }
+      cancelOverlayClose();
+      overlayPinned = false;
+      overlay.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('site-menu-open');
+      setExpanded(false);
+    };
+
+    const openOverlay = ({ pinned = false } = {}) => {
+      if (!overlay) return;
+      cancelOverlayClose();
+      overlayPinned = pinned;
+      overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('site-menu-open');
+      setExpanded(true);
+    };
+
+    const scheduleOverlayClose = (delay = 120) => {
+      if (overlayPinned) return;
+      cancelOverlayClose();
+      overlayCloseTimer = window.setTimeout(() => {
+        overlayCloseTimer = 0;
+        closeOverlay();
+      }, delay);
     };
 
     const closeMenu = () => {
@@ -33,19 +83,73 @@
     toggle.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
+
+      if (isDesktopOverlay()) {
+        const willOpenPinned = !overlay?.classList.contains('is-open') || !overlayPinned;
+        if (willOpenPinned) openOverlay({ pinned: true });
+        else closeOverlay();
+        toggle.blur();
+        return;
+      }
+
       const willOpen = !nav.classList.contains('is-open');
       nav.classList.toggle('is-open', willOpen);
       setExpanded(willOpen);
       toggle.blur();
     });
 
+    if (overlay) {
+      toggle.addEventListener('mouseenter', () => {
+        if (!isDesktopOverlay()) return;
+        openOverlay({ pinned: false });
+      });
+
+      toggle.addEventListener('mouseleave', () => {
+        if (!isDesktopOverlay()) return;
+        scheduleOverlayClose();
+      });
+
+      overlay.addEventListener('mouseenter', () => {
+        if (!isDesktopOverlay()) return;
+        cancelOverlayClose();
+      });
+
+      overlay.addEventListener('mouseleave', () => {
+        if (!isDesktopOverlay()) return;
+        scheduleOverlayClose();
+      });
+
+      overlay.addEventListener('click', (e) => {
+        const link = e.target?.closest?.('a');
+        if (link) {
+          closeOverlay();
+          return;
+        }
+        if (overlayPanel && !overlayPanel.contains(e.target)) {
+          closeOverlay();
+        }
+      });
+
+      overlayBackdrop?.addEventListener('click', () => {
+        closeOverlay();
+      });
+    }
+
     document.addEventListener('click', (e) => {
+      if (isDesktopOverlay()) {
+        if (!overlay?.classList.contains('is-open')) return;
+        if (overlay.contains(e.target) || toggle.contains(e.target)) return;
+        closeOverlay();
+        return;
+      }
       if (!nav.classList.contains('is-open')) return;
       if (nav.contains(e.target)) return;
       closeMenu();
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeMenu();
+      if (e.key !== 'Escape') return;
+      closeMenu();
+      closeOverlay();
     });
     links.addEventListener('click', (e) => {
       const a = e.target?.closest?.('a');
@@ -54,6 +158,7 @@
     });
     window.addEventListener('resize', () => {
       if (window.innerWidth > 768) closeMenu();
+      else closeOverlay();
     }, { passive: true });
   })();
 
