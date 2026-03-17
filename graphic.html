@@ -14,7 +14,7 @@
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
 
-  <link rel="stylesheet" href="styles.css?v=20260313-site-polish" />
+  <link rel="stylesheet" href="styles.css?v=20260316-deploy-sync" />
 
   <style>
     /* Slightly tighter header spacing on the graphic page now that the PDF link is gone */
@@ -1631,7 +1631,7 @@
       // Featured projects: load from JSON and render into the rail.
       // This makes adding/reordering projects a simple data edit.
       (() => {
-        const FEATURED_PROJECTS_URL = 'data/graphic-featured-projects.json';
+        const FEATURED_PROJECTS_URL = 'data/graphic-featured-projects.json?v=20260316-deploy-sync';
 
         // Fallback list (used if JSON cannot be fetched, e.g., file:// previews)
         const DEFAULT_FEATURED_PROJECTS = [
@@ -1639,62 +1639,177 @@
             id: 'clean-by-pallet',
             title: 'Clean by Pallet',
             tag: 'Brand Identity',
-            thumb: 'assets/images/Cleanbypallet.png?v=20260301',
+            thumb: 'assets/images/cleanlogo.png',
             alt: 'Clean by Pallet brand identity',
             images: [
               'assets/images/CBP-12.png',
               'assets/images/CBP-13.png',
               'assets/images/CBP-14.png'
-            ]
+            ],
+            cardStyle: {
+              variant: 'reveal',
+              baseColor: '#1c1c1c',
+              accentOne: 'rgba(150,205,118,.11)',
+              accentTwo: 'rgba(232,206,134,.08)',
+              grainColor: 'rgba(255,255,255,.90)',
+              grainOpacity: '.20',
+              revealImage: 'assets/images/Cleanbypallet.png?v=20260301',
+              revealOpacity: '.10',
+              revealFilter: 'saturate(.95) brightness(.90) contrast(1.02)',
+              logoWidth: '88%',
+              logoMaxWidth: '310px',
+              logoShadow: 'drop-shadow(0 16px 28px rgba(0,0,0,.36))',
+              darkMode: {
+                accentOne: 'rgba(255,228,77,.10)',
+                accentTwo: 'rgba(150,205,118,.08)',
+                grainColor: 'rgba(255,228,77,.82)',
+                grainOpacity: '.18',
+                revealOpacity: '.14',
+                logoShadow: 'drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(255,228,77,.08))',
+                logoShadowHover: 'drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(255,228,77,.12))'
+              }
+            }
           },
           {
             id: 'sun-books',
             title: 'Sun Books',
             tag: 'Brand Identity',
-            thumb: 'assets/images/Sun_Books.png?v=20260227',
+            thumb: 'assets/images/sunbookslogo.png',
             alt: 'Sun Books brand identity',
             images: [
               'assets/images/Sun_Books_1.png',
               'assets/images/Sun_Books_2.png',
               'assets/images/Sun_Books_3.png',
               'assets/images/Sun_Books_4.png'
-            ]
+            ],
+            cardStyle: {
+              variant: 'reveal',
+              baseColor: '#1c1c1c',
+              accentOne: 'rgba(255,202,79,.10)',
+              accentTwo: 'rgba(32,54,96,.10)',
+              grainColor: 'rgba(255,255,255,.88)',
+              grainOpacity: '.20',
+              revealImage: 'assets/images/Sun_Books.png?v=20260227',
+              revealOpacity: '.10',
+              revealFilter: 'saturate(.96) brightness(.90) contrast(1.02)',
+              logoWidth: '94%',
+              logoMaxWidth: '310px',
+              logoShadow: 'drop-shadow(0 16px 28px rgba(0,0,0,.34))',
+              darkMode: {
+                accentOne: 'rgba(255,228,77,.10)',
+                accentTwo: 'rgba(32,54,96,.08)',
+                grainColor: 'rgba(255,228,77,.80)',
+                grainOpacity: '.18',
+                revealOpacity: '.14',
+                logoShadow: 'drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(255,228,77,.08))',
+                logoShadowHover: 'drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(255,228,77,.12))'
+              }
+            }
           },
           {
             id: 'moon-coffee',
             title: 'Moon Coffee Co.',
             tag: 'Brand Identity',
-            thumb: 'assets/images/MoonCard.png?v=20260227',
+            thumb: 'assets/images/MoonCoffeelogo.png',
             alt: 'Moon Coffee Co. brand identity',
             images: [
               'assets/images/moon_1.jpg',
               'assets/images/moon_2.jpg',
               'assets/images/moon_3.jpg',
               'assets/images/moon_4.jpg'
-            ]
+            ],
+            cardStyle: {
+              variant: 'reveal',
+              baseColor: '#1c1c1c',
+              accentOne: 'rgba(174,128,255,.10)',
+              accentTwo: 'rgba(92,62,40,.10)',
+              grainColor: 'rgba(255,255,255,.88)',
+              grainOpacity: '.20',
+              revealImage: 'assets/images/MoonCard.png?v=20260227',
+              revealOpacity: '.10',
+              revealFilter: 'saturate(.96) brightness(.88) contrast(1.02)',
+              logoWidth: '122%',
+              logoMaxWidth: '310px',
+              logoShadow: 'drop-shadow(0 16px 28px rgba(0,0,0,.36))',
+              darkMode: {
+                accentOne: 'rgba(255,228,77,.09)',
+                accentTwo: 'rgba(174,128,255,.08)',
+                grainColor: 'rgba(255,228,77,.78)',
+                grainOpacity: '.18',
+                revealOpacity: '.14',
+                logoShadow: 'drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(255,228,77,.08))',
+                logoShadowHover: 'drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(255,228,77,.12))'
+              }
+            }
           },
           {
             id: 'kof-orochi-saga',
             title: 'The King of Fighters: Orochi Saga',
             tag: 'Brand Identity',
-            thumb: 'assets/images/KoF Hero Card.png?v=20260309',
+            thumb: 'assets/images/koflogo.png',
             alt: 'The King of Fighters Orochi Saga brand identity',
             images: [
               'assets/images/KOF_brand-01.png',
               'assets/images/KOF_brand-02.png',
               'assets/images/KOF_brand-03.png'
-            ]
+            ],
+            cardStyle: {
+              variant: 'reveal',
+              baseColor: '#1c1c1c',
+              accentOne: 'rgba(202,39,39,.12)',
+              accentTwo: 'rgba(116,55,175,.10)',
+              grainColor: 'rgba(255,255,255,.88)',
+              grainOpacity: '.20',
+              revealImage: 'assets/images/KoF Back of Card.jpg',
+              revealOpacity: '.10',
+              revealFilter: 'saturate(.96) brightness(.88) contrast(1.03)',
+              logoWidth: '138%',
+              logoMaxWidth: '310px',
+              logoShadow: 'drop-shadow(0 16px 28px rgba(0,0,0,.38))',
+              darkMode: {
+                accentOne: 'rgba(255,228,77,.10)',
+                accentTwo: 'rgba(133,59,204,.10)',
+                grainColor: 'rgba(255,228,77,.82)',
+                grainOpacity: '.18',
+                revealOpacity: '.14',
+                logoShadow: 'drop-shadow(0 16px 30px rgba(0,0,0,.56)) drop-shadow(0 0 18px rgba(255,228,77,.10))',
+                logoShadowHover: 'drop-shadow(0 20px 34px rgba(0,0,0,.6)) drop-shadow(0 0 24px rgba(255,228,77,.12))'
+              }
+            }
           },
           {
             id: 'lowtide-ipa',
             title: 'Lowtide IPA',
             tag: 'Packaging Concept',
-            thumb: 'assets/images/Lowtide Card.jpg?v=20260311',
+            thumb: 'assets/images/Lowtidelogo.png',
             alt: 'Lowtide IPA packaging concept',
             images: [
               'assets/images/LowtideIPA.jpg',
               'assets/images/Lowtide Card.jpg'
-            ]
+            ],
+            cardStyle: {
+              variant: 'reveal',
+              baseColor: '#1c1c1c',
+              accentOne: 'rgba(255,173,75,.11)',
+              accentTwo: 'rgba(48,112,154,.10)',
+              grainColor: 'rgba(255,255,255,.90)',
+              grainOpacity: '.20',
+              revealImage: 'assets/images/Lowtide Card.jpg?v=20260311',
+              revealOpacity: '.10',
+              revealFilter: 'saturate(.95) brightness(.90) contrast(1.02)',
+              logoWidth: '84%',
+              logoMaxWidth: '310px',
+              logoShadow: 'drop-shadow(0 16px 28px rgba(0,0,0,.36))',
+              darkMode: {
+                accentOne: 'rgba(255,228,77,.11)',
+                accentTwo: 'rgba(73,165,215,.10)',
+                grainColor: 'rgba(255,228,77,.82)',
+                grainOpacity: '.18',
+                revealOpacity: '.14',
+                logoShadow: 'drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(255,228,77,.08))',
+                logoShadowHover: 'drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(255,228,77,.12))'
+              }
+            }
           },
           {
             id: 'kinetic',
@@ -1732,13 +1847,36 @@
             id: 'complexity',
             title: 'Complexity Surveillance',
             tag: 'Brand Identity',
-            thumb: 'assets/images/Complexity.png?v=20260302',
+            thumb: 'assets/images/complexitylogo.png',
             alt: 'Complexity Surveillance brand identity',
             images: [
               'assets/images/Complexity-15.png',
               'assets/images/Complexity-16.png',
               'assets/images/Complexity-17.png'
-            ]
+            ],
+            cardStyle: {
+              variant: 'reveal',
+              baseColor: '#1c1c1c',
+              accentOne: 'rgba(61,197,211,.10)',
+              accentTwo: 'rgba(43,88,125,.10)',
+              grainColor: 'rgba(255,255,255,.88)',
+              grainOpacity: '.20',
+              revealImage: 'assets/images/tshirt.jpg',
+              revealOpacity: '.10',
+              revealFilter: 'saturate(.94) brightness(.86) contrast(1.02)',
+              logoWidth: '108%',
+              logoMaxWidth: '310px',
+              logoShadow: 'drop-shadow(0 16px 28px rgba(0,0,0,.36))',
+              darkMode: {
+                accentOne: 'rgba(255,228,77,.09)',
+                accentTwo: 'rgba(61,197,211,.08)',
+                grainColor: 'rgba(255,228,77,.78)',
+                grainOpacity: '.18',
+                revealOpacity: '.14',
+                logoShadow: 'drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(255,228,77,.08))',
+                logoShadowHover: 'drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(255,228,77,.12))'
+              }
+            }
           },
           {
             id: 'aadan',
@@ -1865,6 +2003,7 @@
               .filter((p) => p.thumb || (p.images && p.images.length));
             return normalized.length ? normalized : DEFAULT_FEATURED_PROJECTS.map(normalizeProject);
           } catch (e) {
+            console.warn('Falling back to embedded featured projects data.', e);
             return DEFAULT_FEATURED_PROJECTS.map(normalizeProject);
           }
         };
