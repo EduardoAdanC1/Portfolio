@@ -26,13 +26,13 @@
         "logoMaxWidth": "310px",
         "logoShadow": "drop-shadow(0 16px 28px rgba(0,0,0,.36))",
         "darkMode": {
-          "accentOne": "rgba(255,228,77,.10)",
+          "accentOne": "rgba(118,136,255,.10)",
           "accentTwo": "rgba(150,205,118,.08)",
-          "grainColor": "rgba(255,228,77,.82)",
+          "grainColor": "rgba(118,136,255,.78)",
           "grainOpacity": ".18",
           "revealOpacity": ".14",
-          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(255,228,77,.08))",
-          "logoShadowHover": "drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(255,228,77,.12))"
+          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(118,136,255,.08))",
+          "logoShadowHover": "drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(118,136,255,.12))"
         }
       }
     },
@@ -62,13 +62,13 @@
         "logoMaxWidth": "310px",
         "logoShadow": "drop-shadow(0 16px 28px rgba(0,0,0,.34))",
         "darkMode": {
-          "accentOne": "rgba(255,228,77,.10)",
+          "accentOne": "rgba(118,136,255,.10)",
           "accentTwo": "rgba(32,54,96,.08)",
-          "grainColor": "rgba(255,228,77,.80)",
+          "grainColor": "rgba(118,136,255,.78)",
           "grainOpacity": ".18",
           "revealOpacity": ".14",
-          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(255,228,77,.08))",
-          "logoShadowHover": "drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(255,228,77,.12))"
+          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(118,136,255,.08))",
+          "logoShadowHover": "drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(118,136,255,.12))"
         }
       }
     },
@@ -98,13 +98,13 @@
         "logoMaxWidth": "310px",
         "logoShadow": "drop-shadow(0 16px 28px rgba(0,0,0,.36))",
         "darkMode": {
-          "accentOne": "rgba(255,228,77,.09)",
+          "accentOne": "rgba(118,136,255,.10)",
           "accentTwo": "rgba(174,128,255,.08)",
-          "grainColor": "rgba(255,228,77,.78)",
+          "grainColor": "rgba(118,136,255,.76)",
           "grainOpacity": ".18",
           "revealOpacity": ".14",
-          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(255,228,77,.08))",
-          "logoShadowHover": "drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(255,228,77,.12))"
+          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(118,136,255,.08))",
+          "logoShadowHover": "drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(118,136,255,.12))"
         }
       }
     },
@@ -133,13 +133,13 @@
         "logoMaxWidth": "310px",
         "logoShadow": "drop-shadow(0 16px 28px rgba(0,0,0,.38))",
         "darkMode": {
-          "accentOne": "rgba(255,228,77,.10)",
+          "accentOne": "rgba(118,136,255,.11)",
           "accentTwo": "rgba(133,59,204,.10)",
-          "grainColor": "rgba(255,228,77,.82)",
+          "grainColor": "rgba(118,136,255,.78)",
           "grainOpacity": ".18",
           "revealOpacity": ".14",
-          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.56)) drop-shadow(0 0 18px rgba(255,228,77,.10))",
-          "logoShadowHover": "drop-shadow(0 20px 34px rgba(0,0,0,.6)) drop-shadow(0 0 24px rgba(255,228,77,.12))"
+          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.56)) drop-shadow(0 0 18px rgba(118,136,255,.10))",
+          "logoShadowHover": "drop-shadow(0 20px 34px rgba(0,0,0,.6)) drop-shadow(0 0 24px rgba(118,136,255,.12))"
         }
       }
     },
@@ -167,13 +167,13 @@
         "logoMaxWidth": "310px",
         "logoShadow": "drop-shadow(0 16px 28px rgba(0,0,0,.36))",
         "darkMode": {
-          "accentOne": "rgba(255,228,77,.11)",
+          "accentOne": "rgba(118,136,255,.11)",
           "accentTwo": "rgba(73,165,215,.10)",
-          "grainColor": "rgba(255,228,77,.82)",
+          "grainColor": "rgba(118,136,255,.78)",
           "grainOpacity": ".18",
           "revealOpacity": ".14",
-          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(255,228,77,.08))",
-          "logoShadowHover": "drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(255,228,77,.12))"
+          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(118,136,255,.08))",
+          "logoShadowHover": "drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(118,136,255,.12))"
         }
       }
     },
@@ -199,12 +199,12 @@
         "logoWidth": "62%",
         "logoShadow": "drop-shadow(0 16px 28px rgba(0,0,0,.34))",
         "darkMode": {
-          "accentOne": "rgba(255,228,77,.10)",
-          "accentTwo": "rgba(255,228,77,.08)",
-          "grainColor": "rgba(255,228,77,.82)",
+          "accentOne": "rgba(118,136,255,.10)",
+          "accentTwo": "rgba(88,214,255,.08)",
+          "grainColor": "rgba(118,136,255,.78)",
           "grainOpacity": ".20",
           "revealOpacity": ".12",
-          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.52)) drop-shadow(0 0 18px rgba(255,228,77,.10))"
+          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.52)) drop-shadow(0 0 18px rgba(118,136,255,.10))"
         }
       }
     },
@@ -233,13 +233,13 @@
         "logoMaxWidth": "310px",
         "logoShadow": "drop-shadow(0 16px 28px rgba(0,0,0,.36))",
         "darkMode": {
-          "accentOne": "rgba(255,228,77,.09)",
+          "accentOne": "rgba(118,136,255,.10)",
           "accentTwo": "rgba(61,197,211,.08)",
-          "grainColor": "rgba(255,228,77,.78)",
+          "grainColor": "rgba(118,136,255,.76)",
           "grainOpacity": ".18",
           "revealOpacity": ".14",
-          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(255,228,77,.08))",
-          "logoShadowHover": "drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(255,228,77,.12))"
+          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.54)) drop-shadow(0 0 18px rgba(118,136,255,.08))",
+          "logoShadowHover": "drop-shadow(0 20px 34px rgba(0,0,0,.58)) drop-shadow(0 0 24px rgba(118,136,255,.12))"
         }
       }
     },
@@ -265,11 +265,11 @@
         "logoMaxWidth": "280px",
         "logoShadow": "drop-shadow(0 16px 28px rgba(0,0,0,.34))",
         "darkMode": {
-          "accentOne": "rgba(255,228,77,.10)",
+          "accentOne": "rgba(118,136,255,.10)",
           "accentTwo": "rgba(255,255,255,.06)",
-          "grainColor": "rgba(255,228,77,.82)",
+          "grainColor": "rgba(118,136,255,.78)",
           "grainOpacity": ".18",
-          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.52)) drop-shadow(0 0 18px rgba(255,228,77,.10))"
+          "logoShadow": "drop-shadow(0 16px 30px rgba(0,0,0,.52)) drop-shadow(0 0 18px rgba(118,136,255,.10))"
         }
       }
     }
