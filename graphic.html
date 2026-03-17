@@ -14,7 +14,7 @@
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
 
-  <link rel="stylesheet" href="styles.css?v=20260316-frosted-white-header-chips" />
+  <link rel="stylesheet" href="styles.css?v=20260317-footer-logo-white" />
 
   <style>
     /* Slightly tighter header spacing on the graphic page now that the PDF link is gone */
@@ -641,8 +641,8 @@
     }
     html.dark-mode .gd-thumb--reveal{
       background:
-        radial-gradient(circle at 18% 18%, var(--gd-card-accent-one-dark, var(--gd-card-accent-one, rgba(255,228,77,.10))), transparent 28%),
-        radial-gradient(circle at 84% 82%, var(--gd-card-accent-two-dark, var(--gd-card-accent-two, rgba(255,228,77,.08))), transparent 24%),
+        radial-gradient(circle at 18% 18%, var(--gd-card-accent-one-dark, var(--gd-card-accent-one, rgba(118,136,255,.12))), transparent 28%),
+        radial-gradient(circle at 84% 82%, var(--gd-card-accent-two-dark, var(--gd-card-accent-two, rgba(88,214,255,.10))), transparent 24%),
         var(--gd-card-base-color, #1c1c1c);
     }
     html.dark-mode .gd-thumb--reveal::before{
@@ -651,7 +651,7 @@
     }
     html.dark-mode .gd-thumb--reveal::after{
       background-image:
-        linear-gradient(var(--gd-card-grain-color-dark, var(--gd-card-grain-color, rgba(255,228,77,.82))), var(--gd-card-grain-color-dark, var(--gd-card-grain-color, rgba(255,228,77,.82)))),
+        linear-gradient(var(--gd-card-grain-color-dark, var(--gd-card-grain-color, rgba(118,136,255,.76))), var(--gd-card-grain-color-dark, var(--gd-card-grain-color, rgba(118,136,255,.76)))),
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='240' viewBox='0 0 160 240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='240' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
       opacity:var(--gd-card-grain-opacity-dark, var(--gd-card-grain-opacity, .20));
     }
@@ -659,7 +659,7 @@
       filter:var(--gd-card-logo-shadow-dark, var(--gd-card-logo-shadow, drop-shadow(0 16px 30px rgba(0,0,0,.52))));
     }
     html.dark-mode .gd-thumb--reveal .gd-thumb-caption{
-      color:rgba(255,244,163,.84);
+      color:rgba(214,223,255,.88);
       text-shadow:0 2px 12px rgba(0,0,0,.44);
     }
     @media (hover:hover) and (pointer:fine){
@@ -687,7 +687,7 @@
         filter:var(--gd-card-logo-shadow-hover-dark, var(--gd-card-logo-shadow-dark, drop-shadow(0 20px 34px rgba(0,0,0,.56))));
       }
       html.dark-mode .gd-project--art-directed:hover .gd-thumb--reveal .gd-thumb-caption{
-        color:rgba(255,248,196,.94);
+        color:rgba(236,242,255,.96);
       }
       .gd-project--disabled.gd-project--art-directed:hover .gd-thumb--reveal::before{
         opacity:var(--gd-card-reveal-opacity, .08);
@@ -717,7 +717,7 @@
         color:rgba(255,255,255,.76);
       }
       html.dark-mode .gd-project--disabled.gd-project--art-directed:hover .gd-thumb--reveal .gd-thumb-caption{
-        color:rgba(255,244,163,.84);
+        color:rgba(214,223,255,.88);
       }
     }
     /* Image-only cards (keep meta in DOM for modal data, but hide visually) */
@@ -1995,7 +1995,7 @@
       // Featured projects: load from JSON and render into the rail.
       // This makes adding/reordering projects a simple data edit.
       (() => {
-        const FEATURED_PROJECTS_URL = 'data/graphic-featured-projects.json?v=20260316-deploy-sync';
+        const FEATURED_PROJECTS_URL = 'data/graphic-featured-projects.json?v=20260317-indigo-project-cards';
 
         const normalizeProject = (p, index) => {
           const safe = (v) => (typeof v === 'string' ? v : '');
