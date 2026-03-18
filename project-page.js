@@ -379,61 +379,73 @@
       ]
     },
     kinetic: {
-      title: 'Kinetic',
-      subtitle: 'Kinetic is a monochrome beverage concept that pairs a stark wordmark with tactile grain and a minimal can presentation designed to feel sharp, industrial, and premium at first glance.',
-      hero: 'assets/images/Empty Can Mockup.jpg',
+      title: 'Kinetic Energy',
+      subtitle: 'Kinetic Energy is a monochrome energy drink concept built around speed, contrast, and attitude, pairing a sharp wordmark with tactile grain and a minimal can presentation that feels industrial, premium, and performance-driven at first glance.',
+      hero: 'assets/images/dragondrinkhero.png',
       facts: [
         {
           label: 'Category',
-          value: 'Beverage concept'
+          value: 'Energy drink concept'
         },
         {
           label: 'Role',
-          value: 'Identity + packaging direction'
+          value: 'Brand identity + packaging concept'
         },
         {
           label: 'Focus',
-          value: 'Texture, contrast + shelf attitude'
+          value: 'Performance cues, contrast + shelf impact'
         },
         {
           label: 'Deliverables',
-          value: 'Logo, can mockup, motion-led card concept'
+          value: 'Wordmark, can mockup + brand boards'
         }
       ],
       summary: [
         {
           label: 'Challenge',
-          value: 'Build a beverage concept that feels bold and tactile without relying on loud color or cluttered graphics.'
+          value: 'Create an energy drink concept that feels fast and high-impact without leaning on neon color, clutter, or overbuilt graphics.'
         },
         {
           label: 'What I owned',
-          value: 'I created the visual direction, the monochrome logo treatment, and the packaging mockup that anchors the concept.'
+          value: 'I developed the visual direction, custom wordmark, presentation boards, and can mockup that define the concept.'
         },
         {
           label: 'Key constraint',
-          value: 'The system needed to stay minimal and premium while still having enough energy to feel memorable on a can.'
+          value: 'The system needed to feel premium and performance-oriented while staying stripped back enough to let the logo do the heavy lifting.'
         },
         {
           label: 'Outcome',
-          value: 'The result is a moody, industrial identity direction that uses texture and contrast to create a more visceral brand presence.'
+          value: 'The result is a moody energy drink direction that uses texture, motion, and contrast to create a sharper, more visceral shelf presence.'
         }
       ],
       sections: [
         {
-          title: 'Identity Direction',
+          title: 'Brand Identity',
           kicker: 'Foundation',
-          copy: 'Kinetic begins with a stripped-back black-and-grey palette and a logo treatment designed to feel direct, fast, and industrial. Instead of relying on bright cues, the concept uses contrast, texture, and restraint to create energy. The mark is meant to read clearly at a distance while the grain and material language add personality up close.',
-          layout: 'single',
-          images: ['assets/images/kinetic.png'],
-          captions: ['Primary Kinetic logo used as the anchor for the concept and the interactive card presentation.']
+          copy: 'The Kinetic Energy logo was built to capture the pace and intensity of an energy drink brand without relying on loud color. I leaned into a sharp custom wordmark, forward motion, and a stripped-back black-and-grey palette so the identity feels fast, aggressive, and premium from the first glance. Grain, spacing, and high contrast help the system feel tactile up close, while the presentation boards show how the mark can carry the concept across hero moments before it moves into packaging.',
+          layout: 'slideshow-hero',
+          images: [
+            'assets/images/KineticEnergy-01.jpg',
+            'assets/images/KineticEnergy-02.jpg',
+            'assets/images/KineticEnergy-03.jpg'
+          ],
+          captions: [
+            'Brand identity hero showing the custom Kinetic Energy mark positioned as a fast, premium energy drink brand.',
+            'Secondary identity board extending the system with the same monochrome restraint, motion cues, and performance attitude.',
+            'Expanded Kinetic Energy composition reinforcing the logo as the core visual driver of the energy drink concept.'
+          ]
         },
         {
-          title: 'Packaging Application',
-          kicker: 'Mockup',
-          copy: 'The can mockup translates that same mood into a packaging expression that feels premium and tactile. The dark base, restrained contrast, and minimal label language leave space for the mark to carry the identity while the material finish and grain treatment give the concept its edge.',
-          layout: 'single',
-          images: ['assets/images/Empty Can Mockup.jpg'],
-          captions: ['Can mockup showing how the Kinetic identity holds up in a minimal, monochrome packaging application.']
+          title: 'Hero Shots',
+          kicker: 'Packaging',
+          copy: 'Below the identity boards, these hero shots push the concept into product mode. The dragon fruit panel introduces the flavor attitude, with the illustration and repeating pattern both created in Adobe Illustrator, while the can mockup keeps the system grounded in a premium, shelf-ready energy drink presentation.',
+          layout: 'two-up',
+          sectionClass: 'pp-kinetic-duo-hero',
+          images: ['assets/images/dragon01.png', 'assets/images/Empty Can Mockup.jpg'],
+          captions: [
+            'Dragon Fruit hero art introducing the flavor direction for Kinetic Energy, with the illustration and pattern both created in Adobe Illustrator.',
+            'Can mockup showing how the Kinetic Energy identity carries into a minimal, monochrome energy drink packaging application.'
+          ]
         }
       ]
     },
@@ -676,7 +688,7 @@
     fisch: 'Fisch',
     aadan: 'Case Study in Progress',
     'lowtide-ipa': 'Lowtide IPA',
-    kinetic: 'Kinetic',
+    kinetic: 'Kinetic Energy',
     'kof-orochi-saga': 'King of Fighters The Orochi Saga',
     'moon-coffee': 'Moon Coffee Co.',
     complexity: 'Complexity Surveillance',
@@ -1020,6 +1032,44 @@
       `;
     }
 
+    if (section.layout === 'slideshow-hero') {
+      const slides = images.map((src, index) => {
+        if (!src) return '';
+        const activeClass = index === 0 ? ' is-active' : '';
+        const caption = captions[index] || '';
+        return `
+          <figure class="pp-slide${activeClass}" data-slide-index="${index}" aria-hidden="${index === 0 ? 'false' : 'true'}">
+            <img class="pp-img" src="${src}" alt="${escapeHtml(caption || section.title || 'project image')}" loading="lazy" />
+          </figure>
+        `;
+      }).join('');
+
+      return `
+        <section class="pp-section pp-slideshow-hero${safeSectionClass}">
+          ${kicker}
+          ${title}
+          ${copy}
+          <div class="pp-stack">
+            <div class="pp-slideshow pp-reveal" data-slideshow>
+              <div class="pp-slideshow-frame">
+                ${slides}
+                <div class="pp-slideshow-controls">
+                  <div class="pp-slideshow-nav" aria-label="Slideshow navigation">
+                    <button class="pp-slideshow-btn" type="button" data-slide-prev aria-label="Previous slide">←</button>
+                    <button class="pp-slideshow-btn" type="button" data-slide-next aria-label="Next slide">→</button>
+                  </div>
+                  <div class="pp-slideshow-dots" role="tablist" aria-label="Slideshow pagination">
+                    ${images.map((src, index) => src ? `<button class="pp-slideshow-dot${index === 0 ? ' is-active' : ''}" type="button" role="tab" aria-selected="${index === 0 ? 'true' : 'false'}" aria-label="Show slide ${index + 1}" data-slide-dot="${index}"></button>` : '').join('')}
+                  </div>
+                </div>
+              </div>
+              <p class="pp-slideshow-caption" data-slide-caption>${escapeHtml(captions[0] || '')}</p>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
     return `
       <section class="pp-section${safeSectionClass}">
         ${kicker}
@@ -1033,7 +1083,7 @@
   };
 
   const initProjectImageReveals = () => {
-    const revealTargets = Array.from(root.querySelectorAll('.pp-hero, .pp-figure'));
+    const revealTargets = Array.from(root.querySelectorAll('.pp-hero, .pp-figure, .pp-slideshow'));
     if (!revealTargets.length) return;
 
     const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
@@ -1057,6 +1107,76 @@
     });
   };
 
+  const initProjectSlideshows = () => {
+    const slideshows = Array.from(root.querySelectorAll('[data-slideshow]'));
+    if (!slideshows.length) return;
+
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+
+    slideshows.forEach((slideshow) => {
+      const slides = Array.from(slideshow.querySelectorAll('.pp-slide'));
+      const dots = Array.from(slideshow.querySelectorAll('[data-slide-dot]'));
+      const prevBtn = slideshow.querySelector('[data-slide-prev]');
+      const nextBtn = slideshow.querySelector('[data-slide-next]');
+      const captionEl = slideshow.querySelector('[data-slide-caption]');
+      if (!slides.length) return;
+
+      const captions = slides.map((slide) => slide.querySelector('img')?.getAttribute('alt') || '');
+      let index = 0;
+      let timer = 0;
+
+      const showSlide = (nextIndex) => {
+        index = (nextIndex + slides.length) % slides.length;
+        slides.forEach((slide, slideIndex) => {
+          const active = slideIndex === index;
+          slide.classList.toggle('is-active', active);
+          slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+        });
+        dots.forEach((dot, dotIndex) => {
+          const active = dotIndex === index;
+          dot.classList.toggle('is-active', active);
+          dot.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        if (captionEl) captionEl.textContent = captions[index] || '';
+      };
+
+      const stopTimer = () => {
+        if (!timer) return;
+        window.clearInterval(timer);
+        timer = 0;
+      };
+
+      const startTimer = () => {
+        if (prefersReducedMotion || slides.length < 2) return;
+        stopTimer();
+        timer = window.setInterval(() => showSlide(index + 1), 10000);
+      };
+
+      prevBtn?.addEventListener('click', () => {
+        showSlide(index - 1);
+        startTimer();
+      });
+      nextBtn?.addEventListener('click', () => {
+        showSlide(index + 1);
+        startTimer();
+      });
+      dots.forEach((dot, dotIndex) => {
+        dot.addEventListener('click', () => {
+          showSlide(dotIndex);
+          startTimer();
+        });
+      });
+
+      slideshow.addEventListener('mouseenter', stopTimer);
+      slideshow.addEventListener('mouseleave', startTimer);
+      slideshow.addEventListener('focusin', stopTimer);
+      slideshow.addEventListener('focusout', startTimer);
+
+      showSlide(0);
+      startTimer();
+    });
+  };
+
   root.innerHTML = `
     <h1 class="pp-headline">${escapeHtml(pageData.title || 'Project')}</h1>
     <p class="pp-sub">${escapeHtml(pageData.subtitle || '')}</p>
@@ -1069,4 +1189,5 @@
   `;
 
   initProjectImageReveals();
+  initProjectSlideshows();
 })();

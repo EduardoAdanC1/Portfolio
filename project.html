@@ -66,6 +66,16 @@
         --pp-glow-1:rgba(255,255,255,.08);
         --pp-glow-2:rgba(124,143,180,.1);
       }
+      body[data-project-key="kinetic"]{
+        --pp-kinetic-shell-bg:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025) 42%,rgba(116,233,255,.14) 100%);
+        --pp-kinetic-shell-border:rgba(255,255,255,.12);
+        --pp-kinetic-frame-border:rgba(255,255,255,.12);
+        --pp-kinetic-frame-highlight:rgba(255,255,255,.46);
+        --pp-kinetic-aura:rgba(100,225,255,.16);
+        --pp-kinetic-shadow:0 30px 80px rgba(0,0,0,.32);
+        --pp-kinetic-btn-bg:rgba(14,18,22,.72);
+        --pp-kinetic-btn-border:rgba(255,255,255,.16);
+      }
     .pp-page{
         position:relative;
         isolation:isolate;
@@ -296,7 +306,228 @@
       object-fit:contain;
       background:transparent;
     }
+    body[data-project-key="kinetic"] .pp-section.pp-kinetic-duo-hero .pp-grid-2{
+      grid-template-columns:minmax(0,1.32fr) minmax(0,.68fr);
+      align-items:start;
+      gap:18px;
+    }
+    body[data-project-key="kinetic"] .pp-section.pp-kinetic-duo-hero .pp-figure{
+      position:relative;
+      padding:0;
+      border:none;
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;
+      overflow:visible;
+    }
+    body[data-project-key="kinetic"] .pp-section.pp-kinetic-duo-hero .pp-figure,
+    body[data-project-key="kinetic"] .pp-section.pp-kinetic-duo-hero .pp-figure:first-child,
+    body[data-project-key="kinetic"] .pp-section.pp-kinetic-duo-hero .pp-figure:last-child{
+      width:100%;
+      justify-self:stretch;
+    }
+    body[data-project-key="kinetic"] .pp-section.pp-kinetic-duo-hero .pp-img{
+      height:auto;
+      object-fit:contain;
+      object-position:center center;
+      background:transparent;
+    }
+    body[data-project-key="kinetic"] .pp-section.pp-kinetic-duo-hero .pp-caption{
+      margin-top:10px;
+    }
     .pp-stack{display:grid;gap:18px;margin-top:18px}
+    .pp-slideshow-hero{
+      display:block;
+    }
+    .pp-slideshow{
+      position:relative;
+      margin-top:0;
+      width:100%;
+      border:1px solid var(--pp-card-border);
+      background:var(--pp-card-bg);
+      overflow:hidden;
+      box-shadow:var(--pp-hero-shadow);
+    }
+    .pp-slideshow-hero .pp-slideshow{
+      border:none;
+      background:transparent;
+      box-shadow:none;
+      overflow:visible;
+    }
+    .pp-slideshow-frame{
+      position:relative;
+      aspect-ratio:4 / 3;
+      min-height:420px;
+      background:var(--pp-image-bg);
+      overflow:hidden;
+    }
+    .pp-slideshow-hero .pp-slideshow-frame{
+      aspect-ratio:3 / 2;
+      min-height:460px;
+      background:transparent;
+    }
+    .pp-slide{
+      position:absolute;
+      inset:0;
+      box-sizing:border-box;
+      opacity:0;
+      transition:opacity .42s ease;
+      pointer-events:none;
+    }
+    .pp-slide.is-active{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .pp-slide img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:contain;
+      background:var(--pp-image-bg);
+    }
+    .pp-slideshow-hero .pp-slide img{
+      object-fit:cover;
+      object-position:center top;
+      background:transparent;
+      box-shadow:var(--pp-hero-shadow);
+    }
+    body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slide img{
+      object-fit:contain;
+      object-position:center center;
+      background:#fff;
+      box-shadow:none;
+      transform:none;
+      transform-origin:center center;
+    }
+    body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slideshow{
+      padding:16px;
+      border:1px solid var(--pp-kinetic-shell-border);
+      border-radius:28px;
+      background:var(--pp-kinetic-shell-bg);
+      box-shadow:var(--pp-kinetic-shadow);
+      overflow:visible;
+      isolation:isolate;
+    }
+    body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slideshow::before{
+      content:"";
+      position:absolute;
+      left:42px;
+      right:42px;
+      bottom:-26px;
+      height:86px;
+      border-radius:999px;
+      background:radial-gradient(circle at center, var(--pp-kinetic-aura) 0, transparent 72%);
+      filter:blur(24px);
+      opacity:.95;
+      z-index:-1;
+      pointer-events:none;
+    }
+    body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slideshow-frame{
+      min-height:600px;
+      background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(244,247,249,.98));
+      border:1px solid var(--pp-kinetic-frame-border);
+      border-radius:20px;
+      box-shadow:inset 0 1px 0 var(--pp-kinetic-frame-highlight), 0 18px 40px rgba(0,0,0,.1);
+    }
+    body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slideshow-frame::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+      background:linear-gradient(135deg,rgba(255,255,255,.34),transparent 28%,transparent 72%,rgba(116,233,255,.14) 100%);
+      pointer-events:none;
+    }
+    body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slide{
+      padding:20px 24px 28px;
+    }
+    body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slideshow-caption{
+      padding:16px 8px 4px;
+    }
+    .pp-slideshow-controls{
+      position:absolute;
+      inset:0;
+      z-index:2;
+      pointer-events:none;
+    }
+    .pp-slideshow-nav,
+    .pp-slideshow-dots{
+      pointer-events:auto;
+    }
+    .pp-slideshow-nav{
+      position:absolute;
+      left:18px;
+      right:18px;
+      top:50%;
+      transform:translateY(-50%);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      pointer-events:none;
+    }
+    .pp-slideshow-btn{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(9,12,16,.64);
+      color:#fff;
+      width:48px;
+      height:48px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      pointer-events:auto;
+      backdrop-filter:blur(10px);
+      box-shadow:0 12px 24px rgba(0,0,0,.18);
+    }
+    .pp-slideshow-btn:hover,
+    .pp-slideshow-btn:focus-visible{
+      background:rgba(9,12,16,.78);
+      outline:none;
+    }
+    body[data-project-key="kinetic"] .pp-slideshow-btn{
+      background:var(--pp-kinetic-btn-bg);
+      border-color:var(--pp-kinetic-btn-border);
+      color:var(--pp-text);
+    }
+    body[data-project-key="kinetic"] .pp-slideshow-btn:hover,
+    body[data-project-key="kinetic"] .pp-slideshow-btn:focus-visible{
+      background:color-mix(in srgb, var(--pp-kinetic-btn-bg) 78%, white);
+      transform:translateY(-1px);
+    }
+    .pp-slideshow-dots{
+      display:none !important;
+    }
+    .pp-slideshow-dot{
+      appearance:none;
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      padding:0;
+      border:1px solid rgba(255,255,255,.42);
+      background:rgba(255,255,255,.18);
+      cursor:pointer;
+    }
+    .pp-slideshow-dot.is-active{
+      background:#fff;
+      transform:scale(1.08);
+    }
+    .pp-slideshow-caption{
+      margin:0;
+      padding:14px 18px 18px;
+      color:var(--pp-caption-color);
+      line-height:1.58;
+      font-size:.96rem;
+      border-top:1px solid var(--pp-card-border);
+      background:color-mix(in srgb, var(--pp-bg) 82%, transparent);
+    }
+    .pp-slideshow-hero .pp-slideshow-caption{
+      padding:14px 0 0;
+      border-top:none;
+      background:transparent;
+      max-width:72ch;
+    }
 
     /* KoF hero asset includes a thin outer frame; crop it out for a clean full-bleed hero. */
     body.pp-theme-kof-orochi-saga .pp-hero{
@@ -379,6 +610,16 @@
       --pp-glow-1:rgba(167,176,188,.12);
       --pp-glow-2:rgba(119,132,151,.06);
     }
+    html:not(.dark-mode) body[data-project-key="kinetic"]{
+      --pp-kinetic-shell-bg:linear-gradient(145deg,rgba(255,255,255,.94),rgba(246,248,251,.96) 44%,rgba(214,240,246,.98) 100%);
+      --pp-kinetic-shell-border:rgba(18,26,38,.08);
+      --pp-kinetic-frame-border:rgba(18,26,38,.08);
+      --pp-kinetic-frame-highlight:rgba(255,255,255,.88);
+      --pp-kinetic-aura:rgba(99,197,219,.18);
+      --pp-kinetic-shadow:0 24px 56px rgba(17,24,39,.12);
+      --pp-kinetic-btn-bg:rgba(255,255,255,.9);
+      --pp-kinetic-btn-border:rgba(18,26,38,.08);
+    }
 
     @media (max-width: 860px){
       .pp-facts{grid-template-columns:1fr}
@@ -411,7 +652,63 @@
       .pp-section.pp-lowtide-split .pp-grid-2 .pp-figure:first-child .pp-img{
         min-height:unset;
       }
+      body[data-project-key="kinetic"] .pp-section.pp-kinetic-duo-hero .pp-grid-2{
+        grid-template-columns:1fr;
+        gap:18px;
+      }
+      body[data-project-key="kinetic"] .pp-section.pp-kinetic-duo-hero .pp-figure{
+        padding:0;
+        border-radius:0;
+        width:100%;
+        justify-self:stretch;
+      }
+      body[data-project-key="kinetic"] .pp-section.pp-kinetic-duo-hero .pp-img{
+        height:auto;
+      }
       .pp-page{padding-top:96px}
+      .pp-slideshow-frame{
+        min-height:300px;
+      }
+      .pp-slideshow-hero .pp-slideshow-frame{
+        min-height:280px;
+      }
+      body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slideshow-frame{
+        min-height:340px;
+      }
+      body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slideshow{
+        padding:12px;
+        border-radius:22px;
+      }
+      body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slideshow::before{
+        left:28px;
+        right:28px;
+        bottom:-20px;
+        height:64px;
+      }
+      body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slide{
+        padding:14px 14px 22px;
+      }
+      body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slideshow-frame{
+        border-radius:16px;
+      }
+      body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slideshow-caption{
+        padding:14px 4px 2px;
+      }
+      body[data-project-key="kinetic"] .pp-slideshow-hero .pp-slide img{
+        transform:none;
+        transform-origin:center center;
+      }
+      .pp-slideshow-controls{
+        inset:0;
+      }
+      .pp-slideshow-nav{
+        left:14px;
+        right:14px;
+      }
+      .pp-slideshow-dots{
+        right:14px;
+        bottom:14px;
+      }
       .pp-nav{
         flex-direction:column;
         align-items:stretch;
@@ -430,6 +727,9 @@
         transform:none;
         transition:none;
         will-change:auto;
+      }
+      .pp-slide{
+        transition:none;
       }
     }
   </style>
@@ -560,7 +860,7 @@
   </div>
 </footer>
 
-<script src="project-page.js?v=20260316-sitewide-adaptive-contrast"></script>
+<script src="project-page.js?v=20260318-kinetic-carousel-r2"></script>
 <script src="header-contrast.js?v=20260316-bright-area-fix"></script>
 <script src="header-idle.js?v=20260316-menu-jank-fix"></script>
 </body>
