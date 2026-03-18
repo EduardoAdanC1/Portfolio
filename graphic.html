@@ -16,6 +16,7 @@
   <meta name="theme-color" content="#0b1220">
 
   <link rel="stylesheet" href="styles.css?v=20260318-page-loader" />
+  <link rel="preload" as="video" href="assets/images/graphicsvideo.mp4?v=20260302-1724" type="video/mp4" />
 
   <style>
     :root{
@@ -1281,7 +1282,7 @@
     <div class="gd-inner">
       <section class="gd-hero" id="home" aria-label="Graphic Design">
         <div class="gd-hero-media" aria-hidden="true">
-          <video class="gd-hero-video" autoplay muted loop playsinline preload="none">
+          <video class="gd-hero-video" autoplay muted loop playsinline preload="auto">
             <source src="assets/images/graphicsvideo.mp4?v=20260302-1724" type="video/mp4" />
             <source src="assets/images/herovideo.mp4?v=20260302-1724" type="video/mp4" />
           </video>
@@ -1903,7 +1904,7 @@
         const video = hero?.querySelector?.('.gd-hero-video');
         if (!hero || !video) return;
 
-        const START_DELAY_MS = 900;
+        const START_DELAY_MS = 120;
         let playScheduled = false;
         let startedPlayback = false;
         let visibilityObserver = null;
@@ -1929,6 +1930,8 @@
         video.addEventListener('error', markNoVideo);
         video.addEventListener('loadedmetadata', applyPlaybackRate);
         video.addEventListener('canplay', applyPlaybackRate);
+        try { video.preload = 'auto'; } catch (e) {}
+        try { video.load?.(); } catch (e) {}
         video.addEventListener('stalled', () => {
           try {
             if (video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) markNoVideo();
@@ -1954,19 +1957,10 @@
           if (playScheduled || startedPlayback || hero.classList.contains('gd-hero--no-video')) return;
           playScheduled = true;
 
-          const startWhenIdle = () => {
-            window.setTimeout(() => {
-              playScheduled = false;
-              tryPlay();
-            }, START_DELAY_MS);
-          };
-
-          if (typeof window.requestIdleCallback === 'function') {
-            window.requestIdleCallback(startWhenIdle, { timeout: 1400 });
-            return;
-          }
-
-          startWhenIdle();
+          window.setTimeout(() => {
+            playScheduled = false;
+            tryPlay();
+          }, START_DELAY_MS);
         };
 
         // Wait until the page settles and the hero is actually near the viewport.
@@ -3215,7 +3209,7 @@
     window.__siteLoaderConfig = {
       label: 'Loading graphic design work',
       minDuration: 820,
-      maxDuration: 5600,
+      maxDuration: 6800,
       checks: [
         () => {
           const hero = document.querySelector('.gd-hero');
