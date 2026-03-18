@@ -2719,33 +2719,6 @@
               tag: p.tag || ''
             }));
             return;
-          <script>
-            window.__siteLoaderConfig = {
-              label: 'Loading graphic design work',
-              minDuration: 820,
-              maxDuration: 5600,
-              checks: [
-                () => {
-                  const hero = document.querySelector('.gd-hero');
-                  const video = hero?.querySelector('.gd-hero-video');
-                  if (!hero || !video) return true;
-                  return hero.classList.contains('gd-hero--no-video') || video.readyState >= 2;
-                },
-                () => {
-                  const track = document.getElementById('gdRailTrack');
-                  if (!track) return false;
-                  if (track.dataset.gdState === 'error') return true;
-                  return track.querySelectorAll('.gd-project').length >= 4;
-                },
-                () => {
-                  const images = Array.from(document.querySelectorAll('#gdRailTrack .gd-project img')).slice(0, 4);
-                  if (!images.length) return false;
-                  return images.every((img) => img.complete);
-                }
-              ]
-            };
-          </script>
-          <script src="page-loader.js?v=20260318-page-loader"></script>
           }
 
           const cards = getOriginalCards();
@@ -3238,7 +3211,34 @@
       })();
     })();
   </script>
+  <script>
+    window.__siteLoaderConfig = {
+      label: 'Loading graphic design work',
+      minDuration: 820,
+      maxDuration: 5600,
+      checks: [
+        () => {
+          const hero = document.querySelector('.gd-hero');
+          const video = hero?.querySelector('.gd-hero-video');
+          if (!hero || !video) return true;
+          return hero.classList.contains('gd-hero--no-video') || video.readyState >= 2;
+        },
+        () => {
+          const track = document.getElementById('gdRailTrack');
+          if (!track) return false;
+          if (track.dataset.gdState === 'error') return true;
+          return track.querySelectorAll('.gd-project').length >= 4;
+        },
+        () => {
+          const images = Array.from(document.querySelectorAll('#gdRailTrack .gd-project img')).slice(0, 4);
+          if (!images.length) return false;
+          return images.every((img) => img.complete);
+        }
+      ]
+    };
+  </script>
   <script src="header-contrast.js?v=20260316-bright-area-fix"></script>
   <script src="header-idle.js?v=20260316-menu-jank-fix"></script>
+  <script src="page-loader.js?v=20260318-page-loader"></script>
 </body>
 </html>
