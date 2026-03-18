@@ -4,13 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Eduardo Chavez – Portfolio</title>
+  <script>document.documentElement.classList.add('js');</script>
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/whitelogo.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/whitelogo.png">
   <link rel="apple-touch-icon" href="assets/images/whitelogo.png">
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
-  <link rel="stylesheet" href="styles.css?v=20260317-footer-logo-white" />
+  <link rel="stylesheet" href="styles.css?v=20260318-page-loader" />
   <style>
     :root{
       --accent:#ffe44d;
@@ -320,7 +321,17 @@
     }
   </style>
 </head>
-<body class="landing-page">
+<body class="landing-page is-page-loading">
+  <div class="site-loader" data-site-loader role="status" aria-live="polite">
+    <div class="site-loader__panel">
+      <div class="site-loader__brand" aria-hidden="true">
+        <img class="site-loader__logo site-loader__logo--light" src="assets/images/ecmonogram.png" alt="" />
+        <img class="site-loader__logo site-loader__logo--dark" src="assets/images/ecmonogramwhite.png" alt="" />
+      </div>
+      <div class="site-loader__bar" aria-hidden="true"></div>
+      <p class="site-loader__label" data-site-loader-label>Preparing portfolio</p>
+    </div>
+  </div>
   <header class="header">
     <div class="inner">
       <div class="brand">
@@ -667,5 +678,21 @@
       });
     })();
   </script>
+  <script>
+    window.__siteLoaderConfig = {
+      label: 'Preparing portfolio',
+      minDuration: 760,
+      maxDuration: 4800,
+      checks: [
+        () => !!document.querySelector('.landing-panel'),
+        () => {
+          const video = document.getElementById('landingVideo');
+          if (!video) return true;
+          return video.readyState >= 2 || video.style.opacity === '1' || video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE;
+        }
+      ]
+    };
+  </script>
+  <script src="page-loader.js?v=20260318-page-loader"></script>
 </body>
 </html>

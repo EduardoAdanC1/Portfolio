@@ -7,6 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <title>Eduardo Chavez – Graphic Design</title>
+  <script>document.documentElement.classList.add('js');</script>
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/whitelogo.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/whitelogo.png">
@@ -14,7 +15,7 @@
   <link rel="shortcut icon" href="assets/images/whitelogo.png">
   <meta name="theme-color" content="#0b1220">
 
-  <link rel="stylesheet" href="styles.css?v=20260317-footer-logo-white" />
+  <link rel="stylesheet" href="styles.css?v=20260318-page-loader" />
 
   <style>
     :root{
@@ -1180,7 +1181,17 @@
     }
   </style>
 </head>
-<body>
+<body class="is-page-loading">
+  <div class="site-loader" data-site-loader role="status" aria-live="polite">
+    <div class="site-loader__panel">
+      <div class="site-loader__brand" aria-hidden="true">
+        <img class="site-loader__logo site-loader__logo--light" src="assets/images/ecmonogram.png" alt="" />
+        <img class="site-loader__logo site-loader__logo--dark" src="assets/images/ecmonogramwhite.png" alt="" />
+      </div>
+      <div class="site-loader__bar" aria-hidden="true"></div>
+      <p class="site-loader__label" data-site-loader-label>Loading graphic design work</p>
+    </div>
+  </div>
   <header class="header">
     <div class="inner">
       <div class="brand">
@@ -2708,6 +2719,33 @@
               tag: p.tag || ''
             }));
             return;
+          <script>
+            window.__siteLoaderConfig = {
+              label: 'Loading graphic design work',
+              minDuration: 820,
+              maxDuration: 5600,
+              checks: [
+                () => {
+                  const hero = document.querySelector('.gd-hero');
+                  const video = hero?.querySelector('.gd-hero-video');
+                  if (!hero || !video) return true;
+                  return hero.classList.contains('gd-hero--no-video') || video.readyState >= 2;
+                },
+                () => {
+                  const track = document.getElementById('gdRailTrack');
+                  if (!track) return false;
+                  if (track.dataset.gdState === 'error') return true;
+                  return track.querySelectorAll('.gd-project').length >= 4;
+                },
+                () => {
+                  const images = Array.from(document.querySelectorAll('#gdRailTrack .gd-project img')).slice(0, 4);
+                  if (!images.length) return false;
+                  return images.every((img) => img.complete);
+                }
+              ]
+            };
+          </script>
+          <script src="page-loader.js?v=20260318-page-loader"></script>
           }
 
           const cards = getOriginalCards();
