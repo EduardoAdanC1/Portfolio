@@ -815,6 +815,90 @@ window.addEventListener('load', ()=>{
   ioResume.observe(resumeSection);
 })();
 
+// Smooth sentence-by-sentence scroll fill for resume intro copy.
+(() => {
+  const fillTargets = Array.from(document.querySelectorAll('.resume-scrollfill'));
+  if (!fillTargets.length) return;
+
+  const sentenceRegex = /[^.!?]+[.!?]+(?:\s+|$)|[^.!?]+$/g;
+  const sentenceSpans = [];
+
+  fillTargets.forEach((target) => {
+    const text = target.textContent || '';
+    const sentences = text.match(sentenceRegex) || [text];
+    target.textContent = '';
+    target.classList.add('is-sentence-fill-ready');
+
+    sentences.forEach((sentence) => {
+      const span = document.createElement('span');
+      span.className = 'scrollfill-sentence';
+      span.textContent = sentence;
+      target.appendChild(span);
+      sentenceSpans.push(span);
+    });
+  });
+
+  const introCard = fillTargets[0]?.closest('.resume-intro-card') || fillTargets[0];
+  if (!introCard || !sentenceSpans.length) return;
+
+  const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+  if (reducedMotion) {
+    sentenceSpans.forEach((span) => span.style.setProperty('--sentence-fill', '100%'));
+    fillTargets.forEach((target) => target.classList.add('is-fill-complete'));
+    return;
+  }
+
+  let targetProgress = 0;
+  let currentProgress = 0;
+  let rafId = 0;
+
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+  const applyProgress = (progress) => {
+    const scaled = progress * sentenceSpans.length;
+
+    sentenceSpans.forEach((span, index) => {
+      const sentenceProgress = clamp(scaled - index, 0, 1);
+      span.style.setProperty('--sentence-fill', `${(sentenceProgress * 100).toFixed(2)}%`);
+    });
+
+    fillTargets.forEach((target) => {
+      target.classList.toggle('is-fill-complete', progress >= 0.995);
+    });
+  };
+
+  const tick = () => {
+    currentProgress += (targetProgress - currentProgress) * 0.14;
+
+    if (Math.abs(targetProgress - currentProgress) < 0.0015) {
+      currentProgress = targetProgress;
+      applyProgress(currentProgress);
+      rafId = 0;
+      return;
+    }
+
+    applyProgress(currentProgress);
+    rafId = window.requestAnimationFrame(tick);
+  };
+
+  const updateTarget = () => {
+    const rect = introCard.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+    const start = viewportHeight * 0.9;
+    const end = viewportHeight * 0.2;
+    const raw = (start - rect.top) / Math.max(start - end, 1);
+    targetProgress = clamp(raw, 0, 1);
+
+    if (!rafId) rafId = window.requestAnimationFrame(tick);
+  };
+
+  applyProgress(0);
+  updateTarget();
+  window.addEventListener('scroll', updateTarget, { passive: true });
+  window.addEventListener('resize', updateTarget, { passive: true });
+  window.addEventListener('orientationchange', updateTarget, { passive: true });
+})();
+
 // Custom cursor that replaces the native cursor over images (desktop / fine pointers only)
 (() => {
   const supportsFinePointer =
