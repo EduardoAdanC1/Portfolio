@@ -98,6 +98,7 @@
       overflow:hidden;
       width:min(720px, 100%);
       max-width:720px;
+      max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 144px);
       border:1px solid rgba(255,255,255,.14);
       background:rgba(8,10,14,.42);
       backdrop-filter:blur(14px) saturate(1.04);
@@ -105,6 +106,8 @@
       padding:20px clamp(18px, 3vw, 28px);
       text-align:center;
       box-shadow:0 22px 64px rgba(0,0,0,.34);
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
       animation:cardIn .58s ease both;
     }
     .landing-panel::before{
@@ -210,14 +213,15 @@
     .landing-page .site-menu-overlay{z-index:90}
     @media (max-width: 680px){
       .center-wrap{
-        position:relative;
+        position:fixed;
+        inset:0;
         min-height:100vh;
         min-height:100dvh;
-        align-items:flex-start;
+        align-items:flex-end;
         padding:
           max(92px, calc(env(safe-area-inset-top) + 58px))
           max(18px, env(safe-area-inset-right))
-          max(30px, calc(env(safe-area-inset-bottom) + 30px))
+          max(18px, calc(env(safe-area-inset-bottom) + 18px))
           max(18px, env(safe-area-inset-left));
       }
       .bg-video{
@@ -228,6 +232,7 @@
       .landing-panel{
         padding:18px 16px 16px;
         width:min(680px, 100%);
+        max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 128px);
         border-radius:20px;
         background:linear-gradient(180deg, rgba(10,13,18,.64), rgba(9,11,15,.54));
         border-color:rgba(255,255,255,.16);
@@ -287,6 +292,7 @@
     @media (max-width: 420px){
       .landing-panel{
         padding:16px 14px 14px;
+        max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 116px);
       }
       .landing-positioning{
         max-width:24ch;
@@ -504,6 +510,7 @@
       const landingVideo = document.getElementById('landingVideo');
       if (landingVideo) {
         let hasPlayed = false;
+        let playbackRetryTimer = 0;
         const showVideo = () => {
           landingVideo.style.opacity = '1';
         };
@@ -512,34 +519,79 @@
           landingVideo.style.opacity = '0';
         };
 
+        const scheduleRetry = (delay = 1400) => {
+          if (playbackRetryTimer) window.clearTimeout(playbackRetryTimer);
+          playbackRetryTimer = window.setTimeout(() => {
+            playbackRetryTimer = 0;
+            if (hasPlayed) return;
+            if (landingVideo.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
+              hideVideo();
+              return;
+            }
+            enforceInlineAutoplay();
+          }, delay);
+        };
+
         const enforceInlineAutoplay = () => {
           landingVideo.muted = true;
           landingVideo.defaultMuted = true;
           landingVideo.playsInline = true;
+          landingVideo.autoplay = true;
+          landingVideo.loop = true;
           landingVideo.setAttribute('muted', '');
+          landingVideo.setAttribute('autoplay', '');
+          landingVideo.setAttribute('loop', '');
           landingVideo.setAttribute('playsinline', '');
           landingVideo.setAttribute('webkit-playsinline', '');
 
           const playAttempt = landingVideo.play();
           if (playAttempt && typeof playAttempt.catch === 'function') {
             playAttempt.catch(() => {
-              if (!hasPlayed) hideVideo();
+              if (!hasPlayed) scheduleRetry();
             });
           }
         };
 
         landingVideo.addEventListener('playing', () => {
           hasPlayed = true;
+          if (playbackRetryTimer) {
+            window.clearTimeout(playbackRetryTimer);
+            playbackRetryTimer = 0;
+          }
           showVideo();
         });
 
+        landingVideo.addEventListener('loadedmetadata', enforceInlineAutoplay, { once: true });
         landingVideo.addEventListener('canplay', showVideo);
         landingVideo.addEventListener('loadeddata', showVideo);
+        landingVideo.addEventListener('suspend', () => {
+          if (!hasPlayed && landingVideo.readyState < 2) scheduleRetry(900);
+        });
+        landingVideo.addEventListener('stalled', () => {
+          if (!hasPlayed) scheduleRetry(900);
+        });
         landingVideo.addEventListener('error', hideVideo);
 
         window.setTimeout(() => {
-          if (!hasPlayed && landingVideo.readyState < 2) hideVideo();
-        }, 2200);
+          if (hasPlayed || landingVideo.readyState >= 2) return;
+          if (landingVideo.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
+            hideVideo();
+            return;
+          }
+          scheduleRetry(0);
+        }, 2400);
+
+        window.setTimeout(() => {
+          if (!hasPlayed && landingVideo.readyState < 2 && landingVideo.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
+            hideVideo();
+          }
+        }, 5200);
+
+        try {
+          landingVideo.load();
+        } catch (error) {
+          // Ignore; browsers that have already begun loading will throw here.
+        }
 
         if (landingVideo.readyState >= 2) enforceInlineAutoplay();
         else landingVideo.addEventListener('loadeddata', enforceInlineAutoplay, { once: true });
