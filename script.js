@@ -917,7 +917,10 @@ window.addEventListener('load', ()=>{
     root.classList.add('cursor-enabled');
   };
 
-  const imageSelector = '#projectGrid .card img, #modalImg';
+  // Packaging project cards use the yellow "project" pill state.
+  // The animated icon cursor is reserved for the modal image view.
+  const imageSelector = '#modalImg';
+  const projectSelector = '#projectGrid .card';
 
   let x = 0;
   let y = 0;
@@ -945,6 +948,10 @@ window.addEventListener('load', ()=>{
     cursorEl.classList.toggle('is-image', on);
   };
 
+  const setProjectHover = (on) => {
+    cursorEl.classList.toggle('is-project', on);
+  };
+
   // Track mouse position
   window.addEventListener('pointermove', (e) => {
     if (e.pointerType && e.pointerType !== 'mouse') return;
@@ -965,7 +972,18 @@ window.addEventListener('load', ()=>{
     if (!img) return;
     enable();
     setPos(e);
+    setProjectHover(false);
     setImageHover(true);
+  });
+
+  document.addEventListener('pointerover', (e) => {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    const card = e.target?.closest?.(projectSelector);
+    if (!card) return;
+    enable();
+    setPos(e);
+    setImageHover(false);
+    setProjectHover(true);
   });
 
   document.addEventListener('pointerout', (e) => {
@@ -976,19 +994,30 @@ window.addEventListener('load', ()=>{
     setImageHover(false);
   });
 
+  document.addEventListener('pointerout', (e) => {
+    const fromCard = e.target?.closest?.(projectSelector);
+    if (!fromCard) return;
+    const to = e.relatedTarget;
+    if (to && to.closest && to.closest(projectSelector)) return;
+    setProjectHover(false);
+  });
+
   // Safety: hide cursor when leaving the window/tab
   window.addEventListener('blur', () => {
     setVisible(false);
     setImageHover(false);
+    setProjectHover(false);
   });
   window.addEventListener('mouseleave', () => {
     setVisible(false);
     setImageHover(false);
+    setProjectHover(false);
   });
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       setVisible(false);
       setImageHover(false);
+      setProjectHover(false);
     }
   });
 })();
