@@ -1843,6 +1843,158 @@
         window.addEventListener('orientationchange', updateTarget, { passive: true });
       })();
 
+      // Slow randomized gradient drift for the About / Resume intro card.
+      (() => {
+        const cards = Array.from(document.querySelectorAll('.resume-intro-card'));
+        if (!cards.length) return;
+
+        const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+        if (reducedMotion) return;
+
+        const rand = (min, max) => min + Math.random() * (max - min);
+        const root = document.documentElement;
+        const supportsFinePointer =
+          window.matchMedia?.('(pointer: fine)').matches &&
+          window.matchMedia?.('(hover: hover)').matches;
+        const motionSeeds = cards.map(() => ({
+          phaseA: rand(0, Math.PI * 2),
+          phaseB: rand(0, Math.PI * 2),
+          phaseC: rand(0, Math.PI * 2),
+          phaseD: rand(0, Math.PI * 2)
+        }));
+        let wobbleRaf = 0;
+
+        const applyRandomState = (card) => {
+          const isDark = root.classList.contains('dark-mode');
+          const profile = isDark
+            ? {
+                duration:[17, 24],
+                glowX:[78, 88],
+                glowY:[19, 31],
+                beforeX:[-26, 28],
+                beforeY:[-20, 22],
+                beforeScale:[0.995, 1.07],
+                beforeOpacity:[0.46, 0.68],
+                afterX:[-30, 24],
+                afterY:[-26, 22],
+                afterScale:[0.99, 1.12],
+                afterOpacity:[0.34, 0.58],
+                next:[11000, 17000]
+              }
+            : {
+                duration:[14, 20],
+                glowX:[69, 93],
+                glowY:[14, 40],
+                beforeX:[-42, 44],
+                beforeY:[-30, 34],
+                beforeScale:[1, 1.11],
+                beforeOpacity:[0.78, 0.98],
+                afterX:[-52, 36],
+                afterY:[-38, 34],
+                afterScale:[1.03, 1.2],
+                afterOpacity:[0.54, 0.88],
+                next:[9000, 15000]
+              };
+
+          card.style.setProperty('--resume-card-motion-duration', `${rand(...profile.duration).toFixed(2)}s`);
+          card.style.setProperty('--resume-card-glow-x', `${rand(...profile.glowX).toFixed(2)}%`);
+          card.style.setProperty('--resume-card-glow-y', `${rand(...profile.glowY).toFixed(2)}%`);
+          card.style.setProperty('--resume-card-before-ambient-x', `${rand(...profile.beforeX).toFixed(2)}px`);
+          card.style.setProperty('--resume-card-before-ambient-y', `${rand(...profile.beforeY).toFixed(2)}px`);
+          card.style.setProperty('--resume-card-before-scale', rand(...profile.beforeScale).toFixed(3));
+          card.style.setProperty('--resume-card-before-opacity', rand(...profile.beforeOpacity).toFixed(3));
+          card.style.setProperty('--resume-card-after-ambient-x', `${rand(...profile.afterX).toFixed(2)}px`);
+          card.style.setProperty('--resume-card-after-ambient-y', `${rand(...profile.afterY).toFixed(2)}px`);
+          card.style.setProperty('--resume-card-after-scale', rand(...profile.afterScale).toFixed(3));
+          card.style.setProperty('--resume-card-after-opacity', rand(...profile.afterOpacity).toFixed(3));
+
+          return profile.next;
+        };
+
+        const applyPointerState = (card, clientX, clientY) => {
+          const rect = card.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+          const relX = ((clientX - rect.left) / rect.width - 0.5) * 2;
+          const relY = ((clientY - rect.top) / rect.height - 0.5) * 2;
+          const isDark = root.classList.contains('dark-mode');
+          const beforeFactor = isDark ? 8 : 12;
+          const afterFactor = isDark ? 15 : 22;
+
+          card.style.setProperty('--resume-card-before-pointer-x', `${(relX * beforeFactor).toFixed(2)}px`);
+          card.style.setProperty('--resume-card-before-pointer-y', `${(relY * beforeFactor * .7).toFixed(2)}px`);
+          card.style.setProperty('--resume-card-after-pointer-x', `${(relX * afterFactor).toFixed(2)}px`);
+          card.style.setProperty('--resume-card-after-pointer-y', `${(relY * afterFactor * .85).toFixed(2)}px`);
+        };
+
+        const resetPointerState = (card) => {
+          card.style.setProperty('--resume-card-before-pointer-x', '0px');
+          card.style.setProperty('--resume-card-before-pointer-y', '0px');
+          card.style.setProperty('--resume-card-after-pointer-x', '0px');
+          card.style.setProperty('--resume-card-after-pointer-y', '0px');
+        };
+
+        const renderWobble = (now) => {
+          const t = now * 0.001;
+
+          cards.forEach((card, index) => {
+            const seed = motionSeeds[index];
+            const isDark = root.classList.contains('dark-mode');
+            const beforeAmpX = isDark ? 7.2 : 13;
+            const beforeAmpY = isDark ? 5.2 : 9.6;
+            const afterAmpX = isDark ? 13 : 23;
+            const afterAmpY = isDark ? 9.8 : 16.4;
+            const speed = isDark ? 0.24 : 0.33;
+
+            const beforeX = Math.sin(t * speed + seed.phaseA) * beforeAmpX;
+            const beforeY = Math.cos(t * speed * 0.86 + seed.phaseB) * beforeAmpY;
+            const afterX = Math.sin(t * speed * 0.72 + seed.phaseC) * afterAmpX;
+            const afterY = Math.cos(t * speed * 0.58 + seed.phaseD) * afterAmpY;
+
+            card.style.setProperty('--resume-card-before-wobble-x', `${beforeX.toFixed(2)}px`);
+            card.style.setProperty('--resume-card-before-wobble-y', `${beforeY.toFixed(2)}px`);
+            card.style.setProperty('--resume-card-after-wobble-x', `${afterX.toFixed(2)}px`);
+            card.style.setProperty('--resume-card-after-wobble-y', `${afterY.toFixed(2)}px`);
+          });
+
+          wobbleRaf = window.requestAnimationFrame(renderWobble);
+        };
+
+        const scheduleCard = (card, delay = 0) => {
+          let timer = 0;
+
+          const tick = () => {
+            const nextWindow = applyRandomState(card);
+            timer = window.setTimeout(tick, rand(...nextWindow));
+          };
+
+          timer = window.setTimeout(tick, delay);
+          return () => window.clearTimeout(timer);
+        };
+
+        const cleanups = cards.map((card, index) => {
+          applyRandomState(card);
+          return scheduleCard(card, 1200 + index * 480);
+        });
+        wobbleRaf = window.requestAnimationFrame(renderWobble);
+
+        const refreshAll = () => cards.forEach(applyRandomState);
+        if (supportsFinePointer) {
+          cards.forEach((card) => {
+            card.addEventListener('pointermove', (event) => {
+              if (event.pointerType && event.pointerType !== 'mouse') return;
+              applyPointerState(card, event.clientX, event.clientY);
+            }, { passive: true });
+            card.addEventListener('pointerleave', () => resetPointerState(card));
+          });
+        }
+        window.addEventListener('headercontrastrefresh', refreshAll);
+        window.addEventListener('pagehide', () => {
+          cleanups.forEach((stop) => stop());
+          if (wobbleRaf) window.cancelAnimationFrame(wobbleRaf);
+          window.removeEventListener('headercontrastrefresh', refreshAll);
+        }, { once: true });
+      })();
+
       // Trigger the process-number fill animation when the section comes into view.
       (() => {
         const processSection = document.getElementById('graphic-process');

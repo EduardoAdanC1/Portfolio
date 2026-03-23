@@ -16,6 +16,8 @@
   <style>
     :root{
       --accent:#ffe44d;
+      --landing-accent:#ffe44d;
+      --landing-accent-rgb:255,228,77;
       --text:#ffffff;
       --muted:rgba(255,255,255,.84);
     }
@@ -169,8 +171,8 @@
     }
     .landing-path:hover{ transform:translateY(-2px); background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.34); box-shadow:0 12px 24px rgba(0,0,0,.22); }
     .landing-path:active{ transform:translateY(0); }
-    .landing-path.primary{ background:var(--accent); color:#000; border-color:var(--accent); box-shadow:0 10px 28px rgba(255,228,77,.22); }
-    .landing-path.primary:hover{ box-shadow:0 14px 30px rgba(255,228,77,.30); }
+    .landing-path.primary{ background:var(--landing-accent); color:#000; border-color:var(--landing-accent); box-shadow:0 10px 28px rgba(var(--landing-accent-rgb),.22); }
+    .landing-path.primary:hover{ box-shadow:0 14px 30px rgba(var(--landing-accent-rgb),.30); }
     .landing-path.primary::before{opacity:.24;mix-blend-mode:soft-light}
     .landing-path-title{display:block;font-size:20px;line-height:1.06;letter-spacing:-.015em}
     .landing-path-copy{display:block;margin-top:6px;font-size:12px;line-height:1.4;font-weight:600;opacity:.82}

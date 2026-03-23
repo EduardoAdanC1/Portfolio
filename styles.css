@@ -1380,49 +1380,87 @@ html.dark-mode .resume-note{
   box-shadow:0 18px 46px rgba(0,0,0,.34);
 }
 html.dark-mode .resume-intro-card{
+  --resume-card-glow-x:82%;
+  --resume-card-glow-y:24%;
+  --resume-card-before-opacity:.56;
+  --resume-card-after-opacity:.52;
   background:
-    radial-gradient(circle at 82% 24%, rgba(118,136,255,.08) 0%, rgba(118,136,255,0) 32%),
+    radial-gradient(circle at var(--resume-card-glow-x) var(--resume-card-glow-y), rgba(118,136,255,.08) 0%, rgba(118,136,255,0) 32%),
     linear-gradient(115deg, rgba(255,255,255,.02) 0%, rgba(255,255,255,0) 42%, rgba(118,136,255,.035) 100%),
     rgba(16,19,23,.84);
 }
 .resume-intro-card{
   padding:34px;
+  --resume-card-glow-x:84%;
+  --resume-card-glow-y:26%;
+  --resume-card-before-ambient-x:0px;
+  --resume-card-before-ambient-y:0px;
+  --resume-card-before-pointer-x:0px;
+  --resume-card-before-pointer-y:0px;
+  --resume-card-before-wobble-x:0px;
+  --resume-card-before-wobble-y:0px;
+  --resume-card-before-scale:1;
+  --resume-card-before-opacity:.88;
+  --resume-card-after-ambient-x:0px;
+  --resume-card-after-ambient-y:0px;
+  --resume-card-after-pointer-x:0px;
+  --resume-card-after-pointer-y:0px;
+  --resume-card-after-wobble-x:0px;
+  --resume-card-after-wobble-y:0px;
+  --resume-card-after-scale:1;
+  --resume-card-after-opacity:.78;
+  --resume-card-motion-duration:18s;
   background:
-    radial-gradient(circle at 84% 26%, rgba(255,228,77,.13) 0%, rgba(255,228,77,0) 34%),
-    linear-gradient(115deg, rgba(255,255,255,.02) 0%, rgba(255,255,255,0) 42%, rgba(255,228,77,.05) 100%),
+    radial-gradient(circle at var(--resume-card-glow-x) var(--resume-card-glow-y), rgba(255,228,77,.18) 0%, rgba(255,228,77,0) 38%),
+    linear-gradient(115deg, rgba(255,255,255,.025) 0%, rgba(255,255,255,0) 42%, rgba(255,228,77,.065) 100%),
     rgba(255,255,255,.82);
 }
 .resume-intro-card::before{
   content:"";
   position:absolute;
-  inset:0 0 0 48%;
+  inset:-8% -6% -10% 38%;
   background:
-    linear-gradient(135deg, rgba(255,255,255,.03), rgba(255,255,255,0) 46%),
-    radial-gradient(circle at 72% 62%, rgba(255,228,77,.18), rgba(255,228,77,0) 44%);
-  opacity:.9;
+    linear-gradient(135deg, rgba(255,255,255,.04), rgba(255,255,255,0) 46%),
+    radial-gradient(circle at 72% 62%, rgba(255,228,77,.24), rgba(255,228,77,0) 48%);
+  opacity:var(--resume-card-before-opacity);
+  transform:translate3d(
+    calc(var(--resume-card-before-ambient-x) + var(--resume-card-before-pointer-x) + var(--resume-card-before-wobble-x)),
+    calc(var(--resume-card-before-ambient-y) + var(--resume-card-before-pointer-y) + var(--resume-card-before-wobble-y)),
+    0
+  ) scale(var(--resume-card-before-scale));
+  transition:
+    transform var(--resume-card-motion-duration) cubic-bezier(.22,.61,.18,1),
+    opacity var(--resume-card-motion-duration) ease;
+  will-change:transform, opacity;
   pointer-events:none;
 }
 .resume-intro-card::after{
   content:"";
   position:absolute;
-  inset:auto -60px -70px auto;
-  width:220px;
-  height:220px;
+  inset:auto -102px -108px auto;
+  width:304px;
+  height:304px;
   border-radius:50%;
-  background:radial-gradient(circle, rgba(255,228,77,.36) 0%, rgba(255,228,77,0) 68%);
+  background:radial-gradient(circle, rgba(255,228,77,.42) 0%, rgba(255,228,77,0) 72%);
+  opacity:var(--resume-card-after-opacity);
+  transform:translate3d(
+    calc(var(--resume-card-after-ambient-x) + var(--resume-card-after-pointer-x) + var(--resume-card-after-wobble-x)),
+    calc(var(--resume-card-after-ambient-y) + var(--resume-card-after-pointer-y) + var(--resume-card-after-wobble-y)),
+    0
+  ) scale(var(--resume-card-after-scale));
+  transition:
+    transform var(--resume-card-motion-duration) cubic-bezier(.22,.61,.18,1),
+    opacity var(--resume-card-motion-duration) ease;
+  will-change:transform, opacity;
   pointer-events:none;
 }
 html.dark-mode .resume-intro-card::before{
   background:
-    linear-gradient(135deg, rgba(255,255,255,.03), rgba(255,255,255,0) 46%),
-    radial-gradient(circle at 72% 62%, rgba(112,142,255,.10), rgba(112,142,255,0) 42%);
-  opacity:.68;
-  animation:resumeGradientDrift 18s ease-in-out infinite alternate;
+    linear-gradient(135deg, rgba(255,255,255,.035), rgba(255,255,255,0) 46%),
+    radial-gradient(circle at 72% 62%, rgba(112,142,255,.13), rgba(112,142,255,0) 46%);
 }
 html.dark-mode .resume-intro-card::after{
-  background:radial-gradient(circle, rgba(96,132,255,.14) 0%, rgba(96,132,255,0) 70%);
-  opacity:.72;
-  animation:resumeGradientPulse 14s ease-in-out infinite alternate;
+  background:radial-gradient(circle, rgba(96,132,255,.18) 0%, rgba(96,132,255,0) 74%);
 }
 
 .resume-profile-card::before,
